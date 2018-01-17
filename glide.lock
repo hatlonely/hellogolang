@@ -1,5 +1,5 @@
-hash: 50937b8e22b53426c60a764644d8d531c0071e84e3646902ab81d4945b452c95
-updated: 2018-01-17T12:18:57.461717+08:00
+hash: f5fc34545dfd3251df59f0eedef03d6b69441dd06c4fbc478bc0498a79a5e745
+updated: 2018-01-17T13:34:33.31607+08:00
 imports:
 - name: github.com/smartystreets/goconvey
   version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
@@ -7,6 +7,8 @@ imports:
   - convey
   - convey/gotest
   - convey/reporting
+- name: github.com/spf13/viper
+  version: 25b30aa063fc18e48662b86996252eabdcf2f0c7
 testImports:
 - name: github.com/gopherjs/gopherjs
   version: 444abdf920945de5d4a977b572bcc6c674d1e4eb
@@ -17,5 +19,9 @@ testImports:
 - name: github.com/smartystreets/assertions
   version: 0b37b35ec7434b77e77a4bb29b79677cced992ea
   subpackages:
+  - assert
   - internal/go-render/render
   - internal/oglematchers
+  - should
+- name: github.com/smartystreets/logging
+  version: 9abb3b6eb954f7c05a433747e9d383271d83dfca
