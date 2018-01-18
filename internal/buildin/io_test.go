@@ -91,7 +91,7 @@ func TestFileRW(t *testing.T) {
 			So(num, ShouldEqual, len(context))
 		})
 
-		Convey("When 文件删除", func() {
+		Convey("Finally 文件删除", func() {
 			os.Remove(filename)
 		})
 	})
@@ -134,7 +134,7 @@ func TestFileTravel(t *testing.T) {
 			So(err, ShouldEqual, io.EOF)
 		})
 
-		Convey("When 文件删除", func() {
+		Convey("Finally 文件删除", func() {
 			os.Remove(filename)
 		})
 	})

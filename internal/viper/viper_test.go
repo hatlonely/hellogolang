@@ -45,7 +45,7 @@ func TestViper(t *testing.T) {
 			So(config.GetInt("datastore.metric.port"), ShouldEqual, 3099)
 		})
 
-		Convey("When 删除文件", func() {
+		Convey("Finally 删除文件", func() {
 			os.Remove(filename)
 		})
 	})

@@ -4,3 +4,5 @@ import:
   version: ^1.6.3
 - package: github.com/spf13/viper
   version: ^1.0.0
+- package: github.com/cihub/seelog
+  version: ^2.6.0
