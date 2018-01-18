@@ -47,6 +47,16 @@ func TestSeelog(t *testing.T) {
 			})
 		})
 
+		Convey("When 替换默认logger", func() {
+			woklog, err = seelog.LoggerFromConfigAsBytes([]byte(context))
+			seelog.ReplaceLogger(woklog)
+			So(seelog.Current, ShouldEqual, woklog)
+
+			Convey("Then 写日志", func() {
+				seelog.Infof("Hello seelog!")
+			})
+		})
+
 		Convey("Finally 删除文件", func() {
 			os.Remove(filename)
 		})
