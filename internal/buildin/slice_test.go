@@ -9,6 +9,16 @@ func TestSliceOP(t *testing.T) {
 	Convey("Given 一个数组", t, func() {
 		var arr []int
 
+		Convey("When 初始化数组", func() {
+			arr = make([]int, 0, 10)
+			So(len(arr), ShouldEqual, 0)
+			So(cap(arr), ShouldEqual, 10)
+
+			arr = make([]int, 10)
+			So(len(arr), ShouldEqual, 10)
+			So(cap(arr), ShouldEqual, 10)
+		})
+
 		Convey("When 插入元素", func() {
 			for i := 0; i < 5; i++ {
 				arr = append(arr, i)
@@ -30,8 +40,13 @@ func TestSliceOP(t *testing.T) {
 			})
 		})
 
-		Convey("When 删除元素", func() {
+		Convey("When 清空数组", func() {
 			arr = []int{0, 1, 2, 3, 4}
+			arr = arr[:0]
+			Convey("Then 数组为空，容量不变", func() {
+				So(len(arr), ShouldEqual, 0)
+				So(cap(arr), ShouldEqual, 5)
+			})
 		})
 	})
 }
@@ -49,7 +64,7 @@ func BenchmarkAppendWithoutCapacity(b *testing.B) {
 
 func BenchmarkAppendWithCapLessLen10th(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		arr := make([]int, 0, N / 10)
+		arr := make([]int, 0, N/10)
 		for i := 0; i < N; i++ {
 			arr = append(arr, i)
 		}
@@ -58,7 +73,7 @@ func BenchmarkAppendWithCapLessLen10th(b *testing.B) {
 
 func BenchmarkAppendWithCapLessLen3th(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		arr := make([]int, 0, N / 3)
+		arr := make([]int, 0, N/3)
 		for i := 0; i < N; i++ {
 			arr = append(arr, i)
 		}
@@ -76,7 +91,37 @@ func BenchmarkAppendWithCapEqualLen(b *testing.B) {
 
 func BenchmarkAppendWithCapGreaterLen10th(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		arr := make([]int, 0, N * 10)
+		arr := make([]int, 0, N*10)
+		for i := 0; i < N; i++ {
+			arr = append(arr, i)
+		}
+	}
+}
+
+func BenchmarkAppendWithoutCapacityReuse(b *testing.B) {
+	var arr []int
+	for i := 0; i < b.N; i++ {
+		arr = arr[:0]
+		for i := 0; i < N; i++ {
+			arr = append(arr, i)
+		}
+	}
+}
+
+func BenchmarkAppendWithCapEqualLenReuse(b *testing.B) {
+	arr := make([]int, N)
+	for i := 0; i < b.N; i++ {
+		arr = arr[:0]
+		for i := 0; i < N; i++ {
+			arr = append(arr, i)
+		}
+	}
+}
+
+func BenchmarkAppendWithCapGreaterLen10thReuse(b *testing.B) {
+	arr := make([]int, N*10)
+	for i := 0; i < b.N; i++ {
+		arr = arr[:0]
 		for i := 0; i < N; i++ {
 			arr = append(arr, i)
 		}
