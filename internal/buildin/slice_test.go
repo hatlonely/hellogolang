@@ -48,6 +48,15 @@ func TestSliceOP(t *testing.T) {
 				So(cap(arr), ShouldEqual, 5)
 			})
 		})
+
+		Convey("When 复制数组", func() {
+			arr = []int{0, 1, 2, 3, 4}
+			arrCopy := make([]int, 5)
+			copy(arrCopy, arr)
+			Convey("Then 数组应该相同", func() {
+				So(arrCopy, ShouldResemble, []int{0, 1, 2, 3, 4})
+			})
+		})
 	})
 }
 
