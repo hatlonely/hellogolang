@@ -58,7 +58,8 @@ func TestSeelog(t *testing.T) {
 		})
 
 		Convey("Finally 删除文件", func() {
-			os.Remove(filename)
+			So(os.Remove(filename), ShouldBeNil)
+			So(os.RemoveAll("log"), ShouldBeNil)
 		})
 	})
 }
