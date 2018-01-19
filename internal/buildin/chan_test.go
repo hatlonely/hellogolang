@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 	"math/rand"
+	"sync"
 )
 
 func TestProducerConsumer(t *testing.T) {
@@ -12,8 +13,8 @@ func TestProducerConsumer(t *testing.T) {
 		value int
 	}
 
+	var wg sync.WaitGroup
 	stop := false
-	done := make(chan struct{}, 10)
 	products := make(chan Product, 10)
 	producer := func(name int) {
 		for !stop {
@@ -22,7 +23,7 @@ func TestProducerConsumer(t *testing.T) {
 			t.Logf("produce %v a product: %#v\n", name, product)
 			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
 		}
-		done <- struct{}{}
+		wg.Done()
 	}
 	consumer := func(name int) {
 		for !stop && len(products) != 0 {
@@ -30,20 +31,19 @@ func TestProducerConsumer(t *testing.T) {
 			t.Logf("consume %v a product: %#v\n", name, product)
 			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
 		}
-		done <- struct{}{}
+		wg.Done()
 	}
 
 	for i := 0; i < 5; i++ {
 		go producer(i)
 		go consumer(i)
+		wg.Add(2)
 	}
 
 	time.Sleep(time.Duration(1) * time.Second)
 	stop = true
 
-	for i := 0; i < 10; i++ {
-		<-done
-	}
+	wg.Wait()
 }
 
 func TestSelect(t *testing.T) {
@@ -62,7 +62,7 @@ func TestSelect(t *testing.T) {
 
 	stopA := false
 	stopB := false
-	done := make(chan struct{}, 15)
+	var wg sync.WaitGroup
 
 	producerA := func(name int) {
 		for !stopA {
@@ -71,7 +71,7 @@ func TestSelect(t *testing.T) {
 			t.Logf("produceA %v a product: %#v\n", name, product)
 			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
 		}
-		done <- struct{}{}
+		wg.Done()
 	}
 	producerB := func(name int) {
 		for !stopB {
@@ -80,7 +80,7 @@ func TestSelect(t *testing.T) {
 			t.Logf("produceB %v a product: %#v\n", name, product)
 			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
 		}
-		done <- struct{}{}
+		wg.Done()
 	}
 	consumer := func(name int) {
 		ticker := time.Tick(time.Duration(500) * time.Millisecond)
@@ -94,13 +94,14 @@ func TestSelect(t *testing.T) {
 				// nothing to do just awake from block
 			}
 		}
-		done <- struct{}{}
+		wg.Done()
 	}
 
 	for i := 0; i < 5; i++ {
 		go producerA(i)
 		go producerB(i)
 		go consumer(i)
+		wg.Add(3)
 	}
 
 	time.Sleep(time.Duration(1) * time.Second)
@@ -108,7 +109,5 @@ func TestSelect(t *testing.T) {
 	time.Sleep(time.Duration(1) * time.Second)
 	stopB = true
 
-	for i := 0; i < 15; i++ {
-		<-done
-	}
+	wg.Wait()
 }
