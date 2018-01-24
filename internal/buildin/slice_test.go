@@ -61,7 +61,7 @@ func TestSliceOP(t *testing.T) {
 }
 
 // 下面这个场景是关于slice的性能测试
-// 关于这个问题的讨论见：https://github.com/hatlonely/cactus/blob/master/golang%20slice%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90.md
+// 关于这个问题的讨论见：http://hatlonely.github.io/2018/01/18/golang%20slice%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/
 
 var N = 3000000
 

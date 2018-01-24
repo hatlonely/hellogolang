@@ -8,6 +8,9 @@ import (
 	"strconv"
 )
 
+// 下面这个场景关于字符串连接集中方式的性能测试对比
+// 关于这个问题的讨论，详见：
+
 func BenchmarkAddStringWithOperator(b *testing.B) {
 	hello := "hello"
 	world := "world"
