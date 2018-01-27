@@ -1,8 +1,10 @@
-hash: c8823db20a4120ce0b73dda923d16055ba2152c79ce9c50f3701fb7a1d45f8c1
-updated: 2018-01-27T13:53:30.739492697+08:00
+hash: d5d1ac3ab43c9cc343eae62beffac1919ab7c9cdd8e54065580ef7585f758ecb
+updated: 2018-01-27T21:26:26.817675226+08:00
 imports:
 - name: github.com/cihub/seelog
   version: d2c6e5aa9fbfdd1c624e140287063c7730654115
+- name: github.com/json-iterator/go
+  version: f7279a603edee96fe7764d3de9c6ff8cf9970994
 - name: github.com/smartystreets/goconvey
   version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
   subpackages:
@@ -14,6 +16,20 @@ imports:
 - name: github.com/spf13/viper
   version: 25b30aa063fc18e48662b86996252eabdcf2f0c7
 testImports:
+- name: github.com/armon/consul-api
+  version: dcfedd50ed5334f96adee43fc88518a4f095e15c
+- name: github.com/coreos/etcd
+  version: 729eab92b194325981a00a6f971a46be720f766c
+  subpackages:
+  - client
+  - pkg/pathutil
+  - pkg/srv
+  - pkg/types
+  - version
+- name: github.com/coreos/go-semver
+  version: 8ab6407b697782a06568d4b7f1db25550ec2e4c6
+  subpackages:
+  - semver
 - name: github.com/fsnotify/fsnotify
   version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/gopherjs/gopherjs
@@ -25,6 +41,7 @@ testImports:
   subpackages:
   - hcl/ast
   - hcl/parser
+  - hcl/printer
   - hcl/scanner
   - hcl/strconv
   - hcl/token
@@ -33,17 +50,27 @@ testImports:
   - json/token
 - name: github.com/jtolds/gls
   version: 77f18212c9c7edc9bd6a33d383a7b545ce62f064
+- name: github.com/kr/fs
+  version: 2788f0dbd16903de03cb8186e5c7d97b69ad387b
 - name: github.com/magiconair/properties
   version: 49d762b9817ba1c2e9d0c69183c2b4a8b8f1d934
 - name: github.com/mitchellh/mapstructure
   version: b4575eea38cca1123ec2dc90c26529b5c5acfcff
 - name: github.com/pelletier/go-toml
   version: 9bf0212445a9fb4769aca5d2d86fbc381af39d52
+- name: github.com/pkg/errors
+  version: e881fd58d78e04cf6d0de1217f8707c8cc2249bc
+- name: github.com/pkg/sftp
+  version: f128182572e94e33e79e4f91e01177409e5353d8
 - name: github.com/smartystreets/assertions
   version: 0b37b35ec7434b77e77a4bb29b79677cced992ea
   subpackages:
+  - assert
   - internal/go-render/render
   - internal/oglematchers
+  - should
+- name: github.com/smartystreets/logging
+  version: 9abb3b6eb954f7c05a433747e9d383271d83dfca
 - name: github.com/spf13/afero
   version: bb8f1927f2a9d3ab41c9340aa034f6b803f4359c
   subpackages:
@@ -54,5 +81,17 @@ testImports:
   version: 7c0cea34c8ece3fbeb2b27ab9b59511d360fb394
 - name: github.com/spf13/pflag
   version: 4c012f6dcd9546820e378d0bdda4d8fc772cdfea
+- name: github.com/ugorji/go
+  version: bdcc60b419d136a85cdf2e7cbcac34b3f1cd6e57
+  subpackages:
+  - codec
+- name: github.com/xordataexchange/crypt
+  version: b2862e3d0a775f18c7cfe02273500ae307b61218
+  subpackages:
+  - backend
+  - backend/consul
+  - backend/etcd
+  - config
+  - encoding/secconf
 - name: gopkg.in/yaml.v2
   version: d670f9405373e636a5a2765eea47fac0c9bc91a4

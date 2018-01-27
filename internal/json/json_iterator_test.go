@@ -3,10 +3,19 @@ package json
 import (
 	"testing"
 	. "github.com/smartystreets/goconvey/convey"
-	"encoding/json"
+ 	"github.com/json-iterator/go"
 )
 
-func TestJson(t *testing.T) {
+// 只需要把
+// import "encoding/json"
+//
+// 替换成下面两句即可，完全兼容
+// import "github.com/json-iterator/go"
+// var json = jsoniter.ConfigCompatibleWithStandardLibrary
+
+var jsonIterator = jsoniter.ConfigCompatibleWithStandardLibrary
+
+func TestJsonIterator(t *testing.T) {
 	Convey("Given 一本书的定义", t, func() {
 		type Book struct {
 			BookId int     `json:"id"`
@@ -27,7 +36,7 @@ func TestJson(t *testing.T) {
 				Weight: 100,
 			}
 
-			data, err := json.Marshal(&book)
+			data, err := jsonIterator.Marshal(&book)
 			So(err, ShouldBeNil)
 
 			Convey("Then 序列化的结果正确", func() {
@@ -39,7 +48,7 @@ func TestJson(t *testing.T) {
 			var book Book
 			str := `{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`
 
-			err := json.Unmarshal([]byte(str), &book)
+			err := jsonIterator.Unmarshal([]byte(str), &book)
 			So(err, ShouldBeNil)
 
 			Convey("Then 反序列化的结果正确", func() {
