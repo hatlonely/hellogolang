@@ -1,10 +1,14 @@
-hash: d5d1ac3ab43c9cc343eae62beffac1919ab7c9cdd8e54065580ef7585f758ecb
-updated: 2018-01-27T21:26:26.817675226+08:00
+hash: 28073cf9d2b2be9d2532d16bac7e2540a8e2cce2058ec17a1c8e1340d2e1c6f1
+updated: 2018-01-27T21:45:14.855255804+08:00
 imports:
 - name: github.com/cihub/seelog
   version: d2c6e5aa9fbfdd1c624e140287063c7730654115
 - name: github.com/json-iterator/go
   version: f7279a603edee96fe7764d3de9c6ff8cf9970994
+- name: github.com/mailru/easyjson
+  version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
+- name: github.com/pquerna/ffjson
+  version: d49c2bc1aa135aad0c6f4fc2056623ec78f5d5ac
 - name: github.com/smartystreets/goconvey
   version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
   subpackages:
