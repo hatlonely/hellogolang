@@ -1,5 +1,5 @@
 hash: c8823db20a4120ce0b73dda923d16055ba2152c79ce9c50f3701fb7a1d45f8c1
-updated: 2018-01-24T13:11:38.450161+08:00
+updated: 2018-01-27T13:53:30.739492697+08:00
 imports:
 - name: github.com/cihub/seelog
   version: d2c6e5aa9fbfdd1c624e140287063c7730654115
@@ -38,7 +38,7 @@ testImports:
 - name: github.com/mitchellh/mapstructure
   version: b4575eea38cca1123ec2dc90c26529b5c5acfcff
 - name: github.com/pelletier/go-toml
-  version: acdc4509485b587f5e675510c4f2c63e90ff68a8
+  version: 9bf0212445a9fb4769aca5d2d86fbc381af39d52
 - name: github.com/smartystreets/assertions
   version: 0b37b35ec7434b77e77a4bb29b79677cced992ea
   subpackages:
