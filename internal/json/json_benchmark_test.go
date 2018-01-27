@@ -8,6 +8,9 @@ import (
 	"github.com/mailru/easyjson"
 )
 
+// 运行性能测试
+// go test -bench=. *
+
 type Book struct {
 	BookId int     `json:"id"`
 	Title  string  `json:"name"`
