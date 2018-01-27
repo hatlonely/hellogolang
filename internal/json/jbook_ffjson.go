@@ -40,18 +40,14 @@ func (j *JBook) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 	fflib.WriteJsonString(buf, string(j.Title))
 	buf.WriteString(`,"author":`)
 	fflib.WriteJsonString(buf, string(j.Author))
-	buf.WriteByte(',')
-	if j.Price != 0 {
-		buf.WriteString(`"price":`)
-		fflib.AppendFloat(buf, float64(j.Price), 'g', -1, 64)
-		buf.WriteByte(',')
-	}
+	buf.WriteString(`,"price":`)
+	fflib.AppendFloat(buf, float64(j.Price), 'g', -1, 64)
 	if j.Hot {
-		buf.WriteString(`"hot":"true`)
+		buf.WriteString(`,"hot":true`)
 	} else {
-		buf.WriteString(`"hot":"false`)
+		buf.WriteString(`,"hot":false`)
 	}
-	buf.WriteString(`"}`)
+	buf.WriteByte('}')
 	return nil
 }
 
@@ -373,10 +369,10 @@ handle_Price:
 
 handle_Hot:
 
-	/* handler: j.Hot type=bool kind=bool quoted=true*/
+	/* handler: j.Hot type=bool kind=bool quoted=false*/
 
 	{
-		if tok != fflib.FFTok_bool && tok != fflib.FFTok_null && tok != fflib.FFTok_string {
+		if tok != fflib.FFTok_bool && tok != fflib.FFTok_null {
 			return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for bool", tok))
 		}
 	}

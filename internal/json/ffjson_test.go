@@ -25,13 +25,13 @@ func TestFfjson(t *testing.T) {
 			So(err, ShouldBeNil)
 
 			Convey("Then 序列化的结果正确", func() {
-				So(string(data), ShouldEqual, `{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
+				So(string(data), ShouldEqual, `{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 			})
 		})
 
 		Convey("When 反序列化", func() {
 			var book JBook
-			str := `{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`
+			str := `{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`
 
 			err := ffjson.Unmarshal([]byte(str), &book)
 			So(err, ShouldBeNil)
