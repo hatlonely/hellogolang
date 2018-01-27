@@ -10,18 +10,19 @@ import (
 	"bufio"
 	"strings"
 	"bytes"
+	"github.com/buger/jsonparser"
 )
 
 // 运行性能测试
 // go test -bench=. *
 
 type Book struct {
-	BookId int     `json:"id"`
-	Title  string  `json:"name"`
+	BookId int64     `json:"id"`
+	Title  string  `json:"title"`
 	Author string  `json:"author"`
 	Price  float64 `json:"price"`
 	Hot    bool    `json:"hot"`
-	Weight int     `json:"-"`
+	Weight int64     `json:"-"`
 }
 
 func BenchmarkMarshalStdJson(b *testing.B) {
@@ -124,7 +125,7 @@ func BenchmarkMarshalCodecJsonWithBufio(b *testing.B) {
 }
 
 func BenchmarkUnMarshalStdJson(b *testing.B) {
-	data := []byte(`{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book Book
 
 	for i := 0; i < b.N; i++ {
@@ -133,7 +134,7 @@ func BenchmarkUnMarshalStdJson(b *testing.B) {
 }
 
 func BenchmarkUnMarshalJsonIterator(b *testing.B) {
-	data := []byte(`{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book Book
 
 	var jsonIterator = jsoniter.ConfigCompatibleWithStandardLibrary
@@ -143,7 +144,7 @@ func BenchmarkUnMarshalJsonIterator(b *testing.B) {
 }
 
 func BenchmarkUnMarshalFfjson(b *testing.B) {
-	data := []byte(`{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book FBook
 
 	for i := 0; i < b.N; i++ {
@@ -152,7 +153,7 @@ func BenchmarkUnMarshalFfjson(b *testing.B) {
 }
 
 func BenchmarkUnMarshalEasyjson(b *testing.B) {
-	data := []byte(`{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book EBook
 
 	for i := 0; i < b.N; i++ {
@@ -161,7 +162,7 @@ func BenchmarkUnMarshalEasyjson(b *testing.B) {
 }
 
 func BenchmarkUnMarshalCodecJson(b *testing.B) {
-	data := []byte(`{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book Book
 
 	jsonHandler := &codec.JsonHandle{}
@@ -172,7 +173,7 @@ func BenchmarkUnMarshalCodecJson(b *testing.B) {
 }
 
 func BenchmarkUnMarshalCodecJsonWithBufio(b *testing.B) {
-	data := []byte(`{"id":12125925,"name":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book Book
 
 	jsonHandler := &codec.JsonHandle{}
@@ -180,5 +181,18 @@ func BenchmarkUnMarshalCodecJsonWithBufio(b *testing.B) {
 		reader := bufio.NewReader(strings.NewReader(string(data)))
 		decoder := codec.NewDecoder(reader, jsonHandler)
 		decoder.Decode(&book)
+	}
+}
+
+func BenchmarkUnMarshalJsonparser(b *testing.B) {
+	data := []byte(`{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
+	var book Book
+
+	for i := 0; i < b.N; i++ {
+		book.BookId, _ = jsonparser.GetInt(data, "id")
+		book.Title, _ = jsonparser.GetString(data, "title")
+		book.Author, _ = jsonparser.GetString(data, "author")
+		book.Price, _ = jsonparser.GetFloat(data, "price")
+		book.Hot, _ = jsonparser.GetBoolean(data, "hot")
 	}
 }

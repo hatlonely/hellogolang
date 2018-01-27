@@ -36,7 +36,7 @@ func (j *FBook) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 	_ = err
 	buf.WriteString(`{"id":`)
 	fflib.FormatBits2(buf, uint64(j.BookId), 10, j.BookId < 0)
-	buf.WriteString(`,"name":`)
+	buf.WriteString(`,"title":`)
 	fflib.WriteJsonString(buf, string(j.Title))
 	buf.WriteString(`,"author":`)
 	fflib.WriteJsonString(buf, string(j.Author))
@@ -68,7 +68,7 @@ const (
 
 var ffjKeyFBookBookId = []byte("id")
 
-var ffjKeyFBookTitle = []byte("name")
+var ffjKeyFBookTitle = []byte("title")
 
 var ffjKeyFBookAuthor = []byte("author")
 
@@ -161,18 +161,18 @@ mainparse:
 						goto mainparse
 					}
 
-				case 'n':
-
-					if bytes.Equal(ffjKeyFBookTitle, kn) {
-						currentKey = ffjtFBookTitle
-						state = fflib.FFParse_want_colon
-						goto mainparse
-					}
-
 				case 'p':
 
 					if bytes.Equal(ffjKeyFBookPrice, kn) {
 						currentKey = ffjtFBookPrice
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
+				case 't':
+
+					if bytes.Equal(ffjKeyFBookTitle, kn) {
+						currentKey = ffjtFBookTitle
 						state = fflib.FFParse_want_colon
 						goto mainparse
 					}

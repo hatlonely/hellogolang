@@ -38,7 +38,7 @@ func easyjson1267deecDecodeHellogolangInternalJson(in *jlexer.Lexer, out *EBook)
 		switch key {
 		case "id":
 			out.BookId = int(in.Int())
-		case "name":
+		case "title":
 			out.Title = string(in.String())
 		case "author":
 			out.Author = string(in.String())
@@ -71,7 +71,7 @@ func easyjson1267deecEncodeHellogolangInternalJson(out *jwriter.Writer, in EBook
 		out.Int(int(in.BookId))
 	}
 	{
-		const prefix string = ",\"name\":"
+		const prefix string = ",\"title\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
