@@ -49,7 +49,7 @@ func BenchmarkJsonIteratorMarshal(b *testing.B) {
 }
 
 func BenchmarkFfjsonMarshal(b *testing.B) {
-	book := JBook{
+	book := FBook{
 		BookId: 12125924,
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",
@@ -99,7 +99,7 @@ func BenchmarkJsonIteratorUnMarshal(b *testing.B) {
 
 func BenchmarkFfjsonUnMarshal(b *testing.B) {
 	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
-	var book JBook
+	var book FBook
 
 	for i := 0; i < b.N; i++ {
 		ffjson.Unmarshal(data, &book)

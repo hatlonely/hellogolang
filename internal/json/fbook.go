@@ -1,6 +1,6 @@
 package json
 
-type JBook struct {
+type FBook struct {
 	BookId int     `json:"id"`
 	Title  string  `json:"name"`
 	Author string  `json:"author"`
