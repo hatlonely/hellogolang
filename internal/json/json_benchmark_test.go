@@ -16,7 +16,7 @@ type Book struct {
 	Title  string  `json:"name"`
 	Author string  `json:"author"`
 	Price  float64 `json:"price"`
-	Hot	   bool    `json:"hot"`
+	Hot    bool    `json:"hot"`
 	Weight int     `json:"-"`
 }
 
@@ -26,7 +26,7 @@ func BenchmarkStdJsonMarshal(b *testing.B) {
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",
 		Price:  40.8,
-		Hot: true,
+		Hot:    true,
 		Weight: 100,
 	}
 
@@ -41,7 +41,7 @@ func BenchmarkJsonIteratorMarshal(b *testing.B) {
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",
 		Price:  40.8,
-		Hot: true,
+		Hot:    true,
 		Weight: 100,
 	}
 
@@ -57,7 +57,7 @@ func BenchmarkFfjsonMarshal(b *testing.B) {
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",
 		Price:  40.8,
-		Hot: true,
+		Hot:    true,
 		Weight: 100,
 	}
 
@@ -72,7 +72,7 @@ func BenchmarkEasyjsonMarshal(b *testing.B) {
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",
 		Price:  40.8,
-		Hot: true,
+		Hot:    true,
 		Weight: 100,
 	}
 
@@ -82,7 +82,7 @@ func BenchmarkEasyjsonMarshal(b *testing.B) {
 }
 
 func BenchmarkStdJsonUnMarshal(b *testing.B) {
-	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
+	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book Book
 
 	for i := 0; i < b.N; i++ {
@@ -91,7 +91,7 @@ func BenchmarkStdJsonUnMarshal(b *testing.B) {
 }
 
 func BenchmarkJsonIteratorUnMarshal(b *testing.B) {
-	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
+	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book Book
 
 	var jsonIterator = jsoniter.ConfigCompatibleWithStandardLibrary
@@ -101,7 +101,7 @@ func BenchmarkJsonIteratorUnMarshal(b *testing.B) {
 }
 
 func BenchmarkFfjsonUnMarshal(b *testing.B) {
-	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
+	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book FBook
 
 	for i := 0; i < b.N; i++ {
@@ -110,11 +110,10 @@ func BenchmarkFfjsonUnMarshal(b *testing.B) {
 }
 
 func BenchmarkEasyjsonUnMarshal(b *testing.B) {
-	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
+	data := []byte(`{"id":12125924,"name":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`)
 	var book EBook
 
 	for i := 0; i < b.N; i++ {
 		easyjson.Unmarshal(data, &book)
 	}
 }
-
