@@ -17,12 +17,12 @@ import (
 // go test -bench=. *
 
 type Book struct {
-	BookId int64     `json:"id"`
+	BookId int64   `json:"id"`
 	Title  string  `json:"title"`
 	Author string  `json:"author"`
 	Price  float64 `json:"price"`
 	Hot    bool    `json:"hot"`
-	Weight int64     `json:"-"`
+	Weight int64   `json:"-"`
 }
 
 func BenchmarkMarshalStdJson(b *testing.B) {
@@ -87,7 +87,7 @@ func BenchmarkMarshalEasyjson(b *testing.B) {
 }
 
 func BenchmarkMarshalCodecJson(b *testing.B) {
-	book := EBook{
+	book := Book{
 		BookId: 12125924,
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",
@@ -105,7 +105,7 @@ func BenchmarkMarshalCodecJson(b *testing.B) {
 }
 
 func BenchmarkMarshalCodecJsonWithBufio(b *testing.B) {
-	book := EBook{
+	book := Book{
 		BookId: 12125924,
 		Title:  "人类简史-从动物到上帝",
 		Author: "尤瓦尔·赫拉利",

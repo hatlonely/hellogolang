@@ -15,12 +15,12 @@ import (
 func TestCodecJson(t *testing.T) {
 	Convey("Given 一本书的定义", t, func() {
 		type Book struct {
-			BookId int     `json:"id"`
+			BookId int64   `json:"id"`
 			Title  string  `json:"title"`
 			Author string  `json:"author"`
 			Price  float64 `json:"price"`
 			Hot    bool    `json:"hot"`
-			Weight int     `json:"-"`
+			Weight int64   `json:"-"`
 		}
 
 		Convey("When 序列化", func() {
