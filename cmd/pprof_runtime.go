@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	_ "net/http/pprof"
 	"math/rand"
+	"easygolang/pprof"
 )
 
 func doSomething1() {
@@ -35,5 +33,8 @@ func main() {
 	go doSomething1()
 	go doSomething2()
 	go doSomething3()
-	http.ListenAndServe(fmt.Sprintf("localhost:3000"), nil)
+
+	if err := pprof.PPCmd("cpu 10s"); err != nil {
+		panic(err)
+	}
 }

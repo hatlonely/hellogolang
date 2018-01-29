@@ -17,3 +17,5 @@ import:
   subpackages:
   - codec
 - package: github.com/buger/jsonparser
+- package: github.com/hatlonely/easygolang
+  version: ^1.0.0
