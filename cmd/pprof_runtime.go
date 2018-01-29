@@ -2,7 +2,7 @@ package main
 
 import (
 	"math/rand"
-	"easygolang/pprof"
+	"github.com/hatlonely/easygolang/pprof"
 )
 
 func doSomething1() {
