@@ -34,11 +34,11 @@ func main() {
 	go doSomething2()
 	go doSomething3()
 
-	if err := pprof.PPCmd("mem"); err != nil {
+	if err := pprof.PPCmd("cpu 10s"); err != nil {
 		panic(err)
 	}
 
-	if err := pprof.PPCmd("cpu 10s"); err != nil {
+	if err := pprof.PPCmd("mem"); err != nil {
 		panic(err)
 	}
 }
