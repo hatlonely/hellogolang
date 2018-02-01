@@ -73,6 +73,8 @@ func TestString(t *testing.T) {
 			So(strconv.FormatBool(true), ShouldEqual, "true")
 			// golang 转义
 			So(strconv.Quote(`"Fran & Freddie's Diner	☺"`), ShouldEqual, `"\"Fran & Freddie's Diner\t☺\""`)
+
+			So(strconv.QuoteToASCII("Hello, 世界"), ShouldEqual, `"Hello, \u4e16\u754c"`)
 		})
 	})
 }
