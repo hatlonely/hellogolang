@@ -24,13 +24,12 @@ func (e *EchoServerImp) Echo(ctx context.Context, req *echo.EchoReq) (*echo.Echo
 
 func main() {
 	server := grpc.NewServer()
+	echo.RegisterEchoServer(server, &EchoServerImp{})
 
 	address, err := net.Listen("tcp", ":3000")
 	if err != nil {
 		panic(err)
 	}
-
-	echo.RegisterEchoServer(server, &EchoServerImp{})
 
 	if err := server.Serve(address); err != nil {
 		panic(err)
