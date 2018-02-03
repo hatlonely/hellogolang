@@ -4,7 +4,7 @@ import (
 	"google.golang.org/grpc"
 	"fmt"
 	"hellogolang/api/echo_proto"
-	"context"
+	"golang.org/x/net/context"
 	"os"
 	"strings"
 )
