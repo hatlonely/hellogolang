@@ -23,7 +23,8 @@ func main() {
 
 	if err != nil {
 		fmt.Errorf("client echo failed. err: [%v]", err)
-	} else {
-		fmt.Printf("message from server: %v", res.GetMsg())
+		return
 	}
+
+	fmt.Printf("message from server: %v", res.GetMsg())
 }
