@@ -1,4 +1,11 @@
 package: github.com/hatlonely/hellogolang
+ignore:
+- api
+excludeDirs:
+- api
+- cmd
+- vendor/api
+- vendor/google.golang.org
 import:
 - package: github.com/smartystreets/goconvey
   version: ^1.6.3
