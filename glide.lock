@@ -1,6 +1,10 @@
-hash: 4eb1f5382209a6f5694d3f2e1c24c122ec0e041dc74c04efa0e631115355c2f4
-updated: 2018-02-03T19:29:14.54506972+08:00
+hash: 4c552c18966f695d1238074da3d8f9bfcfdb7832640c3c1a94d4fccae52b0689
+updated: 2018-02-04T14:44:37.502985064+08:00
 imports:
+- name: git.apache.org/thrift.git
+  version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
+  subpackages:
+  - lib/go
 - name: github.com/buger/jsonparser
   version: 5096fddd2cca678b0801ece8513a06e580981fd2
 - name: github.com/cihub/seelog

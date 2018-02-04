@@ -9,7 +9,6 @@ import (
 )
 
 type EchoServerImp struct {
-
 }
 
 func (e *EchoServerImp) Echo(ctx context.Context, req *echo.EchoReq) (*echo.EchoRes, error) {
