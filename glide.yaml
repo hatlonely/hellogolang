@@ -30,3 +30,5 @@ import:
   version: ^0.11.0
   subpackages:
   - lib/go
+- package: github.com/sirupsen/logrus
+  version: ^1.0.4

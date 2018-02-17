@@ -1,5 +1,5 @@
-hash: 4c552c18966f695d1238074da3d8f9bfcfdb7832640c3c1a94d4fccae52b0689
-updated: 2018-02-04T14:44:37.502985064+08:00
+hash: bfa165a58b641b2abba829645feb09504ec7d6e7698d22fb228c4448492fe433
+updated: 2018-02-15T12:56:41.138168+08:00
 imports:
 - name: git.apache.org/thrift.git
   version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
@@ -12,7 +12,7 @@ imports:
 - name: github.com/hatlonely/easygolang
   version: 49f472bcd49ab8fc66b9069863a6757bb4e2c1b6
 - name: github.com/json-iterator/go
-  version: 28452fcdec4e44348d2af0d91d1e9e38da3a9e0a
+  version: 0e2b54800aa7eb7297fcc9d797c6b1ae1deab526
 - name: github.com/mailru/easyjson
   version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
   subpackages:
@@ -25,6 +25,8 @@ imports:
   - ffjson
   - fflib/v1
   - fflib/v1/internal
+- name: github.com/sirupsen/logrus
+  version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
 - name: github.com/smartystreets/goconvey
   version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
   subpackages:
