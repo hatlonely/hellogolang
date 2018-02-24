@@ -1,10 +1,12 @@
-hash: bfa165a58b641b2abba829645feb09504ec7d6e7698d22fb228c4448492fe433
-updated: 2018-02-15T12:56:41.138168+08:00
+hash: 65ca81e0322db767cdb848118eb9e1c9fe8693d083d80966144cf87f62b2a466
+updated: 2018-02-24T21:46:59.805012852+08:00
 imports:
 - name: git.apache.org/thrift.git
   version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
   subpackages:
   - lib/go
+- name: github.com/aws/aws-sdk-go
+  version: f7f1ee9550cc76ceea731d99c8dbe00a0c39f66d
 - name: github.com/buger/jsonparser
   version: 5096fddd2cca678b0801ece8513a06e580981fd2
 - name: github.com/cihub/seelog
@@ -12,7 +14,7 @@ imports:
 - name: github.com/hatlonely/easygolang
   version: 49f472bcd49ab8fc66b9069863a6757bb4e2c1b6
 - name: github.com/json-iterator/go
-  version: 0e2b54800aa7eb7297fcc9d797c6b1ae1deab526
+  version: 0ac74bba4a81211b28e32ef260c0f16ae41f1377
 - name: github.com/mailru/easyjson
   version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
   subpackages:
