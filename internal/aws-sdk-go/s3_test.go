@@ -52,7 +52,7 @@ func TestS3(t *testing.T) {
 			}
 		})
 
-		Convey("遍历目录", func() {
+		Convey("遍历目录 ListObjectsPages", func() {
 			var objkeys []string
 
 			ctx, cancel := context.WithTimeout(context.Background(), time.Duration(30)*time.Second)
@@ -68,6 +68,23 @@ func TestS3(t *testing.T) {
 				return true
 			})
 			So(err, ShouldBeNil)
+			Println(objkeys)
+		})
+
+		Convey("遍历目录 ListObjects", func() {
+			var objkeys []string
+
+			ctx, cancel := context.WithTimeout(context.Background(), time.Duration(30)*time.Second)
+			defer cancel()
+
+			out, err := service.ListObjectsWithContext(ctx, &s3.ListObjectsInput{
+				Bucket: aws.String("hatlonely"),
+				Prefix: aws.String("test/"),
+			})
+			So(err, ShouldBeNil)
+			for _, content := range out.Contents  {
+				objkeys = append(objkeys, aws.StringValue(content.Key))
+			}
 			Println(objkeys)
 		})
 	})
