@@ -5,58 +5,97 @@ import (
 	"time"
 	"math/rand"
 	"sync"
+	"fmt"
 )
 
-func TestProducerConsumer(t *testing.T) {
-	type Product struct {
-		name  int
-		value int
-	}
+type Product struct {
+	name  int
+	value int
+}
 
-	var wg sync.WaitGroup
+func producer(wg *sync.WaitGroup, products chan<- Product, name int, stop *bool) {
+	for !*stop {
+		product := Product{name: name, value: rand.Int()}
+		products <- product
+		fmt.Printf("producer %v produce a product: %#v\n", name, product)
+		time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
+	}
+	wg.Done()
+}
+
+func consumer(wg *sync.WaitGroup, products <-chan Product, name int) {
+	for product := range products {
+		fmt.Printf("consumer %v consume a product: %#v\n", name, product)
+		time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
+	}
+	wg.Done()
+}
+
+func TestProducerConsumer(t *testing.T) {
+	var wgp sync.WaitGroup
+	var wgc sync.WaitGroup
 	stop := false
 	products := make(chan Product, 10)
-	producer := func(name int) {
-		for !stop {
-			product := Product{name: name, value: rand.Int()}
-			products <- product
-			t.Logf("produce %v a product: %#v\n", name, product)
-			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
-		}
-		wg.Done()
-	}
-	consumer := func(name int) {
-		for !stop && len(products) != 0 {
-			product := <-products
-			t.Logf("consume %v a product: %#v\n", name, product)
-			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
-		}
-		wg.Done()
-	}
-
 	for i := 0; i < 5; i++ {
-		go producer(i)
-		go consumer(i)
-		wg.Add(2)
+		go producer(&wgp, products, i, &stop)
+		go consumer(&wgc, products, i)
+		wgp.Add(1)
+		wgc.Add(1)
 	}
 
 	time.Sleep(time.Duration(1) * time.Second)
 	stop = true
+	wgp.Wait()
+	close(products)
+	wgc.Wait()
+}
 
-	wg.Wait()
+type ProductA struct {
+	name  int
+	value int
+}
+
+type ProductB struct {
+	name  int
+	value int
+}
+
+func producerA(wg *sync.WaitGroup, productAs chan<- ProductA, name int, stop *bool) {
+	for !*stop {
+		product := ProductA{name: name, value: rand.Int()}
+		productAs <- product
+		fmt.Printf("producerA %v produce a productA: %#v\n", name, product)
+		time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
+	}
+	wg.Done()
+}
+
+func producerB(wg *sync.WaitGroup, productBs chan<- ProductB, name int, stop *bool) {
+	for !*stop {
+		product := ProductB{name: name, value: rand.Int()}
+		productBs <- product
+		fmt.Printf("producerB %v produce a productB: %#v\n", name, product)
+		time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
+	}
+	wg.Done()
+}
+
+func consumerAB(wg *sync.WaitGroup, productAs <-chan ProductA, productBs <-chan ProductB, name int, stopA *bool, stopB *bool) {
+	ticker := time.Tick(time.Duration(500) * time.Millisecond)
+	for !*stopA || !*stopB || len(productAs) != 0 || len(productBs) != 0 {
+		select {
+		case product := <-productAs:
+			fmt.Printf("consumerAB %v consume a productA: %#v\n", name, product)
+		case product := <-productBs:
+			fmt.Printf("consumerAB %v consume a productB: %#v\n", name, product)
+		case <-ticker:
+			// nothing to do just awake from block
+		}
+	}
+	wg.Done()
 }
 
 func TestSelect(t *testing.T) {
-	type ProductA struct {
-		name  int
-		value int
-	}
-
-	type ProductB struct {
-		name  int
-		value int
-	}
-
 	productAs := make(chan ProductA, 10)
 	productBs := make(chan ProductB, 10)
 
@@ -64,43 +103,10 @@ func TestSelect(t *testing.T) {
 	stopB := false
 	var wg sync.WaitGroup
 
-	producerA := func(name int) {
-		for !stopA {
-			product := ProductA{name: name, value: rand.Int()}
-			productAs <- product
-			t.Logf("produceA %v a product: %#v\n", name, product)
-			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
-		}
-		wg.Done()
-	}
-	producerB := func(name int) {
-		for !stopB {
-			product := ProductB{name: name, value: rand.Int()}
-			productBs <- product
-			t.Logf("produceB %v a product: %#v\n", name, product)
-			time.Sleep(time.Duration(200+rand.Intn(1000)) * time.Millisecond)
-		}
-		wg.Done()
-	}
-	consumer := func(name int) {
-		ticker := time.Tick(time.Duration(500) * time.Millisecond)
-		for !stopA || !stopB || len(productAs) != 0 || len(productBs) != 0 {
-			select {
-			case product := <-productAs:
-				t.Logf("consume %v a productA: %#v\n", name, product)
-			case product := <-productBs:
-				t.Logf("consume %v a productB: %#v\n", name, product)
-			case <-ticker:
-				// nothing to do just awake from block
-			}
-		}
-		wg.Done()
-	}
-
 	for i := 0; i < 5; i++ {
-		go producerA(i)
-		go producerB(i)
-		go consumer(i)
+		go producerA(&wg, productAs, i, &stopA)
+		go producerB(&wg, productBs, i, &stopB)
+		go consumerAB(&wg, productAs, productBs, i, &stopA, &stopB)
 		wg.Add(3)
 	}
 
