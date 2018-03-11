@@ -1,11 +1,11 @@
 package buildin
 
 import (
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
-	"strings"
-	"strconv"
 	"fmt"
+	. "github.com/smartystreets/goconvey/convey"
+	"strconv"
+	"strings"
+	"testing"
 )
 
 func TestString(t *testing.T) {
