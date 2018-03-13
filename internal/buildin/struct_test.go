@@ -1,13 +1,15 @@
 package buildin
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 	"unsafe"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestStructSize(t *testing.T) {
 	Convey("基本数据类型大小检测", t, func() {
+		So(unsafe.Sizeof(true), ShouldEqual, 1)
 		So(unsafe.Sizeof(int8(0)), ShouldEqual, 1)
 		So(unsafe.Sizeof(int16(0)), ShouldEqual, 2)
 		So(unsafe.Sizeof(int32(0)), ShouldEqual, 4)
