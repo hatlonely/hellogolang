@@ -9,21 +9,26 @@ import (
 	"os"
 	"context"
 	"bufio"
+	"time"
+	"github.com/aws/aws-sdk-go/aws/endpoints"
 )
 
 func TestS3(t *testing.T) {
 	Convey("连接到s3", t, func() {
 		sess := session.Must(session.NewSession(&aws.Config{
-			Region: aws.String("ap-southeast-1"),
+			Region: aws.String(endpoints.ApSoutheast1RegionID),
 		}))
-		svc := s3.New(sess)
+		service := s3.New(sess)
 
 		Convey("上传文件", func() {
 			fp, err := os.Open("s3_test.go")
+			So(err, ShouldBeNil)
 			defer fp.Close()
 
-			So(err, ShouldBeNil)
-			_, err = svc.PutObjectWithContext(context.Background(), &s3.PutObjectInput{
+			ctx, cancel := context.WithTimeout(context.Background(), time.Duration(30)*time.Second)
+			defer cancel()
+
+			_, err = service.PutObjectWithContext(ctx, &s3.PutObjectInput{
 				Bucket: aws.String("hatlonely"),
 				Key:    aws.String("test/s3_test.go"),
 				Body:   fp,
@@ -32,7 +37,10 @@ func TestS3(t *testing.T) {
 		})
 
 		Convey("下载文件", func() {
-			out, err := svc.GetObjectWithContext(context.Background(), &s3.GetObjectInput{
+			ctx, cancel := context.WithTimeout(context.Background(), time.Duration(30)*time.Second)
+			defer cancel()
+
+			out, err := service.GetObjectWithContext(ctx, &s3.GetObjectInput{
 				Bucket: aws.String("hatlonely"),
 				Key: aws.String("test/s3_test.go"),
 			})
@@ -44,9 +52,13 @@ func TestS3(t *testing.T) {
 			}
 		})
 
-		Convey("遍历目录", func() {
+		Convey("遍历目录 ListObjectsPages", func() {
 			var objkeys []string
-			err := svc.ListObjectsPagesWithContext(context.Background(), &s3.ListObjectsInput{
+
+			ctx, cancel := context.WithTimeout(context.Background(), time.Duration(30)*time.Second)
+			defer cancel()
+
+			err := service.ListObjectsPagesWithContext(ctx, &s3.ListObjectsInput{
 				Bucket: aws.String("hatlonely"),
 				Prefix: aws.String("test/"),
 			}, func(output *s3.ListObjectsOutput, b bool) bool {
@@ -56,6 +68,23 @@ func TestS3(t *testing.T) {
 				return true
 			})
 			So(err, ShouldBeNil)
+			Println(objkeys)
+		})
+
+		Convey("遍历目录 ListObjects", func() {
+			var objkeys []string
+
+			ctx, cancel := context.WithTimeout(context.Background(), time.Duration(30)*time.Second)
+			defer cancel()
+
+			out, err := service.ListObjectsWithContext(ctx, &s3.ListObjectsInput{
+				Bucket: aws.String("hatlonely"),
+				Prefix: aws.String("test/"),
+			})
+			So(err, ShouldBeNil)
+			for _, content := range out.Contents  {
+				objkeys = append(objkeys, aws.StringValue(content.Key))
+			}
 			Println(objkeys)
 		})
 	})
