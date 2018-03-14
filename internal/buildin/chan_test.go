@@ -1,10 +1,10 @@
 package buildin
 
 import (
-	"testing"
-	"time"
 	"math/rand"
 	"sync"
+	"testing"
+	"time"
 )
 
 func TestProducerConsumer(t *testing.T) {

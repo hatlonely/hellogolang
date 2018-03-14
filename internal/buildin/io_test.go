@@ -1,15 +1,16 @@
 package buildin
 
 import (
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
-	"io/ioutil"
-	"os"
 	"bufio"
 	"crypto/subtle"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"os"
 	"path/filepath"
+	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestFileRW(t *testing.T) {
@@ -129,7 +130,7 @@ func TestFileTravel(t *testing.T) {
 				if err != nil {
 					break
 				}
-				Println(line[0:len(line)-1])
+				Println(line[0 : len(line)-1])
 			}
 			So(err, ShouldEqual, io.EOF)
 		})
@@ -167,7 +168,7 @@ func TestDirTravel(t *testing.T) {
 			var dirs []string
 			infos, err := ioutil.ReadDir(root)
 			So(err, ShouldBeNil)
-			for _, info := range infos  {
+			for _, info := range infos {
 				if info.IsDir() {
 					dirs = append(dirs, info.Name())
 				} else {

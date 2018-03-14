@@ -1,11 +1,11 @@
 package buildin
 
 import (
-	"fmt"
-	"testing"
-	"strings"
 	"bytes"
+	"fmt"
 	"strconv"
+	"strings"
+	"testing"
 )
 
 // 下面这个场景关于字符串连接集中方式的性能测试对比
