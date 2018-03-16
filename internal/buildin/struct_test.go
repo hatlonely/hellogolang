@@ -17,6 +17,7 @@ func TestStructSize(t *testing.T) {
 		So(unsafe.Sizeof(float32(0)), ShouldEqual, 4)
 		So(unsafe.Sizeof(float64(0)), ShouldEqual, 8)
 		So(unsafe.Sizeof(""), ShouldEqual, 16)
+		So(unsafe.Sizeof("hello world"), ShouldEqual, 16)
 		So(unsafe.Sizeof([]int{}), ShouldEqual, 24)
 		So(unsafe.Sizeof([]int{1, 2, 3}), ShouldEqual, 24)
 		So(unsafe.Sizeof([3]int{1, 2, 3}), ShouldEqual, 24)
