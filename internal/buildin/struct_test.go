@@ -28,22 +28,26 @@ func TestStructSize(t *testing.T) {
 	})
 
 	Convey("自定义类型大小检测", t, func() {
+		// |x---|
 		So(unsafe.Sizeof(struct {
 			i8 int8
 		}{}), ShouldEqual, 1)
 
+		// |x---|xxxx|xx--|
 		So(unsafe.Sizeof(struct {
 			i8  int8
 			i32 int32
 			i16 int16
 		}{}), ShouldEqual, 12)
 
+		// |x-xx|xxxx|
 		So(unsafe.Sizeof(struct {
 			i8  int8
 			i16 int16
 			i32 int32
 		}{}), ShouldEqual, 8)
 
+		// |x---|xxxx|xx--|----|xxxx|xxxx|
 		So(unsafe.Sizeof(struct {
 			i8  int8
 			i32 int32
@@ -51,6 +55,7 @@ func TestStructSize(t *testing.T) {
 			i64 int64
 		}{}), ShouldEqual, 24)
 
+		// |x-xx|xxxx|xxxx|xxxx|
 		So(unsafe.Sizeof(struct {
 			i8  int8
 			i16 int16
