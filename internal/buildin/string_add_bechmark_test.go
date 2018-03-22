@@ -9,7 +9,7 @@ import (
 )
 
 // 下面这个场景关于字符串连接集中方式的性能测试对比
-// 关于这个问题的讨论，详见：
+// 关于这个问题的讨论，详见：<http://www.hatlonely.com/2018/01/24/golang-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%87%A0%E7%A7%8D%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F/>
 
 func BenchmarkAddStringWithOperator(b *testing.B) {
 	hello := "hello"
@@ -38,11 +38,36 @@ func BenchmarkAddStringWithJoin(b *testing.B) {
 func BenchmarkAddStringWithBuffer(b *testing.B) {
 	hello := "hello"
 	world := "world"
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < b.N; i++ {
 		var buffer bytes.Buffer
 		buffer.WriteString(hello)
 		buffer.WriteString(",")
 		buffer.WriteString(world)
+		_ = buffer.String()
+	}
+}
+
+func BenchmarkAddMoreStringWithOperator(b *testing.B) {
+	hello := "hello"
+	world := "world"
+	for i := 0; i < b.N; i++ {
+		var str string
+		for i := 0; i < 100; i++ {
+			str += hello + "," + world
+		}
+	}
+}
+
+func BenchmarkAddMoreStringWithBuffer(b *testing.B) {
+	hello := "hello"
+	world := "world"
+	for i := 0; i < b.N; i++ {
+		var buffer bytes.Buffer
+		for i := 0; i < 100; i++ {
+			buffer.WriteString(hello)
+			buffer.WriteString(",")
+			buffer.WriteString(world)
+		}
 		_ = buffer.String()
 	}
 }
