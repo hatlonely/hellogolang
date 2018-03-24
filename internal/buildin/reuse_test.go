@@ -47,6 +47,27 @@ func TestReuseSlice(t *testing.T) {
 				})
 			})
 		})
+
+		Convey("make 每次都会返回新地址", func() {
+			si := make([]int, 10, 10)
+			header := (*reflect.SliceHeader)(unsafe.Pointer(&si))
+			fmt.Println(header.Data)
+			si = make([]int, 100, 100)
+			header = (*reflect.SliceHeader)(unsafe.Pointer(&si))
+			fmt.Println(header.Data)
+			si = make([]int, 1000, 1000)
+			header = (*reflect.SliceHeader)(unsafe.Pointer(&si))
+			fmt.Println(header.Data)
+			si = make([]int, 100, 100)
+			header = (*reflect.SliceHeader)(unsafe.Pointer(&si))
+			fmt.Println(header.Data)
+			si = make([]int, 200, 200)
+			header = (*reflect.SliceHeader)(unsafe.Pointer(&si))
+			fmt.Println(header.Data)
+			si = make([]int, 1000, 1000)
+			header = (*reflect.SliceHeader)(unsafe.Pointer(&si))
+			fmt.Println(header.Data)
+		})
 	})
 }
 
