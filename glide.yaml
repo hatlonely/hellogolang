@@ -38,3 +38,5 @@ import:
   version: ^2.1.0
 - package: gopkg.in/olivere/elastic.v5
   version: ^6.1.13
+- package: github.com/emirpasic/gods
+  version: ^1.9.0

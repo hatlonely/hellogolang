@@ -1,5 +1,5 @@
-hash: 99992b3716db26a84dd0812f7c118393b037fa6f38d98d9d5870b52ad0c9abdc
-updated: 2018-03-26T17:59:03.043587+08:00
+hash: 981c08e668f28c1f46b4911117dc362dd2e9f4c2a54d6b696028c6898464b653
+updated: 2018-03-26T22:38:10.996952+08:00
 imports:
 - name: git.apache.org/thrift.git
   version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
@@ -39,6 +39,8 @@ imports:
   version: 5096fddd2cca678b0801ece8513a06e580981fd2
 - name: github.com/cihub/seelog
   version: d2c6e5aa9fbfdd1c624e140287063c7730654115
+- name: github.com/emirpasic/gods
+  version: f6c17b524822278a87e3b3bd809fec33b51f5b46
 - name: github.com/hatlonely/easygolang
   version: 49f472bcd49ab8fc66b9069863a6757bb4e2c1b6
 - name: github.com/json-iterator/go
