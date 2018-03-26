@@ -1,12 +1,12 @@
-hash: 65ca81e0322db767cdb848118eb9e1c9fe8693d083d80966144cf87f62b2a466
-updated: 2018-03-12T11:05:43.294937+08:00
+hash: 99992b3716db26a84dd0812f7c118393b037fa6f38d98d9d5870b52ad0c9abdc
+updated: 2018-03-26T17:59:03.043587+08:00
 imports:
 - name: git.apache.org/thrift.git
   version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
   subpackages:
   - lib/go
 - name: github.com/aws/aws-sdk-go
-  version: bafcd9ccc717e9bc5406acaea370577299223873
+  version: c8c4e0c0514d87f930c1342fef390db5329928b7
   subpackages:
   - aws
   - aws/awserr
@@ -24,6 +24,7 @@ imports:
   - aws/request
   - aws/session
   - aws/signer/v4
+  - internal/sdkio
   - internal/sdkrand
   - internal/shareddefaults
   - private/protocol
@@ -41,7 +42,7 @@ imports:
 - name: github.com/hatlonely/easygolang
   version: 49f472bcd49ab8fc66b9069863a6757bb4e2c1b6
 - name: github.com/json-iterator/go
-  version: 3353055b2a1a5ae1b6a8dfde887a524e7088f3a2
+  version: ca39e5af3ece67bbcda3d0f4f56a8e24d9f2dad4
 - name: github.com/mailru/easyjson
   version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
   subpackages:
@@ -62,21 +63,25 @@ imports:
   - convey
   - convey/gotest
   - convey/reporting
+- name: github.com/sohlich/elogrus
+  version: 1cd627c611bbee23b2ee95c0fc17cf29d11f5365
 - name: github.com/spaolacci/murmur3
   version: 9f5d223c60793748f04a9d5b4b4eacddfc1f755d
 - name: github.com/spf13/viper
-  version: 25b30aa063fc18e48662b86996252eabdcf2f0c7
+  version: b5e8006cbee93ec955a89ab31e0e3ce3204f3736
 - name: github.com/ugorji/go
   version: 9831f2c3ac1068a78f50999a30db84270f647af6
   subpackages:
   - codec
+- name: gopkg.in/olivere/elastic.v5
+  version: d78530f6439d6cd674892320b6917d7c4cb25f7f
 testImports:
 - name: github.com/fsnotify/fsnotify
   version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/go-ini/ini
-  version: 6333e38ac20b8949a8dd68baa3650f4dee8f39f0
+  version: 32e4be5f41bb918afb6e37c07426e2ddbcb6647e
 - name: github.com/gopherjs/gopherjs
-  version: 444abdf920945de5d4a977b572bcc6c674d1e4eb
+  version: df18d38287ab2ed3138d564e7c8cbe4d5a249d87
   subpackages:
   - js
 - name: github.com/hashicorp/hcl
@@ -84,6 +89,7 @@ testImports:
   subpackages:
   - hcl/ast
   - hcl/parser
+  - hcl/printer
   - hcl/scanner
   - hcl/strconv
   - hcl/token
@@ -95,43 +101,50 @@ testImports:
 - name: github.com/jtolds/gls
   version: 77f18212c9c7edc9bd6a33d383a7b545ce62f064
 - name: github.com/magiconair/properties
-  version: 49d762b9817ba1c2e9d0c69183c2b4a8b8f1d934
+  version: 2c9e9502788518c97fe44e8955cd069417ee89df
 - name: github.com/mitchellh/mapstructure
-  version: b4575eea38cca1123ec2dc90c26529b5c5acfcff
+  version: 00c29f56e2386353d58c599509e8dc3801b0d716
 - name: github.com/modern-go/concurrent
   version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
 - name: github.com/modern-go/reflect2
-  version: 0b92968f4be75033e2089fba355a691ea2e9c5cc
+  version: 05fbef0ca5da472bbf96c9322b84a53edc03c9fd
+- name: github.com/olivere/elastic
+  version: d78530f6439d6cd674892320b6917d7c4cb25f7f
+  subpackages:
+  - config
+  - uritemplates
 - name: github.com/pelletier/go-toml
-  version: 9bf0212445a9fb4769aca5d2d86fbc381af39d52
+  version: 05bcc0fb0d3e60da4b8dd5bd7e0ea563eb4ca943
+- name: github.com/pkg/errors
+  version: 816c9085562cd7ee03e7f8188a1cfd942858cded
 - name: github.com/smartystreets/assertions
-  version: 0b37b35ec7434b77e77a4bb29b79677cced992ea
+  version: 7678a5452ebea5b7090a6b163f844c133f523da2
   subpackages:
   - internal/go-render/render
   - internal/oglematchers
 - name: github.com/spf13/afero
-  version: bb8f1927f2a9d3ab41c9340aa034f6b803f4359c
+  version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
   subpackages:
   - mem
 - name: github.com/spf13/cast
-  version: acbeb36b902d72a7a4c18e8f3241075e7ab763e4
+  version: 8965335b8c7107321228e3e3702cab9832751bac
 - name: github.com/spf13/jwalterweatherman
   version: 7c0cea34c8ece3fbeb2b27ab9b59511d360fb394
 - name: github.com/spf13/pflag
-  version: 4c012f6dcd9546820e378d0bdda4d8fc772cdfea
+  version: ee5fd03fd6acfd43e44aea0b4135958546ed8e73
 - name: golang.org/x/crypto
-  version: c7dcf104e3a7a1417abc0230cb0d5240d764159d
+  version: 88942b9c40a4c9d203b82b3731787b672d6e809b
   subpackages:
   - ssh/terminal
 - name: golang.org/x/sys
-  version: 7dca6fe1f43775aa6d1334576870ff63f978f539
+  version: f6cff0780e542efa0c8e864dc8fa522808f6a598
   subpackages:
   - unix
   - windows
 - name: golang.org/x/text
-  version: b7ef84aaf62aa3e70962625c80a571ae7c17cb40
+  version: 0b0b1f509072617b86d90971b51da23cc52694f2
   subpackages:
   - transform
   - unicode/norm
 - name: gopkg.in/yaml.v2
-  version: d670f9405373e636a5a2765eea47fac0c9bc91a4
+  version: 7f97868eec74b32b0982dd158a51a446d1da7eb5
