@@ -82,7 +82,7 @@ func TestLogrus(t *testing.T) {
 }
 
 func TestLogrusHook(t *testing.T) {
-	Convey("logrus hook", t, func() {
+	Convey("logrus elasticsearch hook", t, func() {
 		log := logrus.New()
 		client, err := elastic.NewClient(elastic.SetURL("http://localhost:9200"))
 		So(err, ShouldEqual, nil)
