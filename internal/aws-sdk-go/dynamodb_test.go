@@ -14,7 +14,7 @@ import (
 func TestListTables(t *testing.T) {
 	Convey("ListTables", t, func() {
 		session, err := session.NewSession(&aws.Config{
-			Region: aws.String(endpoints.ApSoutheast2RegionID),
+			Region: aws.String(endpoints.ApSoutheast1RegionID),
 		})
 		So(err, ShouldBeNil)
 		db := dynamodb.New(session)
@@ -28,7 +28,7 @@ func TestListTables(t *testing.T) {
 func TestCreateTable(t *testing.T) {
 	Convey("CreateTable", t, func() {
 		session, err := session.NewSession(&aws.Config{
-			Region: aws.String(endpoints.ApSoutheast2RegionID),
+			Region: aws.String(endpoints.ApSoutheast1RegionID),
 		})
 		So(err, ShouldBeNil)
 		db := dynamodb.New(session)
@@ -73,7 +73,7 @@ type Item struct {
 func TestPutItem(t *testing.T) {
 	Convey("PutItem", t, func() {
 		session, err := session.NewSession(&aws.Config{
-			Region: aws.String(endpoints.ApSoutheast2RegionID),
+			Region: aws.String(endpoints.ApSoutheast1RegionID),
 		})
 		So(err, ShouldBeNil)
 		db := dynamodb.New(session)
@@ -102,7 +102,7 @@ func TestPutItem(t *testing.T) {
 func TestGetItem(t *testing.T) {
 	Convey("GetItem", t, func() {
 		session, err := session.NewSession(&aws.Config{
-			Region: aws.String(endpoints.ApSoutheast2RegionID),
+			Region: aws.String(endpoints.ApSoutheast1RegionID),
 		})
 		So(err, ShouldBeNil)
 		db := dynamodb.New(session)
