@@ -1,16 +1,17 @@
-package aws_sdk_go
+package aws
 
 import (
+	"bufio"
+	"context"
+	"os"
 	"testing"
-	. "github.com/smartystreets/goconvey/convey"
+	"time"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/aws"
-	"os"
-	"context"
-	"bufio"
-	"time"
-	"github.com/aws/aws-sdk-go/aws/endpoints"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestS3(t *testing.T) {
@@ -42,7 +43,7 @@ func TestS3(t *testing.T) {
 
 			out, err := service.GetObjectWithContext(ctx, &s3.GetObjectInput{
 				Bucket: aws.String("hatlonely"),
-				Key: aws.String("test/s3_test.go"),
+				Key:    aws.String("test/s3_test.go"),
 			})
 			So(err, ShouldBeNil)
 			defer out.Body.Close()
@@ -82,7 +83,7 @@ func TestS3(t *testing.T) {
 				Prefix: aws.String("test/"),
 			})
 			So(err, ShouldBeNil)
-			for _, content := range out.Contents  {
+			for _, content := range out.Contents {
 				objkeys = append(objkeys, aws.StringValue(content.Key))
 			}
 			Println(objkeys)
