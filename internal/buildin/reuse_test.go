@@ -112,3 +112,18 @@ func TestReuseString(t *testing.T) {
 		})
 	})
 }
+
+func TestMapReuse(t *testing.T) {
+	Convey("map 重用", t, func() {
+		m1 := map[string]int{"one": 1, "two": 2}
+		m2 := m1
+		m2["one"] = 10
+		m2["three"] = 3
+		Println(m1)
+		Println(m2)
+		So(m1["one"], ShouldEqual, 10)
+		So(m2["one"], ShouldEqual, 10)
+		So(m1, ShouldResemble, m2)
+		So(m1, ShouldEqual, m2)
+	})
+}

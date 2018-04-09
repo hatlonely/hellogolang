@@ -52,7 +52,7 @@ func BenchmarkAddMoreStringWithOperator(b *testing.B) {
 	world := "world"
 	for i := 0; i < b.N; i++ {
 		var str string
-		for i := 0; i < 100; i++ {
+		for j := 0; j < 100; j++ {
 			str += hello + "," + world
 		}
 	}
@@ -63,7 +63,7 @@ func BenchmarkAddMoreStringWithBuffer(b *testing.B) {
 	world := "world"
 	for i := 0; i < b.N; i++ {
 		var buffer bytes.Buffer
-		for i := 0; i < 100; i++ {
+		for j := 0; j < 100; j++ {
 			buffer.WriteString(hello)
 			buffer.WriteString(",")
 			buffer.WriteString(world)
