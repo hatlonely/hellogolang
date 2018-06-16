@@ -1,11 +1,12 @@
 package viper
 
 import (
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
 	"io/ioutil"
-	"github.com/spf13/viper"
 	"os"
+	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
+	"github.com/spf13/viper"
 )
 
 func TestViper(t *testing.T) {
@@ -43,6 +44,7 @@ func TestViper(t *testing.T) {
 
 			So(config.GetString("host.address"), ShouldEqual, "localhost")
 			So(config.GetInt("datastore.metric.port"), ShouldEqual, 3099)
+			So(config.Sub("abc"), ShouldBeNil)
 		})
 
 		Convey("Finally 删除文件", func() {
