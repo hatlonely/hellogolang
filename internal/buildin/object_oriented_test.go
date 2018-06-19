@@ -6,82 +6,54 @@ import (
 )
 
 type Sayer interface {
-	Say()
-	SayHello()
-	SayWorld()
+	Say(message string)
+	SayHi()
 }
 
 type Animal struct {
+	Name string
 }
 
-func (a *Animal) Say() {
-	fmt.Println("not implement")
+func (a *Animal) Say(message string) {
+	fmt.Printf("Animal[%v] say: %v\n", a.Name, message)
 }
 
-func (a *Animal) SayHello() {
-	a.Say()
-	fmt.Println("hello")
+func SayHi(s Sayer) {
+	s.Say("Hi")
 }
 
-func SayWorld(sayer Sayer) {
-	sayer.Say()
-	fmt.Println("world")
-}
-
-func (a *Animal) SayWorld() {
-	SayWorld(a)
+func (a *Animal) SayHi() {
+	SayHi(a)
 }
 
 type Dog struct {
 	Animal
 }
 
-func (d *Dog) Say() {
-	fmt.Println("wang wang wang")
-}
-
-func (d *Dog) SayWorld() {
-	SayWorld(d)
+func (d *Dog) Say(message string) {
+	fmt.Printf("Dog[%v] say: %v\n", d.Name, message)
 }
 
 type Cat struct {
 	Animal
 }
 
-func (c *Cat) Say() {
-	fmt.Println("miao miao miao")
+func (c *Cat) Say(message string) {
+	fmt.Printf("Cat[%v] say: %v\n", c.Name, message)
 }
 
-func (c *Cat) SayWorld() {
-	SayWorld(c)
-}
-
-type Mouse struct {
-	Animal
+func (c *Cat) SayHi() {
+	SayHi(c)
 }
 
 func TestObjectOriented(t *testing.T) {
 	var sayer Sayer
 
-	// 有继承，有限的多态特性，父类的实现中无法调用子类的方法
-	sayer = &Dog{}
-	sayer.Say()      // wang wang wang
-	sayer.SayHello() // not implement hello
-	sayer.SayWorld() // wang wang wang world
+	sayer = &Dog{Animal{Name: "Yoda"}}
+	sayer.Say("hello world") // Dog[Yoda] say: hello world
+	sayer.SayHi()            // Animal[Yoda] say: Hi
 
-	fmt.Println()
-
-	sayer = &Cat{}
-	sayer.Say()
-	sayer.SayHello()
-	sayer.SayWorld()
-
-	fmt.Println()
-
-	sayer = &Mouse{}
-	sayer.Say()
-	sayer.SayHello()
-	sayer.SayWorld()
-
-	fmt.Println()
+	sayer = &Cat{Animal{Name: "Jerry"}}
+	sayer.Say("hello world") // Cat[Jerry] say: hello world
+	sayer.SayHi()            // Cat[Jerry] say: Hi
 }
