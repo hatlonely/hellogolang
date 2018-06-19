@@ -10,16 +10,16 @@ type Sayer interface {
 	SayHi()
 }
 
+func SayHi(s Sayer) {
+	s.Say("Hi")
+}
+
 type Animal struct {
 	Name string
 }
 
 func (a *Animal) Say(message string) {
 	fmt.Printf("Animal[%v] say: %v\n", a.Name, message)
-}
-
-func SayHi(s Sayer) {
-	s.Say("Hi")
 }
 
 func (a *Animal) SayHi() {
