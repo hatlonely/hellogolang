@@ -100,6 +100,7 @@ func main() {
 				req := &addservice.AddRequest{A: i, B: j}
 				success := make(chan struct{}, 2)
 
+				// 无 fallback 处理
 				errc1 := hystrix.Go("addservice", func() error {
 					var err error
 					ctx, cancel := context.WithTimeout(context.Background(), time.Duration(50*time.Millisecond))
@@ -111,6 +112,7 @@ func main() {
 					return err
 				}, nil)
 
+				// 有 fallback 处理
 				errc2 := hystrix.Go("addservice", func() error {
 					var err error
 					ctx, cancel := context.WithTimeout(context.Background(), time.Duration(50*time.Millisecond))
