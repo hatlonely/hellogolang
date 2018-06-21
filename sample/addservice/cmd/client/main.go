@@ -20,9 +20,9 @@ func main() {
 		// 开启 grpc 中间件的重试功能
 		grpc.WithUnaryInterceptor(
 			grpc_retry.UnaryClientInterceptor(
-				grpc_retry.WithBackoff(grpc_retry.BackoffLinear(1*time.Millisecond)), // 重试间隔时间
-				grpc_retry.WithMax(3),                                                // 重试次数
-				grpc_retry.WithPerRetryTimeout(time.Duration(5)*time.Millisecond),    // 重试时间
+				grpc_retry.WithBackoff(grpc_retry.BackoffLinear(time.Duration(1)*time.Millisecond)), // 重试间隔时间
+				grpc_retry.WithMax(3),                                             // 重试次数
+				grpc_retry.WithPerRetryTimeout(time.Duration(5)*time.Millisecond), // 重试时间
 				// 返回码为如下值时重试
 				grpc_retry.WithCodes(codes.ResourceExhausted, codes.Unavailable, codes.DeadlineExceeded),
 			),
