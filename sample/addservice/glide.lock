@@ -1,0 +1,72 @@
+hash: 845d1872e0e5512b71d63de1b253d87d65ccc2b275d18aa09bcaedd9e91d1dd9
+updated: 2018-06-21T10:47:58.047456+08:00
+imports:
+- name: github.com/afex/hystrix-go
+  version: fa1af6a1f4f56e0e50d427fe901cd604d8c6fb8a
+  subpackages:
+  - hystrix
+  - hystrix/metric_collector
+  - hystrix/rolling
+- name: github.com/golang/protobuf
+  version: b4deda0973fb4c70b50d226b1af49f3da59f5265
+  subpackages:
+  - proto
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/timestamp
+- name: github.com/grpc-ecosystem/go-grpc-middleware
+  version: c250d6563d4d4c20252cd865923440e829844f4e
+- name: golang.org/x/net
+  version: 22ae77b79946ea320088417e4d50825671d82d57
+  subpackages:
+  - context
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- name: golang.org/x/text
+  version: 0b0b1f509072617b86d90971b51da23cc52694f2
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: golang.org/x/time
+  version: fbb02b2291d28baffd63558aa44b4b56f178d650
+  subpackages:
+  - rate
+- name: google.golang.org/genproto
+  version: 2c5e7ac708aaa719366570dd82bda44541ca2a63
+  subpackages:
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: 168a6198bcb0ef175f7dacec0b8691fc141dc9b8
+  subpackages:
+  - balancer
+  - balancer/base
+  - balancer/roundrobin
+  - codes
+  - connectivity
+  - credentials
+  - encoding
+  - encoding/proto
+  - grpclog
+  - internal
+  - internal/backoff
+  - internal/channelz
+  - internal/grpcrand
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - stats
+  - status
+  - tap
+  - transport
+testImports: []
