@@ -80,10 +80,8 @@ func main() {
 					// 可以简单构造一个response返回，也可以有一定的策略，比如访问备份资源
 					// 也可以直接返回 err，这样不用和远端失败的资源通信，防止雪崩
 					// 这里因为我们的场景太简单，所以我们可以在本地在作一个加法就可以了
-					res = &addservice.AddResponse{
-						V: req.A + req.B,
-					}
 					fmt.Println(err)
+					res = &addservice.AddResponse{V: req.A + req.B}
 					return nil
 				})
 
@@ -122,7 +120,12 @@ func main() {
 						success <- struct{}{}
 					}
 					return err
-				}, nil)
+				}, func(err error) error {
+					fmt.Println(err)
+					res2 = &addservice.AddResponse{V: req.A + req.B}
+					success <- struct{}{}
+					return nil
+				})
 
 				for i := 0; i < 2; i++ {
 					select {
@@ -131,6 +134,7 @@ func main() {
 					case err := <-errc1:
 						fmt.Println("err1:", err)
 					case err := <-errc2:
+						// 这个分支永远不会走到，因为熔断机制里面永远不会返回错误
 						fmt.Println("err2:", err)
 					}
 				}
