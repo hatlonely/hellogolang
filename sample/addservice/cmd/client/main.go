@@ -46,7 +46,7 @@ func main() {
 			Timeout:                100,  // 超时时间 100ms
 			MaxConcurrentRequests:  2,    // 最大并发数，超过并发返回错误
 			RequestVolumeThreshold: 4,    // 请求数量的阀值，用这些数量的请求来计算阀值
-			ErrorPercentThreshold:  25,   // 错误数量阀值，达到阀值，启动熔断
+			ErrorPercentThreshold:  25,   // 错误率阀值，达到阀值，启动熔断，25%
 			SleepWindow:            1000, // 熔断尝试恢复时间，1000ms
 		},
 	)
