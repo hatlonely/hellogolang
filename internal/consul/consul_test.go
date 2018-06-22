@@ -1,6 +1,8 @@
 package consul
 
 import (
+	"net"
+	"strconv"
 	"testing"
 
 	"github.com/hashicorp/consul/api"
@@ -51,6 +53,16 @@ func TestConsul(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		t.Error(check.AggregatedStatus())
+		t.Log(check.AggregatedStatus())
+
+		services, _, err := health.Service("grpc.health.v1.addservice", "", true, &api.QueryOptions{
+			WaitIndex: 0,
+		})
+		if err != nil {
+			t.Error(err)
+		}
+		for _, service := range services {
+			t.Error(net.JoinHostPort(service.Service.Address, strconv.Itoa(service.Service.Port)))
+		}
 	}
 }

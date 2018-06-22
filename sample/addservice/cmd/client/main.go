@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/afex/hystrix-go/hystrix"
-	"github.com/bsm/grpclb"
 	"github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	addservice "github.com/hatlonely/hellogolang/sample/addservice/api"
+	"github.com/hatlonely/hellogolang/sample/addservice/internal/grpclb"
 	"golang.org/x/net/context"
 	"golang.org/x/time/rate"
 	"google.golang.org/grpc"
@@ -28,14 +28,15 @@ func main() {
 				grpc_retry.WithCodes(codes.ResourceExhausted, codes.Unavailable, codes.DeadlineExceeded),
 			),
 		),
-		grpc.WithBalancer(grpc.RoundRobin(grpclb.NewResolver(&grpclb.Options{
-			Address: "127.0.0.1:3000",
-		}))),
+		grpc.WithBalancer(grpc.RoundRobin(grpclb.NewConsulResolver(
+			"127.0.0.1:8500", "grpc.health.v1.addservice", "",
+		))),
 	)
 	if err != nil {
 		fmt.Printf("dial failed. err: [%v]\n", err)
 		return
 	}
+	defer conn.Close()
 
 	client := addservice.NewAddServiceClient(conn)
 
