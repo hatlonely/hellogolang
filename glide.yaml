@@ -43,3 +43,5 @@ import:
 - package: github.com/go-kit/kit
   version: ^0.7.0
 - package: golang.org/x/time
+- package: github.com/hashicorp/consul
+  version: ^1.1.0
