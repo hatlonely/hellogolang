@@ -1,5 +1,5 @@
-hash: 845d1872e0e5512b71d63de1b253d87d65ccc2b275d18aa09bcaedd9e91d1dd9
-updated: 2018-06-21T10:47:58.047456+08:00
+hash: 567605bd18ec408ef3b098347300e55d005300dfd22fad09afdf6809c0022409
+updated: 2018-06-22T01:16:08.193011+08:00
 imports:
 - name: github.com/afex/hystrix-go
   version: fa1af6a1f4f56e0e50d427fe901cd604d8c6fb8a
@@ -7,16 +7,35 @@ imports:
   - hystrix
   - hystrix/metric_collector
   - hystrix/rolling
+- name: github.com/bsm/grpclb
+  version: 8ee3dbe8dee53600a5f95f474ddc27c2ed937a72
 - name: github.com/golang/protobuf
   version: b4deda0973fb4c70b50d226b1af49f3da59f5265
   subpackages:
+  - jsonpb
   - proto
   - ptypes
   - ptypes/any
   - ptypes/duration
+  - ptypes/struct
   - ptypes/timestamp
 - name: github.com/grpc-ecosystem/go-grpc-middleware
   version: c250d6563d4d4c20252cd865923440e829844f4e
+  subpackages:
+  - logging
+  - logging/logrus
+  - logging/logrus/ctxlogrus
+  - retry
+  - tags
+  - tags/logrus
+  - util/backoffutils
+  - util/metautils
+- name: github.com/sirupsen/logrus
+  version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
+- name: golang.org/x/crypto
+  version: 88942b9c40a4c9d203b82b3731787b672d6e809b
+  subpackages:
+  - ssh/terminal
 - name: golang.org/x/net
   version: 22ae77b79946ea320088417e4d50825671d82d57
   subpackages:
@@ -27,6 +46,11 @@ imports:
   - internal/timeseries
   - lex/httplex
   - trace
+- name: golang.org/x/sys
+  version: f6cff0780e542efa0c8e864dc8fa522808f6a598
+  subpackages:
+  - unix
+  - windows
 - name: golang.org/x/text
   version: 0b0b1f509072617b86d90971b51da23cc52694f2
   subpackages:

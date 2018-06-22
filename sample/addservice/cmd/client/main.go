@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/afex/hystrix-go/hystrix"
+	"github.com/bsm/grpclb"
 	"github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	addservice "github.com/hatlonely/hellogolang/sample/addservice/api"
 	"golang.org/x/net/context"
@@ -27,6 +28,9 @@ func main() {
 				grpc_retry.WithCodes(codes.ResourceExhausted, codes.Unavailable, codes.DeadlineExceeded),
 			),
 		),
+		grpc.WithBalancer(grpc.RoundRobin(grpclb.NewResolver(&grpclb.Options{
+			Address: "127.0.0.1:3000",
+		}))),
 	)
 	if err != nil {
 		fmt.Printf("dial failed. err: [%v]\n", err)

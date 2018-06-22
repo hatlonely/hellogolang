@@ -11,3 +11,7 @@ import:
   version: ^1.13.0
 - package: github.com/grpc-ecosystem/go-grpc-middleware
   version: ^1.0.0
+- package: github.com/sirupsen/logrus
+  version: ^1.0.5
+- package: github.com/bsm/grpclb
+  version: ^0.4.3
