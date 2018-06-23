@@ -48,7 +48,7 @@ type consulWatcher struct {
 func (w *consulWatcher) Next() ([]*naming.Update, error) {
 	for {
 		services, metainfo, err := w.client.Health().Service(w.service, "", true, &api.QueryOptions{
-			WaitIndex: w.lastIndex,
+			WaitIndex: w.lastIndex, // 同步点，这个调用将一直阻塞，直到有新的更新
 		})
 		if err != nil {
 			logrus.Warn("error retrieving instances from Consul: %v", err)

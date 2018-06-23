@@ -42,15 +42,15 @@ func (r *ConsulRegister) Register() error {
 
 	IP := localIP()
 	reg := &api.AgentServiceRegistration{
-		ID:      fmt.Sprintf("%v-%v-%v", r.Service, IP, r.Port),
-		Name:    fmt.Sprintf("grpc.health.v1.%v", r.Service),
-		Tags:    r.Tag,
-		Port:    r.Port,
-		Address: IP,
-		Check: &api.AgentServiceCheck{
-			Interval: r.Interval.String(),
-			GRPC:     fmt.Sprintf("%v:%v/%v", IP, r.Port, r.Service),
-			DeregisterCriticalServiceAfter: r.DeregisterCriticalServiceAfter.String(),
+		ID:      fmt.Sprintf("%v-%v-%v", r.Service, IP, r.Port), // 服务节点的名称
+		Name:    fmt.Sprintf("grpc.health.v1.%v", r.Service),    // 服务名称
+		Tags:    r.Tag,                                          // tag，可以为空
+		Port:    r.Port,                                         // 服务端口
+		Address: IP,                                             // 服务 IP
+		Check: &api.AgentServiceCheck{ // 健康检查
+			Interval: r.Interval.String(),                            // 健康检查间隔
+			GRPC:     fmt.Sprintf("%v:%v/%v", IP, r.Port, r.Service), // grpc 支持，执行健康检查的地址，service 会传到 Health.Check 函数中
+			DeregisterCriticalServiceAfter: r.DeregisterCriticalServiceAfter.String(), // 注销时间，相当于过期时间
 		},
 	}
 
