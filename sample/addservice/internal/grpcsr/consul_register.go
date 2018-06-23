@@ -36,7 +36,7 @@ func (r *ConsulRegister) Register() error {
 	config.Address = r.Address
 	client, err := api.NewClient(config)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	agent := client.Agent()
 
