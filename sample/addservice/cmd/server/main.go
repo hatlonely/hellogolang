@@ -8,11 +8,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
-	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
-	"github.com/hashicorp/consul/api"
 	addservice "github.com/hatlonely/hellogolang/sample/addservice/api"
+	"github.com/hatlonely/hellogolang/sample/addservice/internal/grpcsr"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -44,32 +42,6 @@ func (h *HealthImpl) Check(ctx context.Context, req *grpc_health_v1.HealthCheckR
 	}, nil
 }
 
-// ServiceRegister register service
-func ServiceRegister(port int) {
-	config := api.DefaultConfig()
-	config.Address = "127.0.0.1:8500"
-	client, err := api.NewClient(config)
-	if err != nil {
-		panic(err)
-	}
-	agent := client.Agent()
-	reg := &api.AgentServiceRegistration{
-		ID:      fmt.Sprintf("add-%v", port),
-		Name:    "grpc.health.v1.addservice",
-		Tags:    []string{"hatlonely"},
-		Port:    port,
-		Address: "127.0.0.1",
-		Check: &api.AgentServiceCheck{
-			Interval: "10s",
-			GRPC:     fmt.Sprintf("127.0.0.1:%d/%s", port, "addservice"),
-			DeregisterCriticalServiceAfter: "1m",
-		},
-	}
-	if err := agent.ServiceRegister(reg); err != nil {
-		panic(err)
-	}
-}
-
 func main() {
 	logger := logrus.New()
 	logger.Formatter = &logrus.JSONFormatter{}
@@ -77,25 +49,29 @@ func main() {
 	grpc_logrus.ReplaceGrpcLogger(entry)
 
 	server := grpc.NewServer(
-		grpc_middleware.WithUnaryServerChain(
-			grpc_ctxtags.UnaryServerInterceptor(
-				grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor),
-			),
-			grpc_logrus.UnaryServerInterceptor(
-				entry,
-				grpc_logrus.WithDurationField(func(duration time.Duration) (key string, value interface{}) {
-					return "grpc.time_ns", duration.Nanoseconds()
-				}),
-			),
-			grpc_logrus.PayloadUnaryServerInterceptor(entry, func(ctx context.Context, fullMethodName string, servingObject interface{}) bool { return true }),
-		),
+	// grpc_middleware.WithUnaryServerChain(
+	// 	grpc_ctxtags.UnaryServerInterceptor(
+	// 		grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor),
+	// 	),
+	// 	grpc_logrus.UnaryServerInterceptor(
+	// 		entry,
+	// 		grpc_logrus.WithDurationField(func(duration time.Duration) (key string, value interface{}) {
+	// 			return "grpc.time_ns", duration.Nanoseconds()
+	// 		}),
+	// 	),
+	// 	grpc_logrus.PayloadUnaryServerInterceptor(entry, func(ctx context.Context, fullMethodName string, servingObject interface{}) bool { return true }),
+	// ),
 	)
 
 	addservice.RegisterAddServiceServer(server, &AddServiceImpl{})
 	grpc_health_v1.RegisterHealthServer(server, &HealthImpl{})
 
 	port, _ := strconv.Atoi(os.Args[1])
-	ServiceRegister(port)
+	register := grpcsr.NewConsulRegister()
+	register.Port = port
+	if err := register.Register(); err != nil {
+		panic(err)
+	}
 
 	address, err := net.Listen("tcp", fmt.Sprintf(":%v", os.Args[1]))
 	if err != nil {
