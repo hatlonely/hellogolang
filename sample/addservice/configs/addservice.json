@@ -1,0 +1,12 @@
+{
+    "register": {
+        "address": "127.0.0.1:8500",
+        "service": "add",
+        "tag": [
+            "hatlonely"
+        ],
+        "port": 3000,
+        "deregisterCriticalServiceAfter": "1m",
+        "interval": "10s"
+    }
+}
