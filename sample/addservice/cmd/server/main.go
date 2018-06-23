@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"math/rand"
 	"net"
-	"os"
-	"strconv"
 	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	addservice "github.com/hatlonely/hellogolang/sample/addservice/api"
 	"github.com/hatlonely/hellogolang/sample/addservice/internal/grpcsr"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
+	_ "github.com/spf13/viper/remote"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health/grpc_health_v1"
@@ -27,9 +28,11 @@ func (s *AddServiceImpl) Add(ctx context.Context, request *addservice.AddRequest
 		time.Sleep(time.Duration(200) * time.Millisecond)
 	}
 	// fmt.Println(request)
-	return &addservice.AddResponse{
+	response := &addservice.AddResponse{
 		V: request.A + request.B,
-	}, nil
+	}
+	fmt.Println(request, response)
+	return response, nil
 }
 
 // HealthImpl implement health
@@ -43,6 +46,9 @@ func (h *HealthImpl) Check(ctx context.Context, req *grpc_health_v1.HealthCheckR
 }
 
 func main() {
+	port := pflag.IntP("register.port", "p", 3000, "service port")
+	pflag.Parse()
+
 	logger := logrus.New()
 	logger.Formatter = &logrus.JSONFormatter{}
 	entry := logrus.NewEntry(logger)
@@ -66,14 +72,24 @@ func main() {
 	addservice.RegisterAddServiceServer(server, &AddServiceImpl{})
 	grpc_health_v1.RegisterHealthServer(server, &HealthImpl{})
 
-	port, _ := strconv.Atoi(os.Args[1])
+	// 从 consul 读取配置文件
+	config := viper.New()
+	config.AddRemoteProvider("consul", "127.0.0.1:8500", "config/addservice.json")
+	config.SetConfigType("json")
+	if err := config.ReadRemoteConfig(); err != nil {
+		panic(err)
+	}
+	config.BindPFlags(pflag.CommandLine)
+
+	// 使用 consul 注册服务
 	register := grpcsr.NewConsulRegister()
-	register.Port = port
+	config.Sub("register").Unmarshal(register)
+	register.Port = *port
 	if err := register.Register(); err != nil {
 		panic(err)
 	}
 
-	address, err := net.Listen("tcp", fmt.Sprintf(":%v", os.Args[1]))
+	address, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%v", *port))
 	if err != nil {
 		panic(err)
 	}

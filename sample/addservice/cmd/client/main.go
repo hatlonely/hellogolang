@@ -16,7 +16,7 @@ import (
 
 func main() {
 	conn, err := grpc.Dial(
-		"127.0.0.1:3000",
+		"",
 		grpc.WithInsecure(),
 		// 开启 grpc 中间件的重试功能
 		grpc.WithUnaryInterceptor(
@@ -28,6 +28,7 @@ func main() {
 				grpc_retry.WithCodes(codes.ResourceExhausted, codes.Unavailable, codes.DeadlineExceeded),
 			),
 		),
+		// 负载均衡，使用 consul 作服务发现
 		grpc.WithBalancer(grpc.RoundRobin(grpclb.NewConsulResolver(
 			"127.0.0.1:8500", "grpc.health.v1.addservice", "",
 		))),

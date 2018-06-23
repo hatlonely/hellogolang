@@ -8,7 +8,9 @@ build: cmd/*/*.go internal/*/*.go pkg/*/*.go scripts/version.sh Makefile vendor
 	@go build -ldflags "-X 'main.AppVersion=`sh scripts/version.sh`'" cmd/client/main.go && \
 	mkdir -p build/client/bin && mv main build/client/bin/client && \
 	go build -ldflags "-X 'main.AppVersion=`sh scripts/version.sh`'" cmd/server/main.go && \
-	mkdir -p build/server/bin && mv main build/server/bin/server
+	mkdir -p build/server/bin && mv main build/server/bin/server && \
+	mkdir -p build/config/bin && cp scripts/config build/config/bin && \
+	mkdir -p build/config/configs && cp configs/* build/config/configs
 
 vendor: glide.lock glide.yaml
 	@echo "install golang dependency"

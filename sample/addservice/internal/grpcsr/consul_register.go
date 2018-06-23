@@ -2,6 +2,7 @@ package grpcsr
 
 import (
 	"fmt"
+	"net"
 	"time"
 
 	"github.com/hashicorp/consul/api"
@@ -11,8 +12,8 @@ import (
 func NewConsulRegister() *ConsulRegister {
 	return &ConsulRegister{
 		Address: "127.0.0.1:8500",
-		Service: "addservice",
-		Tag:     []string{"hatlonely"},
+		Service: "unknown",
+		Tag:     []string{},
 		Port:    3000,
 		DeregisterCriticalServiceAfter: time.Duration(1) * time.Minute,
 		Interval:                       time.Duration(10) * time.Second,
@@ -39,15 +40,16 @@ func (r *ConsulRegister) Register() error {
 	}
 	agent := client.Agent()
 
+	IP := localIP()
 	reg := &api.AgentServiceRegistration{
-		ID:      fmt.Sprintf("%v-%v", r.Service, r.Port),
+		ID:      fmt.Sprintf("%v-%v-%v", r.Service, IP, r.Port),
 		Name:    fmt.Sprintf("grpc.health.v1.%v", r.Service),
 		Tags:    r.Tag,
 		Port:    r.Port,
-		Address: "127.0.0.1",
+		Address: IP,
 		Check: &api.AgentServiceCheck{
 			Interval: r.Interval.String(),
-			GRPC:     fmt.Sprintf("127.0.0.1:%v/%v", r.Port, r.Service),
+			GRPC:     fmt.Sprintf("%v:%v/%v", IP, r.Port, r.Service),
 			DeregisterCriticalServiceAfter: r.DeregisterCriticalServiceAfter.String(),
 		},
 	}
@@ -57,4 +59,19 @@ func (r *ConsulRegister) Register() error {
 	}
 
 	return nil
+}
+
+func localIP() string {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return ""
+	}
+	for _, address := range addrs {
+		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				return ipnet.IP.String()
+			}
+		}
+	}
+	return ""
 }
