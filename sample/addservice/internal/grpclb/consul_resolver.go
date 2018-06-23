@@ -10,18 +10,16 @@ import (
 )
 
 // NewConsulResolver consul resolver
-func NewConsulResolver(address string, service string, tag string) naming.Resolver {
+func NewConsulResolver(address string, service string) naming.Resolver {
 	return &consulResolver{
 		address: address,
 		service: service,
-		tag:     tag,
 	}
 }
 
 type consulResolver struct {
 	address string
 	service string
-	tag     string
 }
 
 // Resolve implement
@@ -36,7 +34,6 @@ func (r *consulResolver) Resolve(target string) (naming.Watcher, error) {
 	return &consulWatcher{
 		client:  client,
 		service: r.service,
-		tag:     r.tag,
 		addrs:   map[string]struct{}{},
 	}, nil
 }
@@ -44,14 +41,13 @@ func (r *consulResolver) Resolve(target string) (naming.Watcher, error) {
 type consulWatcher struct {
 	client    *api.Client
 	service   string
-	tag       string
 	addrs     map[string]struct{}
 	lastIndex uint64
 }
 
 func (w *consulWatcher) Next() ([]*naming.Update, error) {
 	for {
-		services, metainfo, err := w.client.Health().Service(w.service, w.tag, true, &api.QueryOptions{
+		services, metainfo, err := w.client.Health().Service(w.service, "", true, &api.QueryOptions{
 			WaitIndex: w.lastIndex,
 		})
 		if err != nil {

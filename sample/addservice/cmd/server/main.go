@@ -31,7 +31,7 @@ func (s *AddServiceImpl) Add(ctx context.Context, request *addservice.AddRequest
 	response := &addservice.AddResponse{
 		V: request.A + request.B,
 	}
-	fmt.Println(request, response)
+	logrus.WithField("request", request).WithField("response", response).Info()
 	return response, nil
 }
 
@@ -49,6 +49,7 @@ func main() {
 	port := pflag.IntP("register.port", "p", 3000, "service port")
 	pflag.Parse()
 
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	logger := logrus.New()
 	logger.Formatter = &logrus.JSONFormatter{}
 	entry := logrus.NewEntry(logger)

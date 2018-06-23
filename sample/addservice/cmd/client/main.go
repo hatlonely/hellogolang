@@ -30,7 +30,7 @@ func main() {
 		),
 		// 负载均衡，使用 consul 作服务发现
 		grpc.WithBalancer(grpc.RoundRobin(grpclb.NewConsulResolver(
-			"127.0.0.1:8500", "grpc.health.v1.add", "",
+			"127.0.0.1:8500", "grpc.health.v1.add",
 		))),
 		// grpc.WithBalancer(grpc.RoundRobin(grpclb.NewPseudoResolver(
 		// 	[]string{
