@@ -18,10 +18,10 @@ import (
 	"google.golang.org/grpc/health/grpc_health_v1"
 )
 
-// AddServiceImpl implement add services
+// AddServiceImpl 实现 Add 服务
 type AddServiceImpl struct{}
 
-// Add implemention
+// Add 接口实现
 func (s *AddServiceImpl) Add(ctx context.Context, request *addservice.AddRequest) (*addservice.AddResponse, error) {
 	// 50% 概率 sleep，模拟超时场景
 	if rand.Int()%2 == 0 {
@@ -35,10 +35,10 @@ func (s *AddServiceImpl) Add(ctx context.Context, request *addservice.AddRequest
 	return response, nil
 }
 
-// HealthImpl implement health
+// HealthImpl 健康检查实现
 type HealthImpl struct{}
 
-// Check service
+// Check 实现健康检查接口，这里直接返回健康状态，这里也可以有更复杂的健康检查策略，比如根据服务器负载来返回
 func (h *HealthImpl) Check(ctx context.Context, req *grpc_health_v1.HealthCheckRequest) (*grpc_health_v1.HealthCheckResponse, error) {
 	return &grpc_health_v1.HealthCheckResponse{
 		Status: grpc_health_v1.HealthCheckResponse_SERVING,
