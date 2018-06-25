@@ -1,12 +1,22 @@
-hash: 4e813532842d81d79ceaeed179ab2f04ba8cc57662203d2beb669ed3d076eda2
-updated: 2018-06-20T14:22:46.702052+08:00
+hash: da8a0005b9b5a75ecc17f98a98287f0a4d216ab205a0e78725a52b8bf27f7ffa
+updated: 2018-06-25T10:50:39.013391+08:00
 imports:
 - name: git.apache.org/thrift.git
   version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
   subpackages:
   - lib/go
+- name: github.com/afex/hystrix-go
+  version: fa1af6a1f4f56e0e50d427fe901cd604d8c6fb8a
+  subpackages:
+  - hystrix
+  - hystrix/metric_collector
+  - hystrix/rolling
+- name: github.com/armon/consul-api
+  version: eb2c6b5be1b66bab83016e0b05f01b8d5496ffbd
+- name: github.com/armon/go-metrics
+  version: 58588f401c2cc130a7308a52ca3bc6c0a76db04b
 - name: github.com/aws/aws-sdk-go
-  version: f0bbc646e13bfc451409e960cf33239aabb8671a
+  version: e79e9fd4ec11ccc242a472f980be78830f9eba80
   subpackages:
   - aws
   - aws/awserr
@@ -46,6 +56,18 @@ imports:
   version: 5096fddd2cca678b0801ece8513a06e580981fd2
 - name: github.com/cihub/seelog
   version: d2c6e5aa9fbfdd1c624e140287063c7730654115
+- name: github.com/coreos/etcd
+  version: 8f6348a97d483316c5039d6bbc2f66ba2c00e1d0
+  subpackages:
+  - client
+  - pkg/pathutil
+  - pkg/srv
+  - pkg/types
+  - version
+- name: github.com/coreos/go-semver
+  version: e214231b295a8ea9479f11b70b35d5acf3556d9b
+  subpackages:
+  - semver
 - name: github.com/emirpasic/gods
   version: f6c17b524822278a87e3b3bd809fec33b51f5b46
   subpackages:
@@ -53,67 +75,48 @@ imports:
   - lists
   - lists/singlylinkedlist
   - utils
+- name: github.com/fsnotify/fsnotify
+  version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/go-kit/kit
   version: ca4112baa34cb55091301bdc13b1420a122b1b9e
   subpackages:
-  - circuitbreaker
   - endpoint
   - ratelimit
-- name: github.com/hatlonely/easygolang
-  version: 49f472bcd49ab8fc66b9069863a6757bb4e2c1b6
-- name: github.com/json-iterator/go
-  version: ca39e5af3ece67bbcda3d0f4f56a8e24d9f2dad4
-- name: github.com/mailru/easyjson
-  version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
+- name: github.com/golang/protobuf
+  version: b4deda0973fb4c70b50d226b1af49f3da59f5265
   subpackages:
-  - buffer
-  - jlexer
-  - jwriter
-- name: github.com/pquerna/ffjson
-  version: d49c2bc1aa135aad0c6f4fc2056623ec78f5d5ac
+  - jsonpb
+  - proto
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/struct
+  - ptypes/timestamp
+- name: github.com/grpc-ecosystem/go-grpc-middleware
+  version: c250d6563d4d4c20252cd865923440e829844f4e
   subpackages:
-  - ffjson
-  - fflib/v1
-  - fflib/v1/internal
-- name: github.com/sirupsen/logrus
-  version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
-- name: github.com/smartystreets/goconvey
-  version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
+  - logging
+  - logging/logrus
+  - logging/logrus/ctxlogrus
+  - retry
+  - tags
+  - tags/logrus
+  - util/backoffutils
+  - util/metautils
+- name: github.com/hashicorp/consul
+  version: 5174058f0d2bda63fa5198ab96c33d9a909c58ed
   subpackages:
-  - convey
-  - convey/gotest
-  - convey/reporting
-- name: github.com/sohlich/elogrus
-  version: 1cd627c611bbee23b2ee95c0fc17cf29d11f5365
-- name: github.com/spaolacci/murmur3
-  version: 9f5d223c60793748f04a9d5b4b4eacddfc1f755d
-- name: github.com/spf13/viper
-  version: b5e8006cbee93ec955a89ab31e0e3ce3204f3736
-- name: github.com/ugorji/go
-  version: b4c50a2b199d93b13dc15e78929cfb23bfdf21ab
+  - api
+- name: github.com/hashicorp/go-cleanhttp
+  version: d5fe4b57a186c716b0e00b8c301cbd9b4182694d
+- name: github.com/hashicorp/go-immutable-radix
+  version: 7f3cd4390caab3250a57f30efdb2a65dd7649ecf
+- name: github.com/hashicorp/go-rootcerts
+  version: 6bb64b370b90e7ef1fa532be9e591a81c3493e00
+- name: github.com/hashicorp/golang-lru
+  version: 0fb14efe8c47ae851c0034ed7a448854d3d34cf3
   subpackages:
-  - codec
-- name: golang.org/x/time
-  version: fbb02b2291d28baffd63558aa44b4b56f178d650
-  subpackages:
-  - rate
-- name: gopkg.in/olivere/elastic.v5
-  version: dabcc5de0a3fd6313870c223c3119e2b1e942ba3
-testImports:
-- name: github.com/afex/hystrix-go
-  version: fa1af6a1f4f56e0e50d427fe901cd604d8c6fb8a
-  subpackages:
-  - hystrix
-  - hystrix/metric_collector
-  - hystrix/rolling
-- name: github.com/fsnotify/fsnotify
-  version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
-- name: github.com/go-ini/ini
-  version: 32e4be5f41bb918afb6e37c07426e2ddbcb6647e
-- name: github.com/gopherjs/gopherjs
-  version: df18d38287ab2ed3138d564e7c8cbe4d5a249d87
-  subpackages:
-  - js
+  - simplelru
 - name: github.com/hashicorp/hcl
   version: 23c074d0eceb2b8a5bfdbb271ab780cde70f05a8
   subpackages:
@@ -126,34 +129,50 @@ testImports:
   - json/parser
   - json/scanner
   - json/token
-- name: github.com/jmespath/go-jmespath
-  version: c2b33e8439af944379acbdd9c3a5fe0bc44bd8a5
-- name: github.com/jtolds/gls
-  version: 77f18212c9c7edc9bd6a33d383a7b545ce62f064
+- name: github.com/hashicorp/serf
+  version: 984a73625de3138f44deb38d00878fab39eb6447
+  subpackages:
+  - coordinate
+- name: github.com/hatlonely/easygolang
+  version: 49f472bcd49ab8fc66b9069863a6757bb4e2c1b6
+- name: github.com/json-iterator/go
+  version: ca39e5af3ece67bbcda3d0f4f56a8e24d9f2dad4
 - name: github.com/magiconair/properties
   version: 2c9e9502788518c97fe44e8955cd069417ee89df
+- name: github.com/mailru/easyjson
+  version: 32fa128f234d041f196a9f3e0fea5ac9772c08e1
+  subpackages:
+  - buffer
+  - jlexer
+  - jwriter
+- name: github.com/mitchellh/go-homedir
+  version: 3864e76763d94a6df2f9960b16a20a33da9f9a66
 - name: github.com/mitchellh/mapstructure
   version: 00c29f56e2386353d58c599509e8dc3801b0d716
-- name: github.com/modern-go/concurrent
-  version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
-- name: github.com/modern-go/reflect2
-  version: 58118c1ea9161250907268a484af4dd6ed314280
-- name: github.com/olivere/elastic
-  version: d78530f6439d6cd674892320b6917d7c4cb25f7f
-  subpackages:
-  - config
-  - uritemplates
 - name: github.com/pelletier/go-toml
   version: 05bcc0fb0d3e60da4b8dd5bd7e0ea563eb4ca943
-- name: github.com/pkg/errors
-  version: 816c9085562cd7ee03e7f8188a1cfd942858cded
-- name: github.com/smartystreets/assertions
-  version: 7678a5452ebea5b7090a6b163f844c133f523da2
+- name: github.com/pquerna/ffjson
+  version: d49c2bc1aa135aad0c6f4fc2056623ec78f5d5ac
   subpackages:
-  - internal/go-render/render
-  - internal/oglematchers
-- name: github.com/sony/gobreaker
-  version: 3cb67c77c1d1e72fda30c6970578164d24f806b6
+  - ffjson
+  - fflib/v1
+  - fflib/v1/internal
+- name: github.com/prometheus/client_golang
+  version: 967789050ba94deca04a5e84cce8ad472ce313c1
+  subpackages:
+  - prometheus
+- name: github.com/sirupsen/logrus
+  version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
+- name: github.com/smartystreets/goconvey
+  version: 9e8dc3f972df6c8fcc0375ef492c24d0bb204857
+  subpackages:
+  - convey
+  - convey/gotest
+  - convey/reporting
+- name: github.com/sohlich/elogrus
+  version: 1cd627c611bbee23b2ee95c0fc17cf29d11f5365
+- name: github.com/spaolacci/murmur3
+  version: 9f5d223c60793748f04a9d5b4b4eacddfc1f755d
 - name: github.com/spf13/afero
   version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
   subpackages:
@@ -164,18 +183,45 @@ testImports:
   version: 7c0cea34c8ece3fbeb2b27ab9b59511d360fb394
 - name: github.com/spf13/pflag
   version: ee5fd03fd6acfd43e44aea0b4135958546ed8e73
-- name: github.com/streadway/handy
-  version: f450267a206e480d863d2a92846a40f6e2896b2a
+- name: github.com/spf13/viper
+  version: b5e8006cbee93ec955a89ab31e0e3ce3204f3736
   subpackages:
-  - breaker
+  - remote
+- name: github.com/ugorji/go
+  version: b4c50a2b199d93b13dc15e78929cfb23bfdf21ab
+  subpackages:
+  - codec
+- name: github.com/xordataexchange/crypt
+  version: b2862e3d0a775f18c7cfe02273500ae307b61218
+  subpackages:
+  - backend
+  - backend/consul
+  - backend/etcd
+  - config
+  - encoding/secconf
+- name: github.com/yosuke-furukawa/json5
+  version: 7f7ea50b836ee7a78dbcccfb28bea909cf28bf6b
 - name: golang.org/x/crypto
   version: 88942b9c40a4c9d203b82b3731787b672d6e809b
   subpackages:
+  - cast5
+  - openpgp
+  - openpgp/armor
+  - openpgp/elgamal
+  - openpgp/errors
+  - openpgp/packet
+  - openpgp/s2k
   - ssh/terminal
 - name: golang.org/x/net
   version: 22ae77b79946ea320088417e4d50825671d82d57
   subpackages:
   - context
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
 - name: golang.org/x/sys
   version: f6cff0780e542efa0c8e864dc8fa522808f6a598
   subpackages:
@@ -184,7 +230,98 @@ testImports:
 - name: golang.org/x/text
   version: 0b0b1f509072617b86d90971b51da23cc52694f2
   subpackages:
+  - secure/bidirule
   - transform
+  - unicode/bidi
   - unicode/norm
+- name: golang.org/x/time
+  version: fbb02b2291d28baffd63558aa44b4b56f178d650
+  subpackages:
+  - rate
+- name: google.golang.org/genproto
+  version: 2c5e7ac708aaa719366570dd82bda44541ca2a63
+  subpackages:
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: 168a6198bcb0ef175f7dacec0b8691fc141dc9b8
+  subpackages:
+  - balancer
+  - balancer/base
+  - balancer/roundrobin
+  - codes
+  - connectivity
+  - credentials
+  - encoding
+  - encoding/proto
+  - grpclog
+  - health/grpc_health_v1
+  - internal
+  - internal/backoff
+  - internal/channelz
+  - internal/grpcrand
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - stats
+  - status
+  - tap
+  - transport
+- name: gopkg.in/olivere/elastic.v5
+  version: dabcc5de0a3fd6313870c223c3119e2b1e942ba3
 - name: gopkg.in/yaml.v2
   version: 7f97868eec74b32b0982dd158a51a446d1da7eb5
+testImports:
+- name: github.com/beorn7/perks
+  version: 3a771d992973f24aa725d07868b467d1ddfceafb
+  subpackages:
+  - quantile
+- name: github.com/go-ini/ini
+  version: 32e4be5f41bb918afb6e37c07426e2ddbcb6647e
+- name: github.com/gopherjs/gopherjs
+  version: df18d38287ab2ed3138d564e7c8cbe4d5a249d87
+  subpackages:
+  - js
+- name: github.com/jmespath/go-jmespath
+  version: c2b33e8439af944379acbdd9c3a5fe0bc44bd8a5
+- name: github.com/jtolds/gls
+  version: 77f18212c9c7edc9bd6a33d383a7b545ce62f064
+- name: github.com/matttproud/golang_protobuf_extensions
+  version: c12348ce28de40eed0136aa2b644d0ee0650e56c
+  subpackages:
+  - pbutil
+- name: github.com/modern-go/concurrent
+  version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
+- name: github.com/modern-go/reflect2
+  version: 58118c1ea9161250907268a484af4dd6ed314280
+- name: github.com/olivere/elastic
+  version: d78530f6439d6cd674892320b6917d7c4cb25f7f
+  subpackages:
+  - config
+  - uritemplates
+- name: github.com/pkg/errors
+  version: 816c9085562cd7ee03e7f8188a1cfd942858cded
+- name: github.com/prometheus/client_model
+  version: 99fa1f4be8e564e8a6b613da7fa6f46c9edafc6c
+  subpackages:
+  - go
+- name: github.com/prometheus/common
+  version: 7600349dcfe1abd18d72d3a1770870d9800a7801
+  subpackages:
+  - expfmt
+  - internal/bitbucket.org/ww/goautoneg
+  - model
+- name: github.com/prometheus/procfs
+  version: 7d6f385de8bea29190f15ba9931442a0eaef9af7
+  subpackages:
+  - internal/util
+  - nfs
+  - xfs
+- name: github.com/smartystreets/assertions
+  version: 7678a5452ebea5b7090a6b163f844c133f523da2
+  subpackages:
+  - internal/go-render/render
+  - internal/oglematchers
