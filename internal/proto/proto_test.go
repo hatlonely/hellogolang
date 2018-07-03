@@ -30,7 +30,7 @@ func TestProto(t *testing.T) {
 			Protocal:        3,
 		}
 		buf, err := proto1.Marshal(creative)
-		t.Log(buf, err)
+		t.Log(buf, err, len(buf))
 
 		err = proto1.Unmarshal(buf, creative)
 		t.Log(err, creative)
@@ -58,7 +58,7 @@ func TestProto(t *testing.T) {
 			Protocal:        3,
 		}
 		buf, err := proto2.Marshal(creative)
-		t.Log(buf, err)
+		t.Log(buf, err, len(buf))
 
 		err = proto2.Unmarshal(buf, creative)
 		t.Log(err, creative)
