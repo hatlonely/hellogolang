@@ -1,5 +1,5 @@
-hash: 7ce011a1deefd0555cf41cfd2e8442f5962dccb35cfc9cf07640a3f182c81cdd
-updated: 2018-07-03T18:25:52.841535+08:00
+hash: 4265df9c4f56140be03ba28197661877da975e572c2b0c6e4ecc4fafc3806109
+updated: 2018-07-03T19:41:34.611958+08:00
 imports:
 - name: git.apache.org/thrift.git
   version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
@@ -159,6 +159,8 @@ imports:
   version: 3864e76763d94a6df2f9960b16a20a33da9f9a66
 - name: github.com/mitchellh/mapstructure
   version: bb74f1db0675b241733089d5a1faa5dd8b0ef57b
+- name: github.com/op/go-logging
+  version: b2cb9fa56473e98db8caba80237377e83fe44db5
 - name: github.com/pelletier/go-toml
   version: c01d1270ff3e442a8a57cddc1c92dc1138598194
 - name: github.com/pquerna/ffjson

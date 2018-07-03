@@ -22,5 +22,4 @@ type StdLog struct {
 
 func (l *StdLog) Info(v ...interface{}) {
 	log.Print(v...)
-	// fmt.Println(v)
 }

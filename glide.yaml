@@ -59,3 +59,5 @@ import:
 - package: github.com/golang/glog
 - package: github.com/ScottMansfield/nanolog
   version: ^0.2.0
+- package: github.com/op/go-logging
+  version: ^1.0.0

@@ -8,6 +8,7 @@ import (
 	"github.com/ScottMansfield/nanolog"
 )
 
+// 使用上很不友好，不如直接用 bufio
 func NewNanoLog(filename string) *NanoLog {
 	log := nanolog.New()
 	h := log.AddLogger("%s\n")
