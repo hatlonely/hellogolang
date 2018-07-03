@@ -42,6 +42,14 @@ func benchmarkLogger(b *testing.B, logger Logger) {
 	wg.Wait()
 }
 
+// BenchmarkLogger/myBufferedLog-8         	  200000	     10689 ns/op	    2562 B/op	      40 allocs/op
+// BenchmarkLogger/nanolog-8               	  100000	     16073 ns/op	    5460 B/op	     100 allocs/op
+// BenchmarkLogger/stdlog-8                	  100000	     22612 ns/op	    2562 B/op	      40 allocs/op
+// BenchmarkLogger/logrus-8                	   50000	     35029 ns/op	    8989 B/op	     220 allocs/op
+// BenchmarkLogger/opLoggingLog-8          	   20000	     91615 ns/op	   39568 B/op	     580 allocs/op
+// BenchmarkLogger/zaplog-8                	    5000	    253592 ns/op	    3541 B/op	      60 allocs/op
+// BenchmarkLogger/mylog-8                 	    5000	    351909 ns/op	    4806 B/op	      60 allocs/op
+// BenchmarkLogger/seelog-8                	    3000	    556582 ns/op	   13129 B/op	     219 allocs/op
 func BenchmarkLogger(b *testing.B) {
 	b.Run("myBufferedLog", func(b *testing.B) {
 		benchmarkLogger(b, NewMyBufferedLog("log.txt"))
@@ -67,5 +75,4 @@ func BenchmarkLogger(b *testing.B) {
 	b.Run("seelog", func(b *testing.B) {
 		benchmarkLogger(b, NewSeeLog("log.txt"))
 	})
-
 }
