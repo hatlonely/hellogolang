@@ -49,3 +49,13 @@ import:
   version: ^0.9.0-pre1
 - package: github.com/yosuke-furukawa/json5
   version: ^0.1.1
+- package: github.com/cornelk/hashmap
+- package: github.com/kpango/glg
+  version: ^1.2.0
+- package: github.com/gogo/protobuf
+  version: ^1.0.0
+- package: go.uber.org/zap
+  version: ^1.8.0
+- package: github.com/golang/glog
+- package: github.com/ScottMansfield/nanolog
+  version: ^0.2.0
