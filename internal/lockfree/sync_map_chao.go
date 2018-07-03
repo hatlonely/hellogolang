@@ -1,7 +1,7 @@
 package lockfree
 
 // NewSyncMapChao create a new sync map
-func NewSyncMapChao(shards int, hashFunc HashFunc) *SyncMapChao {
+func NewSyncMapChao() *SyncMapChao {
 	tokenBuf := make(chan struct{}, 1)
 	tokenBuf <- struct{}{}
 	rwToken := token{false, tokenBuf}
@@ -27,8 +27,9 @@ func (m *SyncMapChao) Set(key interface{}, val interface{}) {
 	if _, exist := m.m[key]; !exist {
 		m.m[key] = val
 	} else {
-		if !m.rwToken.isReadOwner {
+		if m.rwToken.isReadOwner {
 			_ = <-m.rwToken.tokenBuf
+			m.rwToken.isReadOwner = false
 			m.m[key] = val
 			m.rwToken.tokenBuf <- struct{}{}
 		} else {
@@ -55,8 +56,9 @@ func (m *SyncMapChao) Del(key interface{}) {
 	if _, exist := m.m[key]; !exist {
 		m.m[key] = key
 	} else {
-		if !m.rwToken.isReadOwner {
+		if m.rwToken.isReadOwner {
 			_ = <-m.rwToken.tokenBuf
+			m.rwToken.isReadOwner = false
 			delete(m.m, key)
 			m.rwToken.tokenBuf <- struct{}{}
 		} else {
