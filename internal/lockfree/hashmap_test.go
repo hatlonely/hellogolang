@@ -143,7 +143,7 @@ func TestLockfreeMap(t *testing.T) {
 				hm.Set(i, i+1)
 			}
 			time.Sleep(time.Millisecond)
-			hm.show()
+			// hm.show()
 			for i := 0; i < 100; i++ {
 				val, ok := hm.Get(i)
 				So(ok, ShouldBeTrue)
@@ -178,7 +178,7 @@ func TestLockfreeMap(t *testing.T) {
 				}(i)
 			}
 			wg.Wait()
-			hm.show()
+			// hm.show()
 			t.Error()
 		})
 	})
@@ -278,7 +278,7 @@ type Map interface {
 
 func benchmarkMap(b *testing.B, hm Map) {
 	var wg sync.WaitGroup
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 1; i++ {
 		wg.Add(1)
 		go func() {
 			for i := 0; i < 100000; i++ {
@@ -310,22 +310,6 @@ func benchmarkMap(b *testing.B, hm Map) {
 	wg.Wait()
 }
 
-type MySyncMap struct {
-	m sync.Map
-}
-
-func (m *MySyncMap) Set(key interface{}, val interface{}) {
-	m.m.Store(key, val)
-}
-
-func (m *MySyncMap) Get(key interface{}) (interface{}, bool) {
-	return m.m.Load(key)
-}
-
-func (m *MySyncMap) Del(key interface{}) {
-	m.m.Delete(key)
-}
-
 func BenchmarkMultiThread(b *testing.B) {
 	b.Run("lockfree set/get/del", func(b *testing.B) {
 		hm := NewLockfreeMap(100, func(key interface{}) int {
@@ -348,8 +332,13 @@ func BenchmarkMultiThread(b *testing.B) {
 		benchmarkMap(b, hm)
 	})
 
-	b.Run("syncmap set/get/del", func(b *testing.B) {
-		hm := &MySyncMap{}
+	b.Run("std syncmap set/get/del", func(b *testing.B) {
+		hm := &StdSyncMap{}
 		benchmarkMap(b, hm)
 	})
+
+	// b.Run("chao syncmap set/get/del", func(b *testing.B) {
+	// 	hm := &SyncMapChao{}
+	// 	benchmarkMap(b, hm)
+	// })
 }
