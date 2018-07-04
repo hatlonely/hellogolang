@@ -76,9 +76,22 @@ func TestLogrus(t *testing.T) {
 			log.Formatter = &logrus.JSONFormatter{}
 			mylog := log.WithFields(logrus.Fields{"key1": "val1", "key2": 2})
 			mylog.WithFields(logrus.Fields{"animal": "walrus", "size": 10}).Infof("A group of walrus emerges from the ocean")
-			So(1, ShouldEqual, 2)
+		})
+
+		Convey("logrus my formatter", func() {
+			log := logrus.New()
+			log.Out = os.Stdout
+			log.Formatter = &MyFormatter{}
+			log.WithFields(logrus.Fields{"animal": "walrus", "size": 10}).Infof("A group of walrus emerges from the ocean")
 		})
 	})
+	t.Error()
+}
+
+type MyFormatter struct{}
+
+func (f *MyFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+	return []byte(entry.Time.Format("2006-01-02 15:04:05\t") + entry.Message), nil
 }
 
 func TestLogrusHook(t *testing.T) {
