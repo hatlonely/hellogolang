@@ -1,4 +1,4 @@
-package lockfree
+package syncmap
 
 import (
 	"math/rand"
