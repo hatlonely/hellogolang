@@ -336,9 +336,4 @@ func BenchmarkMultiThread(b *testing.B) {
 		hm := &StdSyncMap{}
 		benchmarkMap(b, hm)
 	})
-
-	b.Run("chao syncmap set/get/del", func(b *testing.B) {
-		hm := NewSyncMapChao()
-		benchmarkMap(b, hm)
-	})
 }
