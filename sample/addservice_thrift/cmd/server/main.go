@@ -27,6 +27,7 @@ func (s *AddServiceImpl) Add(ctx context.Context, request *addservice.AddRequest
 }
 
 func main() {
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	transport, err := thrift.NewTServerSocket(":3001")
 	if err != nil {
 		panic(err)
