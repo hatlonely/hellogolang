@@ -1,4 +1,19 @@
-hash: 59f6b83b49322e0e812f81b4ae608f59a3aa7b8b2a4b378d66653f78b52c22d6
-updated: 2018-07-05T10:47:25.901192+08:00
-imports: []
+hash: bcd9bf2dae11b650192aea7e45d639cd03f99879285f6e25887cd79b835e1be7
+updated: 2018-07-05T11:56:43.23509+08:00
+imports:
+- name: git.apache.org/thrift.git
+  version: 327ebb6c2b6df8bf075da02ef45a2a034e9b79ba
+  subpackages:
+  - lib/go/thrift
+- name: github.com/sirupsen/logrus
+  version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
+- name: golang.org/x/crypto
+  version: a49355c7e3f8fe157a85be2f77e6e269a0f89602
+  subpackages:
+  - ssh/terminal
+- name: golang.org/x/sys
+  version: 7138fd3d9dc8335c567ca206f4333fb75eb05d56
+  subpackages:
+  - unix
+  - windows
 testImports: []

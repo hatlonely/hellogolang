@@ -3,3 +3,4 @@ vendor/
 *.pb.go
 gen-go/
 .vscode/
+build/
