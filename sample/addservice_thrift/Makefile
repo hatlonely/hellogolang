@@ -5,12 +5,11 @@ all: build third vendor test stat
 
 build: cmd/*/*.go internal/*/*.go pkg/*/*.go scripts/version.sh Makefile vendor
 	@echo "compile"
-	@go build -ldflags "-X 'main.AppVersion=`sh scripts/version.sh`'" cmd/client/main.go && \
-	mkdir -p build/client/bin && mv main build/client/bin/client && \
-	go build -ldflags "-X 'main.AppVersion=`sh scripts/version.sh`'" cmd/server/main.go && \
+	@go build -ldflags "-X 'main.AppVersion=`sh scripts/version.sh`'" cmd/server/main.go && \
 	mkdir -p build/server/bin && mv main build/server/bin/server && \
-	mkdir -p build/config/bin && cp scripts/config build/config/bin && \
-	mkdir -p build/config/configs && cp configs/* build/config/configs
+	mkdir -p build/server/configs && cp configs/server/* build/server/configs && \
+	go build -ldflags "-X 'main.AppVersion=`sh scripts/version.sh`'" cmd/client/main.go && \
+	mkdir -p build/client/bin && mv main build/client/bin/client
 
 vendor: glide.lock glide.yaml
 	@echo "install golang dependency"
@@ -19,7 +18,7 @@ vendor: glide.lock glide.yaml
 .PHONY: api
 api:
 	@echo "generate protocol code"
-	@cd api && protoc --go_out=plugins=grpc:. add.proto
+	@thrift -r --gen go -o api/addservice api/addservice/add.thrift
 
 .PHONY: test
 test: vendor

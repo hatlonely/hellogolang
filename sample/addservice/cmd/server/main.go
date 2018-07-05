@@ -27,7 +27,6 @@ func (s *AddServiceImpl) Add(ctx context.Context, request *addservice.AddRequest
 	if rand.Int()%2 == 0 {
 		time.Sleep(time.Duration(200) * time.Millisecond)
 	}
-	// fmt.Println(request)
 	response := &addservice.AddResponse{
 		V: request.A + request.B,
 	}

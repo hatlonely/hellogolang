@@ -13,5 +13,5 @@ message AddResponse {
 }
 
 service AddService {
-    rpc Add (AddRequest) returns (AddResponse);
+    rpc add (AddRequest) returns (AddResponse);
 }
