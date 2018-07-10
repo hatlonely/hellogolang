@@ -34,14 +34,14 @@ func benchmarkMap(b *testing.B, hm Map) {
 }
 
 func BenchmarkSyncmap(b *testing.B) {
-	b.Run("my syncmap 1", func(b *testing.B) {
+	b.Run("mutex syncmap 1", func(b *testing.B) {
 		hm := NewMutexSyncMap(1, func(key interface{}) int {
 			return key.(int)
 		})
 		benchmarkMap(b, hm)
 	})
 
-	b.Run("my syncmap 100", func(b *testing.B) {
+	b.Run("mutex syncmap 100", func(b *testing.B) {
 		hm := NewMutexSyncMap(100, func(key interface{}) int {
 			return key.(int)
 		})
