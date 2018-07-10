@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package module;
+
+message Creative {
+	string url = 1; 
+	int32 videoLength = 2;
+	int32 videoSize = 3;
+	string videoResolution = 4;
+	int32 width = 5;
+	int32 height = 6;
+	int32 watchMile = 7;
+	int32 bitRate = 8;
+	int32 iValue = 9;
+	string sValue = 10;
+	double fValue = 11;
+	string resolution = 12;
+	string mime = 13;
+	string advCreativeId = 14;
+	int64 creativeId = 15;
+	string fMd5 = 16;
+	int32 source = 17;
+	int32 orientation = 18;
+	int32 protocal = 19;
+}
