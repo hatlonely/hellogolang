@@ -4,3 +4,6 @@ vendor/
 gen-go/
 .vscode/
 build/
+*.out
+*.svg
+*.test
