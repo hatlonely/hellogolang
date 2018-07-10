@@ -117,21 +117,18 @@ func BenchmarkProto(b *testing.B) {
 			_, _ = proto1.Marshal(creative1)
 		}
 	})
+
+	buf, err := proto2.Marshal(creative2)
+	if err != nil {
+		panic(err)
+	}
 	b.Run("protobuf unmarshal", func(b *testing.B) {
-		buf, err := proto2.Marshal(creative2)
-		if err != nil {
-			panic(err)
-		}
 		creative := &module2.Creative{}
 		for i := 0; i < b.N; i++ {
 			_ = proto2.Unmarshal(buf, creative)
 		}
 	})
 	b.Run("gogoproto unmarshal", func(b *testing.B) {
-		buf, err := proto1.Marshal(creative1)
-		if err != nil {
-			panic(err)
-		}
 		creative := &module1.Creative{}
 		for i := 0; i < b.N; i++ {
 			_ = proto1.Unmarshal(buf, creative)
