@@ -1,6 +1,7 @@
 package buildin
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -81,5 +82,42 @@ func TestReflectFunc(t *testing.T) {
 		So(reflect.ValueOf(a).MethodByName("Sum").CallSlice([]reflect.Value{
 			reflect.ValueOf([]int{30, 40, 50}),
 		})[0].Int(), ShouldEqual, 150)
+	})
+}
+
+
+func interfaceToStruct(d interface{}, v interface{}) error {
+	if reflect.ValueOf(v).Kind() != reflect.Ptr {
+		return fmt.Errorf("invalid value type")
+	}
+	rv := reflect.ValueOf(v).Elem()
+	rt := reflect.TypeOf(v).Elem()
+
+	for i := 0; i < rv.NumField(); i++ {
+		field := rv.Field(i)
+		switch rt.Field(i).Type.Kind() {
+		case reflect.Int:
+			field.Set(reflect.ValueOf(10))
+		case reflect.String:
+			field.Set(reflect.ValueOf("hatlonely"))
+		}
+	}
+
+	return nil
+}
+
+func TestInterfaceToStruct(t *testing.T) {
+	Convey("interface to struct", t, func() {
+		Convey("case1", func() {
+			v := &A{}
+			d := map[string]interface{} {
+				"f1": 10,
+				"f2": "hatlonely",
+			}
+
+			So(interfaceToStruct(d, v), ShouldBeNil)
+			So(v.F1, ShouldEqual, 10)
+			So(v.F2, ShouldEqual, "hatlonely")
+		})
 	})
 }
