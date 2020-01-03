@@ -44,8 +44,6 @@ require (
 	github.com/json-iterator/go v1.1.8
 	github.com/kpango/glg v1.4.6
 	github.com/mailru/easyjson v0.7.0
-	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
-	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
