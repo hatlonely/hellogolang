@@ -5,6 +5,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 	"math"
 	"math/big"
+	"math/bits"
 	"testing"
 )
 
@@ -182,5 +183,19 @@ func TestFloat(t *testing.T) {
 
 		f.SetString("123.456")
 		So(f.Text('g', 10), ShouldEqual, "123.456")
+	})
+}
+
+func TestBits(t *testing.T) {
+	Convey("test bits", t, func() {
+		So(bits.LeadingZeros16(0x00F0), ShouldEqual, 8)
+		So(bits.TrailingZeros16(0x00F0), ShouldEqual, 4)
+		So(bits.OnesCount16(0xF0), ShouldEqual, 4)
+		So(bits.Reverse16(0xFF), ShouldEqual, 0xFF00)
+		So(bits.RotateLeft16(0xFF00, 4), ShouldEqual, 0xF00F)
+
+		sum, carry := bits.Add(uint(math.MaxUint64), 100, 1)
+		So(sum, ShouldEqual, 100)
+		So(carry, ShouldEqual, 1)
 	})
 }
