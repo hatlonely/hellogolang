@@ -1,12 +1,15 @@
 package buildin
 
 import (
+	"encoding/hex"
 	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
 	"math"
 	"math/big"
 	"math/bits"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func TestMath(t *testing.T) {
@@ -197,5 +200,55 @@ func TestBits(t *testing.T) {
 		sum, carry := bits.Add(uint(math.MaxUint64), 100, 1)
 		So(sum, ShouldEqual, 100)
 		So(carry, ShouldEqual, 1)
+	})
+}
+
+func TestRand(t *testing.T) {
+	Convey("test rand", t, func() {
+		// 全局 rand，有锁
+		Convey("global rand", func() {
+			rand.Seed(time.Now().UnixNano())
+			fmt.Println(rand.Int())
+			fmt.Println(rand.Intn(100))
+			fmt.Println(rand.Int31())
+			fmt.Println(rand.Int31n(100))
+			fmt.Println(rand.Int63())
+			fmt.Println(rand.Int63n(100))
+			fmt.Println(rand.Uint32())
+			fmt.Println(rand.Uint64())
+			fmt.Println(rand.Float32())
+			fmt.Println(rand.Float64())
+			fmt.Println(rand.NormFloat64())	// 标准分布
+			fmt.Println(rand.ExpFloat64())	// 指数分布
+			fmt.Println(rand.Perm(10))	// [0,n) 的随机排列
+		})
+
+		// 可在协程内自己定义 rand，减少锁的竞争
+		Convey("my rand", func() {
+			myrand := rand.New(rand.NewSource(time.Now().UnixNano()))
+			fmt.Println(myrand.Int())
+			fmt.Println(myrand.Intn(100))
+			fmt.Println(myrand.Int31())
+			fmt.Println(myrand.Int31n(100))
+			fmt.Println(myrand.Int63())
+			fmt.Println(myrand.Int63n(100))
+			fmt.Println(myrand.Uint32())
+			fmt.Println(myrand.Uint64())
+			fmt.Println(myrand.Float32())
+			fmt.Println(myrand.Float64())
+			fmt.Println(myrand.NormFloat64())	// 标准分布
+			fmt.Println(myrand.ExpFloat64())	// 指数分布的 float64
+			fmt.Println(myrand.Perm(10))	// [0,n) 的随机排列
+		})
+
+		// 生成随机字节
+		Convey("read", func() {
+			token := make([]byte, 16)
+			rand.Read(token)
+
+			buf := make([]byte, 32)
+			hex.Encode(buf, token)
+			fmt.Println(string(buf))
+		})
 	})
 }
