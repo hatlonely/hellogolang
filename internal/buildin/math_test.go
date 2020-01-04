@@ -1,6 +1,7 @@
 package buildin
 
 import (
+	"fmt"
 	. "github.com/smartystreets/goconvey/convey"
 	"math"
 	"math/big"
@@ -140,5 +141,46 @@ func TestBig(t *testing.T) {
 		i.SetString("12345678", 10)
 		So(i, ShouldResemble, big.NewInt(12345678))
 		So(i.Text(10), ShouldEqual, "12345678")
+	})
+}
+
+func TestRat(t *testing.T) {
+	Convey("test rat", t, func() {
+		r := big.NewRat(0, 1)
+		So(r.Abs(big.NewRat(-1, 3)), ShouldResemble, big.NewRat(1, 3))
+		So(r.Neg(big.NewRat(1, 3)), ShouldResemble, big.NewRat(-1, 3))
+		So(r.Inv(big.NewRat(123, 456)), ShouldResemble, big.NewRat(456, 123))
+		So(r.Add(big.NewRat(1, 3), big.NewRat(1, 4)), ShouldResemble, big.NewRat(7, 12))
+		So(r.Mul(big.NewRat(1, 3), big.NewRat(3, 4)), ShouldResemble, big.NewRat(1, 4))
+		So(r.Sub(big.NewRat(1, 3), big.NewRat(1, 4)), ShouldResemble, big.NewRat(1, 12))
+		f64, ok := big.NewRat(1, 3).Float64()
+		So(f64, ShouldAlmostEqual, 1.0/3.0)
+		So(ok, ShouldBeFalse)
+		f32, ok := big.NewRat(1, 3).Float32()
+		So(f32, ShouldAlmostEqual, 1.0/3.0, 0.000001)
+		So(ok, ShouldBeFalse)
+		So(big.NewRat(6, 9).Denom(), ShouldResemble, big.NewInt(3)) // 分母
+		So(big.NewRat(6, 9).Num(), ShouldResemble, big.NewInt(2))   // 分子
+		So(big.NewRat(1, 3).Sign(), ShouldEqual, 1)
+		So(big.NewRat(1, 3).Cmp(big.NewRat(1, 4)), ShouldEqual, 1)
+
+		r.SetString("123/456")
+		So(r, ShouldResemble, big.NewRat(123, 456))
+		So(r.String(), ShouldEqual, "41/152")
+		So(r.RatString(), ShouldEqual, "41/152")
+	})
+}
+
+func TestFloat(t *testing.T) {
+	Convey("test float", t, func() {
+		f := big.NewFloat(1.23)
+		So(f.Abs(big.NewFloat(-1.23)), ShouldResemble, big.NewFloat(1.23))
+		So(f.Neg(big.NewFloat(1.23)), ShouldResemble, big.NewFloat(-1.23))
+		fmt.Println(f.Add(big.NewFloat(1.23), big.NewFloat(4.56)))
+		fmt.Println(f.Sub(big.NewFloat(1.23), big.NewFloat(4.56)))
+		fmt.Println(f.Mul(big.NewFloat(1.23), big.NewFloat(4.56)))
+
+		f.SetString("123.456")
+		So(f.Text('g', 10), ShouldEqual, "123.456")
 	})
 }
