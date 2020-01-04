@@ -3,6 +3,7 @@ package buildin
 import (
 	. "github.com/smartystreets/goconvey/convey"
 	"math"
+	"math/big"
 	"testing"
 )
 
@@ -100,5 +101,44 @@ func TestMath(t *testing.T) {
 
 		So(math.IsInf(math.Inf(1), 1), ShouldBeTrue) // 无穷
 		So(math.IsNaN(math.NaN()), ShouldBeTrue)     // 不是一个数
+	})
+}
+
+func TestBig(t *testing.T) {
+	Convey("test big int", t, func() {
+		i := big.NewInt(0)
+		So(i.Abs(big.NewInt(-123)), ShouldResemble, big.NewInt(123))
+		So(i.Neg(big.NewInt(-123)), ShouldResemble, big.NewInt(123))
+		So(i.Neg(big.NewInt(123)), ShouldResemble, big.NewInt(-123))
+		So(i.Add(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123+456))
+		So(i.Mul(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123*456))
+		So(i.Sub(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123-456))
+		So(i.Div(big.NewInt(456), big.NewInt(123)), ShouldResemble, big.NewInt(456/123))
+		So(i.Mod(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123%456))
+		So(i.Rem(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123%456))
+		So(i.Sqrt(big.NewInt(123)), ShouldResemble, big.NewInt(int64(math.Sqrt(123))))
+		So(i.Exp(big.NewInt(2), big.NewInt(4), big.NewInt(10000)), ShouldResemble, big.NewInt(int64(math.Pow(2, 4))%10000))
+		So(i.GCD(nil, nil, big.NewInt(24), big.NewInt(36)), ShouldResemble, big.NewInt(12))
+
+		So(i.And(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123&456))
+		So(i.Or(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123|456))
+		So(i.AndNot(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123&(^456)))
+		So(i.Xor(big.NewInt(123), big.NewInt(456)), ShouldResemble, big.NewInt(123^456))
+		So(big.NewInt(123).Cmp(big.NewInt(456)), ShouldEqual, -1)
+		So(big.NewInt(123).CmpAbs(big.NewInt(-456)), ShouldEqual, -1)
+		So(big.NewInt(67).ProbablyPrime(2), ShouldBeTrue) // 是质数的概率 1 - 1/4^n
+		So(i.Lsh(big.NewInt(123), 3), ShouldResemble, big.NewInt(123<<3))
+		So(i.Rsh(big.NewInt(123), 3), ShouldResemble, big.NewInt(123>>3))
+
+		// bitset
+		i = big.NewInt(0)
+		i.SetBit(i, 3, 1)
+		So(i.Bit(3), ShouldEqual, 1)
+		i.SetBit(i, 3, 0)
+		So(i.Bit(3), ShouldEqual, 0)
+
+		i.SetString("12345678", 10)
+		So(i, ShouldResemble, big.NewInt(12345678))
+		So(i.Text(10), ShouldEqual, "12345678")
 	})
 }
