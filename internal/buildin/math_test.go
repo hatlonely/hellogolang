@@ -3,13 +3,14 @@ package buildin
 import (
 	"encoding/hex"
 	"fmt"
-	. "github.com/smartystreets/goconvey/convey"
 	"math"
 	"math/big"
 	"math/bits"
 	"math/rand"
 	"testing"
 	"time"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestMath(t *testing.T) {
@@ -218,9 +219,9 @@ func TestRand(t *testing.T) {
 			fmt.Println(rand.Uint64())
 			fmt.Println(rand.Float32())
 			fmt.Println(rand.Float64())
-			fmt.Println(rand.NormFloat64())	// 标准分布
-			fmt.Println(rand.ExpFloat64())	// 指数分布
-			fmt.Println(rand.Perm(10))	// [0,n) 的随机排列
+			fmt.Println(rand.NormFloat64()) // 标准分布
+			fmt.Println(rand.ExpFloat64())  // 指数分布
+			fmt.Println(rand.Perm(10))      // [0,n) 的随机排列
 		})
 
 		// 可在协程内自己定义 rand，减少锁的竞争
@@ -236,9 +237,9 @@ func TestRand(t *testing.T) {
 			fmt.Println(myrand.Uint64())
 			fmt.Println(myrand.Float32())
 			fmt.Println(myrand.Float64())
-			fmt.Println(myrand.NormFloat64())	// 标准分布
-			fmt.Println(myrand.ExpFloat64())	// 指数分布的 float64
-			fmt.Println(myrand.Perm(10))	// [0,n) 的随机排列
+			fmt.Println(myrand.NormFloat64()) // 标准分布
+			fmt.Println(myrand.ExpFloat64())  // 指数分布的 float64
+			fmt.Println(myrand.Perm(10))      // [0,n) 的随机排列
 		})
 
 		// 生成随机字节
@@ -249,6 +250,15 @@ func TestRand(t *testing.T) {
 			buf := make([]byte, 32)
 			hex.Encode(buf, token)
 			fmt.Println(string(buf))
+		})
+
+		Convey("shuffle", func() {
+			ia := []int{1, 2, 3, 4, 5, 6, 7, 8}
+			rand.Shuffle(len(ia), func(i, j int) {
+				ia[i], ia[j] = ia[j], ia[i]
+			})
+
+			fmt.Println(ia)
 		})
 	})
 }
