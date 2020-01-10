@@ -2,142 +2,142 @@ package buildin
 
 import (
 	"bufio"
-	"crypto/subtle"
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
+	"sync"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestFileRW(t *testing.T) {
-	Convey("Given 给一个文件名以及文件的内容", t, func() {
-		filename := "text.txt"
-		context := "hello world!"
-
-		Convey("When 使用ioutil写入文件内容", func() {
-			err := ioutil.WriteFile(filename, []byte(context), 0644)
+func TestCopy(t *testing.T) {
+	Convey("test copy", t, func() {
+		{
+			reader := strings.NewReader("人生不发行往返车票，一旦出发了就再也不会归来了")
+			writer := &bytes.Buffer{}
+			n, err := io.Copy(writer, reader)
 			So(err, ShouldBeNil)
-		})
-
-		Convey("When 使用ioutil读文件内容", func() {
-			buf, err := ioutil.ReadFile(filename)
-			So(err, ShouldBeNil)
-			So(subtle.ConstantTimeCompare(buf, []byte(context)), ShouldEqual, 1)
-		})
-
-		Convey("When 使用os写入文件内容", func() {
-			fp, err := os.Create(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
-
-			num, err := fp.WriteString(context)
-			So(num, ShouldEqual, len(context))
-			So(err, ShouldBeNil)
-
-			err = fp.Sync()
-			So(err, ShouldBeNil)
-		})
-
-		Convey("When 使用os读文件内容", func() {
-			fp, err := os.Open(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
-			So(fp, ShouldNotBeNil)
-
-			buf := make([]byte, 1024)
-			num, err := fp.Read(buf)
-			So(err, ShouldBeNil)
-			So(num, ShouldEqual, len(context))
-			So(string(buf[0:num]), ShouldEqual, context)
-		})
-
-		Convey("When 使用bufio写入文件内容", func() {
-			fp, err := os.Create(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
-
-			writer := bufio.NewWriter(fp)
-			num, err := writer.WriteString(context)
-			So(num, ShouldEqual, len(context))
-			So(err, ShouldBeNil)
-
-			err = writer.Flush()
-			So(err, ShouldBeNil)
-		})
-
-		Convey("When 使用bufio读取文件内容", func() {
-			fp, err := os.Open(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
-
-			reader := bufio.NewReader(fp)
-			buf := make([]byte, 1024)
-			num, err := reader.Read(buf)
-			So(err, ShouldBeNil)
-			So(num, ShouldEqual, len(context))
-			So(string(buf[0:num]), ShouldEqual, context)
-		})
-
-		Convey("When 使用fmt写入文件内容", func() {
-			fp, err := os.Create(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
-
-			num, err := fmt.Fprintf(fp, context)
-			So(err, ShouldBeNil)
-			So(num, ShouldEqual, len(context))
-		})
-
-		Convey("Finally 文件删除", func() {
-			os.Remove(filename)
-		})
+			So(n, ShouldEqual, reader.Size())
+			So(writer.String(), ShouldEqual, "人生不发行往返车票，一旦出发了就再也不会归来了")
+		}
 	})
 }
 
-func TestFileTravel(t *testing.T) {
-	Convey("Given 一个文件", t, func() {
-		filename := "text.txt"
-		context := "hello world!\nhello golang!\n"
-		err := ioutil.WriteFile(filename, []byte(context), 0644)
-		So(err, ShouldBeNil)
+func TestPipe(t *testing.T) {
+	Convey("test pipe", t, func() {
+		var wg sync.WaitGroup
+		var buf []byte
 
-		Convey("When 使用bufio.scanner逐行读取", func() {
-			fp, err := os.Open(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
+		wg.Add(2)
+		reader, writer := io.Pipe()
+		go func() {
+			_, _ = writer.Write([]byte("把活着的每一天看作生命的最后一天"))
+			_ = writer.Close()
+			wg.Done()
+		}()
+		go func() {
+			buf, _ = ioutil.ReadAll(reader)
+			wg.Done()
+		}()
+		wg.Wait()
+		So(string(buf), ShouldEqual, "把活着的每一天看作生命的最后一天")
+	})
+}
 
-			scanner := bufio.NewScanner(fp)
-			for scanner.Scan() {
-				Println(scanner.Text())
-			}
+func TestReader(t *testing.T) {
+	Convey("test reader", t, func() {
+		{
+			reader := io.LimitReader(strings.NewReader("01234567890123456789"), 10)
+			buf, _ := ioutil.ReadAll(reader)
+			So(string(buf), ShouldEqual, "0123456789")
+		}
+		{
+			reader := io.MultiReader(
+				strings.NewReader("永远努力在你的生活之上保留一片天空\n"),
+				strings.NewReader("成熟意味着停止展示自己，并学会隐藏自己\n"),
+			)
+			buf, _ := ioutil.ReadAll(reader)
+			So(string(buf), ShouldEqual, "永远努力在你的生活之上保留一片天空\n成熟意味着停止展示自己，并学会隐藏自己\n")
+		}
+		{
+			writer := &bytes.Buffer{}
+			reader := io.TeeReader(
+				strings.NewReader("生命的长短以时间来计算，生命的价值以贡献来计算"),
+				writer,
+			)
+			buf, _ := ioutil.ReadAll(reader)
+			So(string(buf), ShouldEqual, "生命的长短以时间来计算，生命的价值以贡献来计算")
+			So(writer.String(), ShouldEqual, "生命的长短以时间来计算，生命的价值以贡献来计算")
+		}
+	})
+}
 
-			So(scanner.Err(), ShouldBeNil)
+func TestFileReadWrite(t *testing.T) {
+	Convey("test file read/writer", t, func() {
+		Convey("test ioutil", func() {
+			So(ioutil.WriteFile("test.txt", []byte("人生天地之间，若白驹过隙，忽然而已"), 0644), ShouldBeNil)
+			buf, _ := ioutil.ReadFile("test.txt")
+			So(string(buf), ShouldEqual, "人生天地之间，若白驹过隙，忽然而已")
 		})
-
-		Convey("When 使用bufio.reader逐行读取", func() {
-			fp, err := os.Open(filename)
-			defer fp.Close()
-			So(err, ShouldBeNil)
-
-			reader := bufio.NewReader(fp)
-			var line string
-			for {
-				line, err = reader.ReadString('\n')
-				if err != nil {
-					break
+		Convey("test bufio", func() {
+			{
+				fp, _ := os.OpenFile("test.txt", os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+				writer := bufio.NewWriter(fp)
+				_, _ = writer.WriteString("居安思危\n思则有备\n有备无患")
+				_ = writer.Flush()
+				fp.Close()
+			}
+			{
+				fp, _ := os.Open("test.txt")
+				reader := bufio.NewReader(fp)
+				buf := bytes.Buffer{}
+				for {
+					line, err := reader.ReadString('\n')
+					buf.WriteString(line)
+					if err != nil {
+						break
+					}
 				}
-				Println(line[0 : len(line)-1])
+				So(buf.String(), ShouldEqual, "居安思危\n思则有备\n有备无患")
+				fp.Close()
 			}
-			So(err, ShouldEqual, io.EOF)
+			{
+				fp, _ := os.Open("test.txt")
+				scanner := bufio.NewScanner(fp)
+				buf := bytes.Buffer{}
+				for scanner.Scan() {
+					buf.WriteString(scanner.Text() + "\n")
+				}
+				So(buf.String(), ShouldEqual, "居安思危\n思则有备\n有备无患\n")
+				fp.Close()
+			}
 		})
-
-		Convey("Finally 文件删除", func() {
-			os.Remove(filename)
+		Convey("test fmt", func() {
+			{
+				fp, _ := os.OpenFile("test.txt", os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+				_, _ = fmt.Fprint(fp, "居安思危\n思则有备\n有备无患")
+				fp.Close()
+			}
+			{
+				fp, _ := os.Open("test.txt")
+				buf := bytes.Buffer{}
+				for {
+					var line string
+					_, err := fmt.Fscan(fp, &line)
+					if err != nil {
+						break
+					}
+					buf.WriteString(line + "\n")
+				}
+				So(buf.String(), ShouldEqual, "居安思危\n思则有备\n有备无患\n")
+			}
 		})
+		_ = os.RemoveAll("test.txt")
 	})
 }
 
@@ -147,7 +147,7 @@ func TestDirTravel(t *testing.T) {
 		Convey("When 使用filepath遍历（递归）", func() {
 			var paths []string
 			var names []string
-			filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+			_ = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 				if info.IsDir() {
 					return nil
 				}
