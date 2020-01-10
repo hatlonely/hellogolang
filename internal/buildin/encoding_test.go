@@ -6,6 +6,7 @@ import (
 	"encoding/base32"
 	"encoding/base64"
 	"encoding/csv"
+	"encoding/hex"
 	"io"
 	"testing"
 
@@ -170,6 +171,65 @@ func TestBase32(t *testing.T) {
 			_, _ = writer.Write([]byte("world"))
 			_ = writer.Close()
 			So(buffer.String(), ShouldEqual, "NBSWY3DPEB3W64TMMQ======")
+		}
+	})
+}
+
+func TestHex(t *testing.T) {
+	Convey("test hex encode/decode", t, func() {
+		{
+			buf := make([]byte, 32)
+			n := hex.Encode(buf, []byte("hello world"))
+			So(buf[0:n], ShouldResemble, []byte("68656c6c6f20776f726c64"))
+		}
+		{
+			buf := make([]byte, 32)
+			n, _ := hex.Decode(buf, []byte("68656c6c6f20776f726c64"))
+			So(buf[0:n], ShouldResemble, []byte("hello world"))
+		}
+	})
+
+	Convey("test hex encode/decode to string", t, func() {
+		{
+			So(hex.EncodeToString([]byte("hello world")), ShouldEqual, "68656c6c6f20776f726c64")
+		}
+		{
+			buf, _ := hex.DecodeString("68656c6c6f20776f726c64")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+	})
+
+	Convey("test hex dump", t, func() {
+		{
+			So(hex.Dump([]byte("hello world")), ShouldEqual, "00000000  68 65 6c 6c 6f 20 77 6f  72 6c 64                 |hello world|\n")
+		}
+		{
+			buffer := &bytes.Buffer{}
+			writer := hex.Dumper(buffer)
+			_, _ = writer.Write([]byte("hello world"))
+			_ = writer.Close()
+			So(buffer.String(), ShouldEqual, "00000000  68 65 6c 6c 6f 20 77 6f  72 6c 64                 |hello world|\n")
+		}
+	})
+
+	Convey("test hex encoder/decoder", t, func() {
+		{
+			reader := hex.NewDecoder(bytes.NewReader([]byte("68656c6c6f20776f726c64")))
+			buffer := &bytes.Buffer{}
+			buf := make([]byte, 4)
+			for n, err := reader.Read(buf); err != io.EOF; n, err = reader.Read(buf) {
+				_, _ = buffer.Write(buf[0:n])
+			}
+			So(buffer.String(), ShouldEqual, "hello world")
+		}
+		{
+			buffer := &bytes.Buffer{}
+			writer := hex.NewEncoder(buffer)
+			_, _ = writer.Write([]byte("hello"))
+			_, _ = writer.Write([]byte(" "))
+			_, _ = writer.Write([]byte("world"))
+			_ = writer
+			So(buffer.String(), ShouldEqual, "68656c6c6f20776f726c64")
 		}
 	})
 }
