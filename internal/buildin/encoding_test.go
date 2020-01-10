@@ -3,6 +3,7 @@ package buildin
 import (
 	"bytes"
 	"encoding/ascii85"
+	"encoding/base32"
 	"encoding/base64"
 	"io"
 	"testing"
@@ -117,6 +118,57 @@ func TestBase64(t *testing.T) {
 			_, _ = writer.Write([]byte("world"))
 			_ = writer.Close()
 			So(buffer.String(), ShouldEqual, "aGVsbG8gd29ybGQ=")
+		}
+	})
+}
+
+func TestBase32(t *testing.T) {
+	Convey("test base32 encode/decode", t, func() {
+		{
+			buf := make([]byte, 32)
+			base32.StdEncoding.Encode(buf, []byte("hello world"))
+			So(buf[0:base32.StdEncoding.EncodedLen(len("hello world"))], ShouldResemble, []byte("NBSWY3DPEB3W64TMMQ======"))
+		}
+		{
+			buf := make([]byte, 32)
+			n, _ := base32.StdEncoding.Decode(buf, []byte("NBSWY3DPEB3W64TMMQ======"))
+			So(buf[0:n], ShouldResemble, []byte("hello world"))
+		}
+	})
+
+	Convey("test base32 encode/decode to string", t, func() {
+		{
+			So(base32.StdEncoding.EncodeToString([]byte("hello world")), ShouldEqual, "NBSWY3DPEB3W64TMMQ======")
+			So(base32.HexEncoding.EncodeToString([]byte("hello world")), ShouldEqual, "D1IMOR3F41RMUSJCCG======")
+		}
+		{
+			buf, _ := base32.StdEncoding.DecodeString("NBSWY3DPEB3W64TMMQ======")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+		{
+			buf, _ := base32.HexEncoding.DecodeString("D1IMOR3F41RMUSJCCG======")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+	})
+
+	Convey("test base32 encoder/decoder", t, func() {
+		{
+			buf := make([]byte, 4)
+			reader := base32.NewDecoder(base32.StdEncoding, bytes.NewReader([]byte("NBSWY3DPEB3W64TMMQ======")))
+			writer := &bytes.Buffer{}
+			for n, err := reader.Read(buf); err != io.EOF; n, err = reader.Read(buf) {
+				_, _ = writer.Write(buf[0:n])
+			}
+			So(writer.String(), ShouldEqual, "hello world")
+		}
+		{
+			buffer := &bytes.Buffer{}
+			writer := base32.NewEncoder(base32.StdEncoding, buffer)
+			_, _ = writer.Write([]byte("hello"))
+			_, _ = writer.Write([]byte(" "))
+			_, _ = writer.Write([]byte("world"))
+			_ = writer.Close()
+			So(buffer.String(), ShouldEqual, "NBSWY3DPEB3W64TMMQ======")
 		}
 	})
 }
