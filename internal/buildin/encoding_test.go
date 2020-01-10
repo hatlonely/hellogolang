@@ -5,6 +5,7 @@ import (
 	"encoding/ascii85"
 	"encoding/base32"
 	"encoding/base64"
+	"encoding/csv"
 	"io"
 	"testing"
 
@@ -28,13 +29,13 @@ func TestAscii85(t *testing.T) {
 
 	Convey("test ascii85 encoder/decoder", t, func() {
 		{
-			buf := make([]byte, 4)
 			reader := ascii85.NewDecoder(bytes.NewReader([]byte("BOu!rD]j7BEbo7")))
-			writer := &bytes.Buffer{}
+			buffer := &bytes.Buffer{}
+			buf := make([]byte, 4)
 			for n, err := reader.Read(buf); err != io.EOF; n, err = reader.Read(buf) {
-				_, _ = writer.Write(buf[0:n])
+				_, _ = buffer.Write(buf[0:n])
 			}
-			So(writer.String(), ShouldEqual, "hello world")
+			So(buffer.String(), ShouldEqual, "hello world")
 		}
 		{
 			buffer := &bytes.Buffer{}
@@ -102,13 +103,13 @@ func TestBase64(t *testing.T) {
 
 	Convey("test base64 encoder/decoder", t, func() {
 		{
-			buf := make([]byte, 4)
 			reader := base64.NewDecoder(base64.StdEncoding, bytes.NewReader([]byte("aGVsbG8gd29ybGQ=")))
-			writer := &bytes.Buffer{}
+			buffer := &bytes.Buffer{}
+			buf := make([]byte, 4)
 			for n, err := reader.Read(buf); err != io.EOF; n, err = reader.Read(buf) {
-				_, _ = writer.Write(buf[0:n])
+				_, _ = buffer.Write(buf[0:n])
 			}
-			So(writer.String(), ShouldEqual, "hello world")
+			So(buffer.String(), ShouldEqual, "hello world")
 		}
 		{
 			buffer := &bytes.Buffer{}
@@ -153,13 +154,13 @@ func TestBase32(t *testing.T) {
 
 	Convey("test base32 encoder/decoder", t, func() {
 		{
-			buf := make([]byte, 4)
 			reader := base32.NewDecoder(base32.StdEncoding, bytes.NewReader([]byte("NBSWY3DPEB3W64TMMQ======")))
-			writer := &bytes.Buffer{}
+			buffer := &bytes.Buffer{}
+			buf := make([]byte, 4)
 			for n, err := reader.Read(buf); err != io.EOF; n, err = reader.Read(buf) {
-				_, _ = writer.Write(buf[0:n])
+				_, _ = buffer.Write(buf[0:n])
 			}
-			So(writer.String(), ShouldEqual, "hello world")
+			So(buffer.String(), ShouldEqual, "hello world")
 		}
 		{
 			buffer := &bytes.Buffer{}
@@ -169,6 +170,47 @@ func TestBase32(t *testing.T) {
 			_, _ = writer.Write([]byte("world"))
 			_ = writer.Close()
 			So(buffer.String(), ShouldEqual, "NBSWY3DPEB3W64TMMQ======")
+		}
+	})
+}
+
+func TestCsv(t *testing.T) {
+	Convey("test csv", t, func() {
+		{
+			reader := csv.NewReader(bytes.NewReader([]byte("field1,field2,field3\n1,2,3\n")))
+			rs, _ := reader.ReadAll()
+			So(rs, ShouldResemble, [][]string{
+				{"field1", "field2", "field3"},
+				{"1", "2", "3"},
+			})
+		}
+		{
+			reader := csv.NewReader(bytes.NewReader([]byte("field1,field2,field3\n1,2,3\n")))
+			var rs [][]string
+			for r, err := reader.Read(); err != io.EOF; r, err = reader.Read() {
+				rs = append(rs, r)
+			}
+			So(rs, ShouldResemble, [][]string{
+				{"field1", "field2", "field3"},
+				{"1", "2", "3"},
+			})
+		}
+		{
+			buffer := &bytes.Buffer{}
+			writer := csv.NewWriter(buffer)
+			_ = writer.WriteAll([][]string{
+				{"field1", "field2", "field3"},
+				{"1", "2", "3"},
+			})
+			So(buffer.String(), ShouldEqual, "field1,field2,field3\n1,2,3\n")
+		}
+		{
+			buffer := &bytes.Buffer{}
+			writer := csv.NewWriter(buffer)
+			_ = writer.Write([]string{"field1", "field2", "field3"})
+			_ = writer.Write([]string{"1", "2", "3"})
+			writer.Flush()
+			So(buffer.String(), ShouldEqual, "field1,field2,field3\n1,2,3\n")
 		}
 	})
 }
