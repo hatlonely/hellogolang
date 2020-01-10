@@ -3,6 +3,7 @@ package buildin
 import (
 	"bytes"
 	"encoding/ascii85"
+	"encoding/base64"
 	"io"
 	"testing"
 
@@ -55,6 +56,67 @@ func TestAscii85(t *testing.T) {
 			buf := make([]byte, 32)
 			n, _, _ := ascii85.Decode(buf, []byte("jLq5JV7ks\"QKONl"), true)
 			So(buf[0:n], ShouldResemble, []byte("你好世界"))
+		}
+	})
+}
+
+func TestBase64(t *testing.T) {
+	Convey("test base64 encode/decode", t, func() {
+		{
+			buf := make([]byte, 32)
+			base64.StdEncoding.Encode(buf, []byte("hello world"))
+			So(buf[0:base64.StdEncoding.EncodedLen(len("hello world"))], ShouldResemble, []byte("aGVsbG8gd29ybGQ="))
+		}
+		{
+			buf := make([]byte, 32)
+			n, _ := base64.StdEncoding.Decode(buf, []byte("aGVsbG8gd29ybGQ="))
+			So(buf[0:n], ShouldResemble, []byte("hello world"))
+		}
+	})
+
+	Convey("test base64 encode/decode to string", t, func() {
+		{
+			So(base64.StdEncoding.EncodeToString([]byte("hello world")), ShouldEqual, "aGVsbG8gd29ybGQ=")
+			So(base64.URLEncoding.EncodeToString([]byte("hello world")), ShouldEqual, "aGVsbG8gd29ybGQ=")
+			So(base64.RawStdEncoding.EncodeToString([]byte("hello world")), ShouldEqual, "aGVsbG8gd29ybGQ")
+			So(base64.RawURLEncoding.EncodeToString([]byte("hello world")), ShouldEqual, "aGVsbG8gd29ybGQ")
+		}
+		{
+			buf, _ := base64.StdEncoding.DecodeString("aGVsbG8gd29ybGQ=")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+		{
+			buf, _ := base64.URLEncoding.DecodeString("aGVsbG8gd29ybGQ=")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+		{
+			buf, _ := base64.RawStdEncoding.DecodeString("aGVsbG8gd29ybGQ")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+		{
+			buf, _ := base64.RawURLEncoding.DecodeString("aGVsbG8gd29ybGQ")
+			So(buf, ShouldResemble, []byte("hello world"))
+		}
+	})
+
+	Convey("test base64 encoder/decoder", t, func() {
+		{
+			buf := make([]byte, 4)
+			reader := base64.NewDecoder(base64.StdEncoding, bytes.NewReader([]byte("aGVsbG8gd29ybGQ=")))
+			writer := &bytes.Buffer{}
+			for n, err := reader.Read(buf); err != io.EOF; n, err = reader.Read(buf) {
+				_, _ = writer.Write(buf[0:n])
+			}
+			So(writer.String(), ShouldEqual, "hello world")
+		}
+		{
+			buffer := &bytes.Buffer{}
+			writer := base64.NewEncoder(base64.StdEncoding, buffer)
+			_, _ = writer.Write([]byte("hello"))
+			_, _ = writer.Write([]byte(" "))
+			_, _ = writer.Write([]byte("world"))
+			_ = writer.Close()
+			So(buffer.String(), ShouldEqual, "aGVsbG8gd29ybGQ=")
 		}
 	})
 }
