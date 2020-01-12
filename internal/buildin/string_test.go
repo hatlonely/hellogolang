@@ -10,15 +10,15 @@ import (
 )
 
 func TestString(t *testing.T) {
-	Convey("字符串测试", t, func() {
-		Convey("字符串比较", func() {
+	Convey("test string", t, func() {
+		Convey("string compare", func() {
 			name := "hatlonely"
 			So(strings.Compare(name, "playjokes"), ShouldEqual, -1)
 			So(strings.Compare(name, "hatlonely"), ShouldEqual, 0)
 			So(name == "hatlonely", ShouldBeTrue)
 		})
 
-		Convey("字符串断言", func() {
+		Convey("string predicate", func() {
 			words := "stay hungry, stay foolish"
 			So(strings.Contains(words, "hungry"), ShouldBeTrue)
 			So(strings.ContainsAny(words, " \t\n"), ShouldBeTrue)
@@ -26,7 +26,7 @@ func TestString(t *testing.T) {
 			So(strings.HasSuffix(words, "foolish"), ShouldBeTrue)
 		})
 
-		Convey("字符串查找", func() {
+		Convey("string find", func() {
 			// unicode 编码，一个中文占三个字符，数字和字母占一个字符，可以 rune 修饰中文字符
 			words := "遇见你，就好像见到了120斤的运气"
 			So(len(words), ShouldEqual, 45)
@@ -56,25 +56,55 @@ func TestString(t *testing.T) {
 			So("0123456789"[7:], ShouldEqual, "789")
 		})
 
-		Convey("字符串转化", func() {
-			i32, _ := strconv.Atoi("123456")
-			So(i32, ShouldEqual, 123456)
-			// 10 进制，64位存储
-			i64, _ := strconv.ParseInt("123456", 10, 64)
-			So(i64, ShouldEqual, 123456)
+		Convey("string convert", func() {
+			b, _ := strconv.ParseBool("true")
+			So(b, ShouldEqual, true)
 
-			So(strconv.Itoa(i32), ShouldEqual, "123456")
-			// 10 进制
-			So(strconv.FormatInt(i64, 10), ShouldEqual, "123456")
+			i, _ := strconv.Atoi("123456")
+			So(i, ShouldEqual, 123456)
 
-			f64, _ := strconv.ParseFloat("123.456", 64)
+			i8, _ := strconv.ParseInt("123", 10, 8)
+			So(i8, ShouldEqual, 123)
+
+			i16, _ := strconv.ParseInt("12345", 10, 16)
+			So(i16, ShouldEqual, 12345)
+
+			i32, _ := strconv.ParseInt("1234567890", 10, 32)
+			So(i32, ShouldEqual, 1234567890)
+
+			i64, _ := strconv.ParseInt("123456789123456789", 10, 64)
+			So(i64, ShouldEqual, 123456789123456789)
+
+			u8, _ := strconv.ParseUint("123", 10, 8)
+			So(u8, ShouldEqual, 123)
+
+			u16, _ := strconv.ParseUint("12345", 10, 16)
+			So(u16, ShouldEqual, 12345)
+
+			u32, _ := strconv.ParseUint("1234567890", 10, 32)
+			So(u32, ShouldEqual, 1234567890)
+
+			u64, _ := strconv.ParseUint("123456789123456789", 10, 64)
+			So(u64, ShouldEqual, 123456789123456789)
+
+			f32, _ := strconv.ParseFloat("123.456", 10)
+			So(f32, ShouldAlmostEqual, 123.456)
+
+			f64, _ := strconv.ParseFloat("123.456", 10)
 			So(f64, ShouldAlmostEqual, 123.456)
-			So(strconv.FormatFloat(f64, 'E', -1, 64), ShouldEqual, "1.23456E+02")
-			So(fmt.Sprintf("%.3f", f64), ShouldEqual, "123.456")
+
+			So(strconv.Itoa(123), ShouldEqual, "123")
+			So(strconv.FormatInt(123456, 10), ShouldEqual, "123456")
+			So(strconv.FormatUint(123456, 10), ShouldEqual, "123456")
 			So(strconv.FormatBool(true), ShouldEqual, "true")
+			So(strconv.FormatFloat(123.456, 'E', -1, 64), ShouldEqual, "1.23456E+02")
+			So(strconv.FormatFloat(123.456, 'f', -1, 64), ShouldEqual, "123.456")
+			So(fmt.Sprintf("%.3f", f64), ShouldEqual, "123.456")
+		})
+
+		Convey("quote", func() {
 			// golang 转义
 			So(strconv.Quote(`"Fran & Freddie's Diner	☺"`), ShouldEqual, `"\"Fran & Freddie's Diner\t☺\""`)
-
 			So(strconv.QuoteToASCII("Hello, 世界"), ShouldEqual, `"Hello, \u4e16\u754c"`)
 		})
 	})
