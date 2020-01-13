@@ -3,6 +3,7 @@ package buildin
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -51,6 +52,20 @@ func TestPath(t *testing.T) {
 		fp.Close()
 		So(os.Rename("test.txt", "test1.txt"), ShouldBeNil)
 		So(os.RemoveAll("test1.txt"), ShouldBeNil)
+	})
+
+	Convey("test file path", t, func() {
+		fmt.Println(filepath.Abs("."))
+
+		So(filepath.Dir("/etc/nginx/conf.d/default.conf"), ShouldEqual, "/etc/nginx/conf.d")
+		So(filepath.Base("/etc/nginx/conf.d/default.conf"), ShouldEqual, "default.conf")
+		So(filepath.Ext("/etc/nginx/conf.d/default.conf"), ShouldEqual, ".conf")
+		So(filepath.Clean("/../../ect/nginx//conf.d/.././../nginx/conf.d/default.conf"), ShouldEqual, "/ect/nginx/conf.d/default.conf")
+		So(filepath.Join("/", "etc", "nginx/", "conf.d/default.conf"), ShouldEqual, "/etc/nginx/conf.d/default.conf")
+
+		dir, filename := filepath.Split("/etc/nginx/conf.d/default.conf")
+		So(dir, ShouldEqual, "/etc/nginx/conf.d/")
+		So(filename, ShouldEqual, "default.conf")
 	})
 }
 
