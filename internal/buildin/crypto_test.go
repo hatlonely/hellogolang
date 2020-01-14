@@ -237,3 +237,11 @@ func TestX509(t *testing.T) {
 		}
 	})
 }
+
+func TestCryptoRand(t *testing.T) {
+	Convey("test rand", t, func() {
+		token := make([]byte, 16)
+		_, _ = rand.Read(token)
+		fmt.Println(hex.EncodeToString(token))
+	})
+}

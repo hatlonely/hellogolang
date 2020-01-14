@@ -246,10 +246,7 @@ func TestRand(t *testing.T) {
 		Convey("read", func() {
 			token := make([]byte, 16)
 			rand.Read(token)
-
-			buf := make([]byte, 32)
-			hex.Encode(buf, token)
-			fmt.Println(string(buf))
+			fmt.Println(hex.EncodeToString(token))
 		})
 
 		Convey("shuffle", func() {
