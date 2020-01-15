@@ -1,16 +1,17 @@
 package json
 
 import (
-	"testing"
-	"encoding/json"
-	"github.com/json-iterator/go"
-	"github.com/pquerna/ffjson/ffjson"
-	"github.com/mailru/easyjson"
-	"github.com/ugorji/go/codec"
 	"bufio"
-	"strings"
 	"bytes"
+	"encoding/json"
+	"strings"
+	"testing"
+
 	"github.com/buger/jsonparser"
+	jsoniter "github.com/json-iterator/go"
+	"github.com/mailru/easyjson"
+	"github.com/pquerna/ffjson/ffjson"
+	"github.com/ugorji/go/codec"
 )
 
 // 运行性能测试

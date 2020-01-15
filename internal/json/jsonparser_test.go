@@ -2,12 +2,13 @@ package json
 
 import (
 	"testing"
-	. "github.com/smartystreets/goconvey/convey"
+
 	"github.com/buger/jsonparser"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestJsonparser(t *testing.T) {
-	Convey("Given 一本书的定义", t, func() {
+	Convey("test json parser", t, func() {
 		type Book struct {
 			BookId int64   `json:"id"`
 			Title  string  `json:"title"`
@@ -17,7 +18,7 @@ func TestJsonparser(t *testing.T) {
 			Weight int64   `json:"-"`
 		}
 
-		Convey("When 反序列化", func() {
+		Convey("unmarshal", func() {
 			str := `{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":true}`
 			buf := []byte(str)
 

@@ -1,13 +1,14 @@
 package json
 
 import (
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
 	"encoding/json"
+	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestStdJson(t *testing.T) {
-	Convey("Given 一本书的定义", t, func() {
+	Convey("test json", t, func() {
 		type Book struct {
 			BookId int     `json:"id"`
 			Title  string  `json:"title"`
@@ -17,7 +18,7 @@ func TestStdJson(t *testing.T) {
 			Weight int     `json:"-"`               // '-' 表示不序列化
 		}
 
-		Convey("When 序列化", func() {
+		Convey("marshal", func() {
 			book := Book{
 				BookId: 12125924,
 				Title:  "人类简史-从动物到上帝",
@@ -29,28 +30,21 @@ func TestStdJson(t *testing.T) {
 
 			data, err := json.Marshal(&book)
 			So(err, ShouldBeNil)
-
-			Convey("Then 序列化的结果正确", func() {
-				So(string(data), ShouldEqual, `{"id":12125924,"title":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
-			})
+			So(string(data), ShouldEqual, `{"id":12125924,"title":"人类简史-从动物到上帝","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`)
 		})
 
-		Convey("When 反序列化", func() {
+		Convey("unmarshal", func() {
 			var book Book
 			str := `{"id":12125925,"title":"未来简史-从智人到智神","author":"尤瓦尔·赫拉利","price":40.8,"hot":"true"}`
 
-			err := json.Unmarshal([]byte(str), &book)
-			So(err, ShouldBeNil)
-
-			Convey("Then 反序列化的结果正确", func() {
-				So(book, ShouldResemble, Book{
-					BookId: 12125925,
-					Title:  "未来简史-从智人到智神",
-					Author: "尤瓦尔·赫拉利",
-					Price:  40.8,
-					Hot:    true,
-					Weight: 0,
-				})
+			So(json.Unmarshal([]byte(str), &book), ShouldBeNil)
+			So(book, ShouldResemble, Book{
+				BookId: 12125925,
+				Title:  "未来简史-从智人到智神",
+				Author: "尤瓦尔·赫拉利",
+				Price:  40.8,
+				Hot:    true,
+				Weight: 0,
 			})
 		})
 	})
