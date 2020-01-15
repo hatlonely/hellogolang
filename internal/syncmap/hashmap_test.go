@@ -179,7 +179,6 @@ func TestLockfreeMap(t *testing.T) {
 			}
 			wg.Wait()
 			// hm.show()
-			t.Error()
 		})
 	})
 }
