@@ -1,6 +1,7 @@
 package buildin
 
 import (
+	"bytes"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -130,13 +131,15 @@ func TestPool(t *testing.T) {
 	Convey("test pool", t, func() {
 		pool := &sync.Pool{
 			New: func() interface{} {
-				return 0
+				return &bytes.Buffer{}
 			},
 		}
 
-		pool.Put(1)
-
-		So(pool.Get(), ShouldEqual, 1)
+		buf := pool.Get().(*bytes.Buffer)
+		buf.Reset()
+		buf.WriteString("hello world")
+		fmt.Println(buf.String())
+		pool.Put(buf)
 	})
 }
 
