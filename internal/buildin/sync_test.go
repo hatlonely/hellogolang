@@ -2,7 +2,9 @@ package buildin
 
 import (
 	"fmt"
+	"strconv"
 	"sync"
+	"sync/atomic"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -100,6 +102,71 @@ func TestSyncMap(t *testing.T) {
 					kvs.Delete(j)
 				}
 			}()
+		}
+	})
+}
+
+func TestWaitGroup(t *testing.T) {
+	Convey("test wait group", t, func() {
+		var wg sync.WaitGroup
+
+		wg.Add(10)
+		for i := 0; i < 10; i++ {
+			go func() {
+				for j := 0; j < 100; j++ {
+					_ = strconv.Itoa(j)
+				}
+				wg.Done()
+			}()
+		}
+
+		wg.Wait()
+	})
+}
+
+func TestPool(t *testing.T) {
+	Convey("test pool", t, func() {
+		pool := &sync.Pool{
+			New: func() interface{} {
+				return 0
+			},
+		}
+
+		pool.Put(1)
+
+		So(pool.Get(), ShouldEqual, 1)
+	})
+}
+
+func TestOnce(t *testing.T) {
+	Convey("test once", t, func() {
+		{
+			var wg sync.WaitGroup
+			count := int64(0)
+			for i := 0; i < 10; i++ {
+				wg.Add(1)
+				go func() {
+					atomic.AddInt64(&count, 1)
+					wg.Done()
+				}()
+			}
+			wg.Wait()
+			So(count, ShouldEqual, 10)
+		}
+		{
+			var wg sync.WaitGroup
+			once := sync.Once{}
+			count := int64(0)
+			for i := 0; i < 10; i++ {
+				wg.Add(1)
+				go func() {
+					once.Do(func() {
+						atomic.AddInt64(&count, 1)
+						wg.Done()
+					})
+				}()
+			}
+			So(count, ShouldEqual, 1)
 		}
 	})
 }
