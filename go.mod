@@ -28,11 +28,13 @@ replace (
 
 require (
 	git.apache.org/thrift.git v0.13.0
+	github.com/PaesslerAG/gval v1.0.1
 	github.com/ScottMansfield/nanolog v0.2.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/aws/aws-sdk-go v1.25.25
 	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
+	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
 	github.com/go-kit/kit v0.9.0
@@ -44,20 +46,24 @@ require (
 	github.com/json-iterator/go v1.1.8
 	github.com/kpango/glg v1.4.6
 	github.com/mailru/easyjson v0.7.0
+	github.com/oleksandr/conditions v0.0.0-20170913191404-8ed8af13bdec
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
+	github.com/opentracing/opentracing-go v1.1.0
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/sohlich/elogrus v2.0.2+incompatible
+	github.com/sohlich/elogrus v2.0.2+incompatible // indirect
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.5.0
+	github.com/uber/jaeger-client-go v2.22.0+incompatible
+	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/ugorji/go/codec v1.1.7
 	github.com/yosuke-furukawa/json5 v0.1.1
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20190613194153-d28f0bde5980
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
 	google.golang.org/grpc v1.21.0
-	gopkg.in/olivere/elastic.v5 v5.0.82
+	gopkg.in/olivere/elastic.v5 v5.0.82 // indirect
 )
