@@ -2,10 +2,9 @@ package logger
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 
-	logging "github.com/op/go-logging"
+	"github.com/op/go-logging"
 )
 
 // 这个库使用上不是很友好，设计得有点奇怪
@@ -35,5 +34,5 @@ type OpLoggingLog struct {
 }
 
 func (l *OpLoggingLog) Info(v ...interface{}) {
-	l.log.Info(fmt.Sprint(v))
+	l.log.Info(v...)
 }
