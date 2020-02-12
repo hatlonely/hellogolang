@@ -43,6 +43,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
 	github.com/hashicorp/consul/api v1.2.0
 	github.com/hatlonely/easygolang v1.0.4
+	github.com/jinzhu/gorm v1.9.12
 	github.com/json-iterator/go v1.1.8
 	github.com/kpango/glg v1.4.6
 	github.com/mailru/easyjson v0.7.0
