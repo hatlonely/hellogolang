@@ -1,15 +1,15 @@
 package main
 
 import (
-	"hellogolang/api/counter_proto"
 	"fmt"
-	"time"
 	"net"
+	"time"
+
+	counter "github.com/hatlonely/hellogolang/api/counter_proto"
 	"google.golang.org/grpc"
 )
 
 type CounterServerImp struct {
-
 }
 
 func (c *CounterServerImp) Count(req *counter.CountReq, stream counter.Counter_CountServer) error {

@@ -1,11 +1,12 @@
 package main
 
 import (
-	"api/echo_proto"
+	"fmt"
+	"net"
+
+	echo "github.com/hatlonely/hellogolang/api/echo_proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"net"
-	"fmt"
 )
 
 type EchoServerImp struct {

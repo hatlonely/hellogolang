@@ -1,10 +1,11 @@
 package main
 
 import (
-	"hellogolang/api/echo_thrift/gen-go/echo"
 	"context"
 	"fmt"
+
 	"git.apache.org/thrift.git/lib/go/thrift"
+	"github.com/hatlonely/hellogolang/api/echo_thrift/gen-go/echo"
 )
 
 type EchoServerImp struct {

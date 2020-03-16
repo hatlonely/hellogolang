@@ -1,12 +1,13 @@
 package main
 
 import (
-	"google.golang.org/grpc"
 	"fmt"
-	"golang.org/x/net/context"
 	"os"
-	"hellogolang/api/counter_proto"
 	"strconv"
+
+	counter "github.com/hatlonely/hellogolang/api/counter_proto"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 )
 
 func main() {

@@ -1,12 +1,13 @@
 package main
 
 import (
-	"git.apache.org/thrift.git/lib/go/thrift"
-	"fmt"
-	"hellogolang/api/echo_thrift/gen-go/echo"
 	"context"
-	"strings"
+	"fmt"
 	"os"
+	"strings"
+
+	"git.apache.org/thrift.git/lib/go/thrift"
+	"github.com/hatlonely/hellogolang/api/echo_thrift/gen-go/echo"
 )
 
 func main() {

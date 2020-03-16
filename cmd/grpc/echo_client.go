@@ -1,12 +1,13 @@
 package main
 
 import (
-	"google.golang.org/grpc"
 	"fmt"
-	"hellogolang/api/echo_proto"
-	"golang.org/x/net/context"
 	"os"
 	"strings"
+
+	echo "github.com/hatlonely/hellogolang/api/echo_proto"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 )
 
 func main() {
