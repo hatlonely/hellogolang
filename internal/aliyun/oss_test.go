@@ -9,7 +9,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-var client *oss.Client
+var ossClient *oss.Client
 
 func init() {
 	var err error
@@ -17,7 +17,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	client, err = oss.New(endpoint, accessKeyID, accessKeySecret)
+	ossClient, err = oss.New(endpoint, accessKeyID, accessKeySecret)
 	if err != nil {
 		panic(err)
 	}
@@ -25,7 +25,7 @@ func init() {
 
 func TestBucket(t *testing.T) {
 	Convey("test list bucket", t, func() {
-		res, err := client.ListBuckets()
+		res, err := ossClient.ListBuckets()
 		So(err, ShouldBeNil)
 
 		for _, bucket := range res.Buckets {
@@ -36,7 +36,7 @@ func TestBucket(t *testing.T) {
 
 func TestObject(t *testing.T) {
 	Convey("test object", t, func() {
-		bucket, err := client.Bucket("hatlonely-test-bucket")
+		bucket, err := ossClient.Bucket("hatlonely-test-bucket")
 		So(err, ShouldBeNil)
 
 		Convey("put object", func() {

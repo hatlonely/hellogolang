@@ -1,7 +1,6 @@
 package aliyun
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -18,8 +17,6 @@ func LoadOSSConfig() (string, string, string, error) {
 	if err != nil {
 		return "", "", "", err
 	}
-
-	fmt.Println(conf)
 
 	return conf.GetDefaultString("Credentials.endpoint"),
 		conf.GetDefaultString("Credentials.accessKeyID"),
