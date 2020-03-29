@@ -6,8 +6,8 @@ import (
 
 	proto2 "github.com/gogo/protobuf/proto"
 	proto1 "github.com/golang/protobuf/proto"
-	module2 "github.com/hatlonely/hellogolang/internal/proto/gogoproto"
-	module1 "github.com/hatlonely/hellogolang/internal/proto/protobuf"
+	module2 "github.com/hatlonely/hellogolang/benchmark/proto/gogoproto"
+	module1 "github.com/hatlonely/hellogolang/benchmark/proto/protobuf"
 )
 
 var creative = &module1.Creative{
