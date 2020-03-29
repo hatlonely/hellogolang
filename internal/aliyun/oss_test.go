@@ -29,7 +29,7 @@ func TestBucket(t *testing.T) {
 		So(err, ShouldBeNil)
 
 		for _, bucket := range res.Buckets {
-			fmt.Println(bucket.Name)
+			_, _ = Println(bucket.Name)
 		}
 	})
 }
@@ -49,7 +49,7 @@ func TestObject(t *testing.T) {
 			So(err, ShouldBeNil)
 			scanner := bufio.NewScanner(fp)
 			for scanner.Scan() {
-				Println(scanner.Text())
+				_, _ = Println(scanner.Text())
 			}
 		})
 
