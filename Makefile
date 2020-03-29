@@ -24,15 +24,6 @@ vendor: go.mod
 %.pb.go: %.proto
 	$(shell pwd)/third/protobuf/bin/protoc --go_out=plugins=grpc:. $<
 
-api/echo_thrift/gen-go: api/echo_thrift/echo.thrift
-	$(shell pwd)/third/thrift/bin/thrift -r --gen go api/echo_thrift/echo.thrift && rm -rf gen-go/echo/echo-remote && mv gen-go api/echo_thrift/
-
-.PHONY: clean
-clean:
-	make clean -C api/echo_proto/
-	make clean -C api/counter_proto/
-	make clean -C api/echo_thrift/
-
 .PHONY: protoc
 protoc:
 	@hash protoc 2>/dev/null || { \

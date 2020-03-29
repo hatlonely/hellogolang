@@ -1,6 +1,6 @@
 module github.com/hatlonely/hellogolang
 
-go 1.12
+go 1.13
 
 replace (
 	cloud.google.com/go => github.com/googleapis/google-cloud-go v0.0.0-20190603211518-c8433c9aaceb
@@ -29,7 +29,9 @@ replace (
 require (
 	github.com/ScottMansfield/nanolog v0.2.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
+	github.com/aliyun/aliyun-oss-go-sdk v2.0.7+incompatible
 	github.com/aws/aws-sdk-go v1.25.25
+	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
 	github.com/cornelk/hashmap v1.0.1
@@ -37,7 +39,8 @@ require (
 	github.com/go-kit/kit v0.9.0
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.3.2
-	github.com/hashicorp/consul/api v1.2.0
+	github.com/hashicorp/consul/api v1.3.0
+	github.com/hpifu/go-kit v1.8.0
 	github.com/jinzhu/gorm v1.9.12
 	github.com/json-iterator/go v1.1.8
 	github.com/kpango/glg v1.4.6
@@ -45,6 +48,7 @@ require (
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
+	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/spaolacci/murmur3 v1.1.0
