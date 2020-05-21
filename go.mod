@@ -35,7 +35,9 @@ require (
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
 	github.com/aws/aws-sdk-go v1.25.25
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
+	github.com/brianvoe/gofakeit/v5 v5.6.2
 	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
+	github.com/bxcodec/faker/v3 v3.3.1
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
@@ -54,7 +56,7 @@ require (
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
-	github.com/satori/go.uuid v1.2.0 // indirect
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/spaolacci/murmur3 v1.1.0

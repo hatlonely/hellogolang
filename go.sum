@@ -35,8 +35,12 @@ github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+Ce
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
 github.com/bgentry/speakeasy v0.1.0/go.mod h1:+zsyZBPWlz7T6j88CTgSN5bM796AkVf0kBD4zp0CCIs=
+github.com/brianvoe/gofakeit/v5 v5.6.2 h1:AcUMjKLx0aHoLy00vzrIi1El0VLqCzZRvKqJfeGy66A=
+github.com/brianvoe/gofakeit/v5 v5.6.2/go.mod h1:/ZENnKqX+XrN8SORLe/fu5lZDIo1tuPncWuRD+eyhSI=
 github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e h1:oJCXMss/3rg5F6Poy9wG3JQusc58Mzk5B9Z6wSnssNE=
 github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e/go.mod h1:errmMKH8tTB49UR2A8C8DPYkyudelsYJwJFaZHQ6ik8=
+github.com/bxcodec/faker/v3 v3.3.1 h1:G7uldFk+iO/ES7W4v7JlI/WU9FQ6op9VJ15YZlDEhGQ=
+github.com/bxcodec/faker/v3 v3.3.1/go.mod h1:gF31YgnMSMKgkvl+fyEo1xuSMbEuieyqfeslGYFjneM=
 github.com/cespare/xxhash v1.1.0 h1:a6HrQnmkObjyL+Gs60czilIUGqrzKutQD6XZog3p+ko=
 github.com/cespare/xxhash v1.1.0/go.mod h1:XrSqR1VqqWfGrhpAt58auRo0WTKS1nRRg3ghfAqPWnc=
 github.com/cespare/xxhash/v2 v2.1.0 h1:yTUvW7Vhb89inJ+8irsUqiWjh8iT6sQPZiQzI6ReGkA=
