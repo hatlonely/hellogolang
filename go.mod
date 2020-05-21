@@ -29,6 +29,7 @@ replace (
 require (
 	github.com/ScottMansfield/nanolog v0.2.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
+	github.com/agiledragon/gomonkey v2.0.1+incompatible
 	github.com/aliyun/aliyun-mns-go-sdk v0.0.0-20191205082232-b251b9d95415
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.7+incompatible
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
@@ -38,6 +39,7 @@ require (
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
+	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/go-kit/kit v0.9.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
 	github.com/gogap/stack v0.0.0-20150131034635-fef68dddd4f8 // indirect
@@ -58,7 +60,7 @@ require (
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.5.0
-	github.com/stretchr/testify v1.4.0 // indirect
+	github.com/stretchr/testify v1.4.0
 	github.com/ugorji/go/codec v1.1.7
 	github.com/valyala/fasthttp v1.12.0 // indirect
 	github.com/yosuke-furukawa/json5 v0.1.1
