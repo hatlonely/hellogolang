@@ -29,6 +29,7 @@ replace (
 require (
 	github.com/ScottMansfield/nanolog v0.2.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
+	github.com/aliyun/aliyun-mns-go-sdk v0.0.0-20191205082232-b251b9d95415
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.7+incompatible
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
 	github.com/aws/aws-sdk-go v1.25.25
@@ -38,8 +39,10 @@ require (
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
 	github.com/go-kit/kit v0.9.0
+	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
+	github.com/gogap/stack v0.0.0-20150131034635-fef68dddd4f8 // indirect
 	github.com/gogo/protobuf v1.3.1
-	github.com/golang/protobuf v1.3.2
+	github.com/golang/protobuf v1.4.0
 	github.com/hashicorp/consul/api v1.3.0
 	github.com/hpifu/go-kit v1.8.0
 	github.com/jinzhu/gorm v1.9.12
@@ -57,7 +60,9 @@ require (
 	github.com/spf13/viper v1.5.0
 	github.com/stretchr/testify v1.4.0 // indirect
 	github.com/ugorji/go/codec v1.1.7
+	github.com/valyala/fasthttp v1.12.0 // indirect
 	github.com/yosuke-furukawa/json5 v0.1.1
 	go.uber.org/zap v1.10.0
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
+	google.golang.org/protobuf v1.21.0
 )
