@@ -39,6 +39,7 @@ require (
 	github.com/brianvoe/gofakeit/v5 v5.6.2
 	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
 	github.com/bxcodec/faker/v3 v3.3.1
+	github.com/cenkalti/backoff/v4 v4.0.2
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
 	github.com/cornelk/hashmap v1.0.1
