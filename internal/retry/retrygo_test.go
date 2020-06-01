@@ -40,8 +40,11 @@ func TestRetryGo(t *testing.T) {
 			retry.Delay(time.Second),            // 重试间隔 1s
 			retry.MaxDelay(3*time.Second),       // 最大重试间隔 3s
 			retry.DelayType(retry.BackOffDelay), // 重试策略，时间间隔指数增长
-			retry.Attempts(6),                   // 最大重试次数 6
-			retry.LastErrorOnly(true),           // 仅返回最后一次错误
+			// retry.DelayType(retry.CombineDelay(retry.BackOffDelay, retry.RandomDelay)), // 指数延迟 + 随机延迟
+			// retry.DelayType(retry.CombineDelay(retry.FixedDelay, retry.RandomDelay)), // 固定延迟 + 随机延迟
+			// retry.MaxJitter(500*time.Millisecond), // 最大随机延迟
+			retry.Attempts(6),         // 最大重试次数 6
+			retry.LastErrorOnly(true), // 仅返回最后一次错误
 			retry.RetryIf(func(err error) bool {
 				return err.Error() == "connection refuse"
 			}), // 仅当满足条件时才执行重试
