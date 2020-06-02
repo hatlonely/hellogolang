@@ -27,6 +27,9 @@ replace (
 )
 
 require (
+	github.com/Knetic/govaluate v3.0.0+incompatible
+	github.com/PaesslerAG/gval v1.0.1
+	github.com/PaesslerAG/jsonpath v0.1.0
 	github.com/ScottMansfield/nanolog v0.2.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/agiledragon/gomonkey v2.0.1+incompatible
@@ -45,6 +48,7 @@ require (
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
+	github.com/generikvault/gvalstrings v0.0.0-20180926130504-471f38f0112a
 	github.com/giantswarm/retry-go v0.0.0-20151203102909-d78cea247d5e
 	github.com/go-kit/kit v0.9.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
