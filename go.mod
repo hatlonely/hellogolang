@@ -46,6 +46,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.0.2
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
+	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
@@ -65,20 +66,24 @@ require (
 	github.com/mailru/easyjson v0.7.0
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
+	github.com/opentracing/opentracing-go v1.2.0
+	github.com/pkg/errors v0.8.1
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/sergi/go-diff v1.1.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/sourcegraph/go-diff v0.5.3
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.5.0
 	github.com/stretchr/testify v1.5.1
+	github.com/uber/jaeger-client-go v2.24.0+incompatible
+	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/ugorji/go/codec v1.1.7
 	github.com/valyala/fasthttp v1.12.0 // indirect
 	github.com/yosuke-furukawa/json5 v0.1.1
+	github.com/yurishkuro/opentracing-tutorial v0.0.0-20200611023548-a55c44f88513 // indirect
 	go.uber.org/zap v1.10.0
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
 	google.golang.org/protobuf v1.21.0

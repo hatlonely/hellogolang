@@ -95,7 +95,7 @@ func consumerAB(wg *sync.WaitGroup, productAs <-chan ProductA, productBs <-chan 
 	wg.Done()
 }
 
-func TestSelect(t *testing.T) {
+func TestConsumerProducer(t *testing.T) {
 	productAs := make(chan ProductA, 10)
 	productBs := make(chan ProductB, 10)
 
