@@ -36,9 +36,10 @@ require (
 	github.com/aliyun/aliyun-mns-go-sdk v0.0.0-20191205082232-b251b9d95415
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.7+incompatible
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
+	github.com/aliyun/aliyun-tablestore-go-sdk/v5 v5.0.3
 	github.com/antonmedv/expr v1.8.8
 	github.com/avast/retry-go v2.6.0+incompatible
-	github.com/aws/aws-sdk-go v1.25.25
+	github.com/aws/aws-sdk-go v1.33.5
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/brianvoe/gofakeit/v5 v5.6.2
 	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
@@ -59,21 +60,23 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/google/cel-go v0.5.1
 	github.com/hashicorp/consul/api v1.3.0
+	github.com/hatlonely/go-kit v1.0.6 // indirect
 	github.com/hpifu/go-kit v1.8.0
-	github.com/jinzhu/gorm v1.9.12
-	github.com/json-iterator/go v1.1.8
+	github.com/jinzhu/gorm v1.9.15
+	github.com/json-iterator/go v1.1.9
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
 	github.com/kpango/glg v1.4.6
-	github.com/mailru/easyjson v0.7.0
+	github.com/mailru/easyjson v0.7.1
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
+	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/pkg/errors v0.8.1
+	github.com/pkg/errors v0.9.1
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/sergi/go-diff v1.1.0
-	github.com/sirupsen/logrus v1.4.2
+	github.com/sirupsen/logrus v1.6.0
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/pflag v1.0.5 // indirect
@@ -85,7 +88,7 @@ require (
 	github.com/valyala/fasthttp v1.12.0 // indirect
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/yurishkuro/opentracing-tutorial v0.0.0-20200611023548-a55c44f88513
-	go.uber.org/zap v1.10.0
+	go.uber.org/zap v1.13.0
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
 	google.golang.org/protobuf v1.24.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e

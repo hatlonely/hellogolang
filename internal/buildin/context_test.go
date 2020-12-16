@@ -19,7 +19,8 @@ func TestContext(t *testing.T) {
 					select {
 					case <-ctx.Done():
 						return
-					case ch <- n:
+					default:
+						ch <- n
 						n++
 					}
 				}
@@ -72,5 +73,40 @@ func TestContext(t *testing.T) {
 		So(ctx2.Value("key1"), ShouldEqual, "val1")
 		So(ctx2.Value("key2"), ShouldEqual, "val2")
 		So(ctx2.Value("key3"), ShouldBeNil)
+	})
+}
+
+func TestSelect(t *testing.T) {
+	Convey("test select", t, func() {
+		ch1 := make(chan int, 1)
+		ch2 := make(chan int, 1)
+
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+
+	out:
+		for {
+			// 多个 case 条件同时满足，执行顺序是不确定的
+			// 没有一个 case 满足时，才会执行 default
+			select {
+			case i1 := <-ch1:
+				fmt.Println(i1)
+				time.Sleep(time.Second)
+				ch1 <- 1
+			case i2 := <-ch2:
+				fmt.Println(i2)
+				ch2 <- 2
+				time.Sleep(time.Second)
+			case <-ctx.Done():
+				fmt.Println("done")
+				time.Sleep(time.Second)
+				break out
+			default:
+				fmt.Println("default")
+				ch1 <- 1
+				ch2 <- 2
+				time.Sleep(time.Second)
+			}
+		}
 	})
 }
