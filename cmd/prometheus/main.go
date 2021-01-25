@@ -17,6 +17,7 @@ func recordMetrics() {
 			gauges.Add(10)
 			histogram.Observe(float64(rand.Int63n(100)))
 			counterVec.With(map[string]string{"key1": "val1", "key2": "val2"}).Inc()
+			counterVec.WithLabelValues("val3", "val4").Inc()
 			summary.Observe(rand.Float64())
 			time.Sleep(2 * time.Second)
 		}
