@@ -36,7 +36,6 @@ require (
 	github.com/aliyun/aliyun-mns-go-sdk v0.0.0-20191205082232-b251b9d95415
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.7+incompatible
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
-	github.com/aliyun/aliyun-tablestore-go-sdk/v5 v5.0.3
 	github.com/antonmedv/expr v1.8.8
 	github.com/avast/retry-go v2.6.0+incompatible
 	github.com/aws/aws-sdk-go v1.33.5
@@ -51,16 +50,18 @@ require (
 	github.com/cornelk/hashmap v1.0.1
 	github.com/emirpasic/gods v1.12.0
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/giantswarm/retry-go v0.0.0-20151203102909-d78cea247d5e
 	github.com/go-kit/kit v0.9.0
+	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
 	github.com/gogap/stack v0.0.0-20150131034635-fef68dddd4f8 // indirect
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.4.2
 	github.com/google/cel-go v0.5.1
+	github.com/google/go-cmp v0.5.0 // indirect
 	github.com/hashicorp/consul/api v1.3.0
-	github.com/hatlonely/go-kit v1.0.6 // indirect
 	github.com/hpifu/go-kit v1.8.0
 	github.com/jinzhu/gorm v1.9.15
 	github.com/json-iterator/go v1.1.9
@@ -69,6 +70,8 @@ require (
 	github.com/mailru/easyjson v0.7.1
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
+	github.com/onsi/ginkgo v1.7.0 // indirect
+	github.com/onsi/gomega v1.4.3 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1
@@ -77,8 +80,10 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/sergi/go-diff v1.1.0
 	github.com/sirupsen/logrus v1.6.0
+	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/spaolacci/murmur3 v1.1.0
+	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.5.0
 	github.com/stretchr/testify v1.5.1
@@ -90,6 +95,8 @@ require (
 	github.com/yurishkuro/opentracing-tutorial v0.0.0-20200611023548-a55c44f88513
 	go.uber.org/zap v1.13.0
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
+	google.golang.org/grpc v1.32.0 // indirect
 	google.golang.org/protobuf v1.24.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
+	gopkg.in/yaml.v2 v2.2.8 // indirect
 )

@@ -15,19 +15,26 @@ var count int64
 func myfunc() error {
 	i := atomic.AddInt64(&count, 1)
 	if i%2 == 0 {
-		return fmt.Errorf("something wrong")
+		//return fmt.Errorf("something wrong")
 	}
 	return nil
+}
+
+type Logger struct{}
+
+func (l *Logger) Printf(format string, items ...interface{}) {
+	fmt.Printf(format+"\n", items...)
 }
 
 func TestHystrix(t *testing.T) {
 	hystrix.ConfigureCommand("my_command", hystrix.CommandConfig{
 		Timeout:                200, // 超时时间 200ms
-		MaxConcurrentRequests:  2,   // 最大并发数，超过并发返回错误
+		MaxConcurrentRequests:  1,   // 最大并发数，超过并发返回错误
 		RequestVolumeThreshold: 4,   // 请求数量的阀值，用这些数量的请求来计算阀值
 		ErrorPercentThreshold:  25,  // 错误数量阀值，达到阀值，启动熔断
 		SleepWindow:            300, // 熔断尝试恢复时间
 	})
+	hystrix.SetLogger(&Logger{})
 
 	var wg sync.WaitGroup
 	for n := 0; n < 2; n++ {
