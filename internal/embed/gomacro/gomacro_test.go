@@ -38,13 +38,19 @@ func fab(n int) int {
 	return fab(n-1) + fab(n-2)
 }
 
-func BenchmarkNative(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		fab(35)
-	}
-}
-
-func BenchmarkGoMacro(b *testing.B) {
+// goos: darwin
+// goarch: amd64
+// pkg: github.com/hatlonely/hellogolang/internal/embed/gomacro
+// cpu: Intel(R) Core(TM) i5-6600 CPU @ 3.30GHz
+// BenchmarkGomacro
+// 9227465
+// 9227465
+// BenchmarkGomacro/localFunc
+// BenchmarkGomacro/localFunc-4         	      21	  53291006 ns/op
+// BenchmarkGomacro/gomacroFunc
+// BenchmarkGomacro/gomacroFunc-4       	       1	2303495653 ns/op
+// PASS
+func BenchmarkGomacro(b *testing.B) {
 	interp := fast.New()
 	interp.Eval(`
 func fab(n int) int {
@@ -57,10 +63,20 @@ func fab(n int) int {
 	return fab(n-1) + fab(n-2)
 }
 `)
+	fmt.Println(fab(35))
+	vals, _ := interp.Eval(`fab(35)`)
+	fmt.Println(vals[0].ReflectValue())
 
-	for i := 0; i < b.N; i++ {
-		interp.Eval(`
-fab(35)
-`)
-	}
+	b.Run("localFunc", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			fab(35)
+		}
+	})
+
+	b.Run("gomacroFunc", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			vals, _ := interp.Eval("fab(35)")
+			_ = vals[0].ReflectValue()
+		}
+	})
 }
