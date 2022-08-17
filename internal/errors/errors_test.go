@@ -67,6 +67,7 @@ github.com/hatlonely/hellogolang/internal/errors_test.TestWithStack.func1
 
 func TestWrap(t *testing.T) {
 	Convey("wrap", t, func() {
+		// Wrap = WithMessage + WithStack
 		err0 := fmt.Errorf("timeout")
 		err1 := errors.Wrap(err0, "wrap1")
 		err2 := errors.Wrap(err1, "wrap2")
@@ -78,5 +79,43 @@ func TestWrap(t *testing.T) {
 		fmt.Printf("%+v\n", err1)
 		fmt.Printf("%+v\n", err2)
 
+	})
+}
+
+type MyError struct {
+	message string
+}
+
+func (e *MyError) Error() string {
+	return e.message
+}
+
+func TestErrors_IsAs(t *testing.T) {
+	Convey("TestErrors_Wrap", t, func() {
+		err0 := &MyError{message: "inner err"}
+		err1 := errors.Wrap(err0, "wrap1")
+		err2 := errors.WithMessage(err1, "wrap2")
+
+		So(err0.Error(), ShouldEqual, "inner err")
+		So(err1.Error(), ShouldEqual, "wrap1: inner err")
+		So(err2.Error(), ShouldEqual, "wrap2: wrap1: inner err")
+
+		So(errors.Unwrap(err0), ShouldBeNil)
+		So(errors.Unwrap(errors.Unwrap(err1)), ShouldEqual, err0)
+		So(errors.Unwrap(err2), ShouldEqual, err1)
+
+		So(errors.Is(err0, err0), ShouldBeTrue)
+		So(errors.Is(err1, err0), ShouldBeTrue)
+		So(errors.Is(err2, err0), ShouldBeTrue)
+
+		var err *MyError
+		So(errors.As(err0, &err), ShouldBeTrue)
+		So(err, ShouldEqual, err0)
+		So(errors.As(err1, &err), ShouldBeTrue)
+		So(err, ShouldEqual, err0)
+		So(errors.As(err2, &err), ShouldBeTrue)
+		So(err, ShouldEqual, err0)
+
+		So(errors.Cause(err2), ShouldEqual, err0)
 	})
 }
