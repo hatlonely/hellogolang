@@ -1,4 +1,4 @@
-package errors_test
+package errors
 
 import (
 	"fmt"
@@ -84,12 +84,8 @@ func TestWrap(t *testing.T) {
 
 func TestStackTrace(t *testing.T) {
 	Convey("TestStackTrace", t, func() {
-		type stackTracer interface {
-			StackTrace() errors.StackTrace
-		}
-
 		err := errors.New("timeout")
-		errStack, ok := errors.Cause(err).(stackTracer)
+		errStack, ok := errors.Cause(err).(interface{ StackTrace() errors.StackTrace })
 
 		So(ok, ShouldBeTrue)
 		fmt.Printf("%+v", errStack.StackTrace()[0:2])

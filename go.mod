@@ -41,6 +41,7 @@ require (
 	github.com/cornelk/hashmap v1.0.1
 	github.com/cosmos72/gomacro v0.0.0-20220226114457-23a0d19a6b1e
 	github.com/d5/tengo/v2 v2.10.1
+	github.com/docker/spdystream v0.0.0-20160310174837-449fdfce4d96 // indirect
 	github.com/emirpasic/gods v1.12.0
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/giantswarm/retry-go v0.0.0-20151203102909-d78cea247d5e
@@ -49,13 +50,14 @@ require (
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
 	github.com/gogap/stack v0.0.0-20150131034635-fef68dddd4f8 // indirect
-	github.com/gogo/protobuf v1.3.1
+	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.2
 	github.com/google/cel-go v0.5.1
+	github.com/googleapis/gnostic v0.0.0-20170729233727-0c5108395e2d // indirect
 	github.com/hashicorp/consul/api v1.3.0
 	github.com/hpifu/go-kit v1.8.0
 	github.com/jinzhu/gorm v1.9.15
-	github.com/json-iterator/go v1.1.9
+	github.com/json-iterator/go v1.1.12
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
 	github.com/kpango/glg v1.4.6
 	github.com/mailru/easyjson v0.7.1
@@ -77,7 +79,7 @@ require (
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.5.0
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.7.0
 	github.com/traefik/yaegi v0.11.3
 	github.com/uber/jaeger-client-go v2.24.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
@@ -90,4 +92,6 @@ require (
 	google.golang.org/grpc v1.32.0 // indirect
 	google.golang.org/protobuf v1.28.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
+	k8s.io/apimachinery v0.24.3
+	k8s.io/klog v0.3.1 // indirect
 )
