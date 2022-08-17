@@ -44,3 +44,15 @@ key1: |
 		fmt.Println(buf.String())
 	})
 }
+
+func TestEscape(t *testing.T) {
+	Convey("TestEscape", t, func() {
+		tpl, err := template.New("").Parse(`{} {{ "hello world" }}`)
+		So(err, ShouldBeNil)
+		var buf bytes.Buffer
+		tpl.Execute(&buf, nil)
+
+		fmt.Println(buf.String())
+		So(buf.String(), ShouldEqual, "{} hello world")
+	})
+}

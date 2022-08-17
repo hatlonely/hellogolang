@@ -119,5 +119,10 @@ func TestRegex(t *testing.T) {
 				"abab", "acac", "adad",
 			})
 		})
+
+		Convey("oss pattern", t, func() {
+			pattern := regexp.MustCompile("(^oss://([^/]+)/([\\s\\S]*)$)|(^stream://$)")
+			So(pattern.MatchString("oss://{bucket}/render/{barename}.{autoext}"), ShouldBeTrue)
+		})
 	})
 }
