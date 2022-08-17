@@ -36,6 +36,10 @@ func TestErrors_Wrap(t *testing.T) {
 		So(err1.Error(), ShouldEqual, "wrap1: inner err")
 		So(err2.Error(), ShouldEqual, "wrap2: wrap1: inner err")
 
+		So(fmt.Sprintf("%+v", err0), ShouldEqual, "inner err")
+		So(fmt.Sprintf("%+v", err1), ShouldEqual, "wrap1: inner err")
+		So(fmt.Sprintf("%+v", err2), ShouldEqual, "wrap2: wrap1: inner err")
+
 		So(errors.Unwrap(err0), ShouldBeNil)
 		So(errors.Unwrap(err1), ShouldEqual, err0)
 		So(errors.Unwrap(err2), ShouldEqual, err1)
