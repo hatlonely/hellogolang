@@ -82,6 +82,20 @@ func TestWrap(t *testing.T) {
 	})
 }
 
+func TestStackTrace(t *testing.T) {
+	Convey("TestStackTrace", t, func() {
+		type stackTracer interface {
+			StackTrace() errors.StackTrace
+		}
+
+		err := errors.New("timeout")
+		errStack, ok := errors.Cause(err).(stackTracer)
+
+		So(ok, ShouldBeTrue)
+		fmt.Printf("%+v", errStack.StackTrace()[0:2])
+	})
+}
+
 type MyError struct {
 	message string
 }
