@@ -99,3 +99,14 @@ func BenchmarkAddStringNumberWithBuffer(b *testing.B) {
 		_ = buffer.String()
 	}
 }
+
+func BenchmarkAddString(b *testing.B) {
+	hello := "hello"
+	world := "world"
+
+	b.Run("operator", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			_ = hello + world
+		}
+	})
+}
