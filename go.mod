@@ -47,6 +47,7 @@ require (
 	github.com/gin-gonic/gin v1.8.0
 	github.com/go-kit/kit v0.9.0
 	github.com/go-redis/redis/v8 v8.11.5
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
 	github.com/gogap/stack v0.0.0-20150131034635-fef68dddd4f8 // indirect
