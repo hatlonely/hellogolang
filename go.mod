@@ -24,6 +24,7 @@ require (
 	github.com/ScottMansfield/nanolog v0.2.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/agiledragon/gomonkey v2.0.1+incompatible
+	github.com/aliyun/alibaba-cloud-sdk-go v1.62.216
 	github.com/aliyun/aliyun-mns-go-sdk v0.0.0-20191205082232-b251b9d95415
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.7+incompatible
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
@@ -66,7 +67,7 @@ require (
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/onsi/gomega v1.20.0 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
-	github.com/opentracing/opentracing-go v1.2.0
+	github.com/opentracing/opentracing-go v1.2.1-0.20220228012449-10b1cf09e00b
 	github.com/pkg/errors v0.9.1
 	github.com/pquerna/ffjson v0.0.0-20190930134022-aa0246cd15f7
 	github.com/prometheus/client_golang v1.2.1
@@ -79,8 +80,7 @@ require (
 	github.com/spf13/viper v1.5.0
 	github.com/stretchr/testify v1.7.1
 	github.com/traefik/yaegi v0.11.3
-	github.com/uber/jaeger-client-go v2.24.0+incompatible
-	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
+	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	github.com/ugorji/go/codec v1.2.7
 	github.com/valyala/fasthttp v1.12.0 // indirect
 	github.com/yosuke-furukawa/json5 v0.1.1
