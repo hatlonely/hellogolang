@@ -4,71 +4,47 @@ import (
 	"time"
 )
 
-type Server struct {
-	host string
-	port int
+type Options struct {
+	Host string
+	Port int
 	// 1. 新增配置项
-	timeout time.Duration
-	maxConn int
+	Timeout time.Duration
+	MaxConn int
 }
 
-type Option func(*Server)
-
-func WithHost(host string) Option {
-	return func(server *Server) {
-		server.host = host
-	}
-}
-
-func WithPort(port int) Option {
-	return func(server *Server) {
-		server.port = port
-	}
-}
-
-// 2. 新增选项
-func WithTimeout(timeout time.Duration) Option {
-	return func(server *Server) {
-		server.timeout = timeout
-	}
-}
-
-func WithMaxConn(maxConn int) Option {
-	return func(server *Server) {
-		server.maxConn = maxConn
-	}
+type Server struct {
+	options *Options
 }
 
 // 2. 修改原有构造函数，新增默认值
-func NewServer(opts ...Option) *Server {
-	server := &Server{
-		host:    "localhost",
-		port:    3306,
-		timeout: time.Minute,
-		maxConn: 10,
+func NewServerWithOptions(options *Options) *Server {
+	if options.Timeout == 0 {
+		options.Timeout = time.Minute
 	}
-	for _, opt := range opts {
-		opt(server)
+	if options.MaxConn == 0 {
+		options.MaxConn = 10
 	}
 
-	return server
+	return &Server{
+		options: options,
+	}
 }
 
-// 4. 调用处调整
+// 3. 调用处调整
 func Usage() {
-	_ = NewServer(
-		WithHost("localhost"),
-		WithPort(3306),
-	)
-	_ = NewServer(
-		WithHost("localhost"),
-		WithPort(3306),
-		WithTimeout(time.Minute),
-	)
-	_ = NewServer(
-		WithHost("localhost"),
-		WithPort(3306),
-		WithTimeout(time.Minute),
-		WithMaxConn(20),
-	)
+	_ = NewServerWithOptions(&Options{
+		Host: "localhost",
+		Port: 3306,
+	})
+	_ = NewServerWithOptions(&Options{
+		Host:    "localhost",
+		Port:    3306,
+		Timeout: 2 * time.Minute,
+	})
+	_ = NewServerWithOptions(&Options{
+		Host:    "localhost",
+		Port:    3306,
+		Timeout: 2 * time.Minute,
+		MaxConn: 20,
+	})
 }

@@ -32,5 +32,8 @@ func NewServer(opts ...Option) *Server {
 }
 
 func Usage() {
-	_ = NewServer(WithHost("localhost"), WithPort(3306))
+	_ = NewServer(
+		WithHost("localhost"),
+		WithPort(3306),
+	)
 }
