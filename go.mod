@@ -32,7 +32,7 @@ require (
 	github.com/aws/aws-sdk-go v1.43.21
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/brianvoe/gofakeit/v5 v5.6.2
-	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
+	github.com/buger/jsonparser v1.1.1
 	github.com/bxcodec/faker/v3 v3.3.1
 	github.com/cenkalti/backoff/v4 v4.0.2
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
@@ -88,7 +88,6 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab // indirect
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
-	google.golang.org/protobuf v1.28.0
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	k8s.io/apimachinery v0.24.3
 )
