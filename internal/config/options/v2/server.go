@@ -4,44 +4,67 @@ import (
 	"time"
 )
 
-type Options struct {
-	Host    string
-	Port    int
-	Timeout time.Duration
-	MaxConn int
-}
-
 type Server struct {
-	options *Options
+	host    string
+	port    int
+	timeout time.Duration
+	maxConn int
 }
 
-func NewServerWithOptions(options *Options) *Server {
-	if options.Timeout == 0 {
-		options.Timeout = time.Minute
+type Option func(*Server)
+
+func WithHost(host string) Option {
+	return func(server *Server) {
+		server.host = host
 	}
-	if options.MaxConn == 0 {
-		options.MaxConn = 10
+}
+
+func WithPort(port int) Option {
+	return func(server *Server) {
+		server.port = port
+	}
+}
+
+func WithTimeout(timeout time.Duration) Option {
+	return func(server *Server) {
+		server.timeout = timeout
+	}
+}
+
+func WithMaxConn(maxConn int) Option {
+	return func(server *Server) {
+		server.maxConn = maxConn
+	}
+}
+
+func NewServer(opts ...Option) *Server {
+	server := &Server{
+		host:    "localhost",
+		port:    3306,
+		timeout: time.Minute,
+		maxConn: 10,
+	}
+	for _, opt := range opts {
+		opt(server)
 	}
 
-	return &Server{
-		options: options,
-	}
+	return server
 }
 
 func Usage() {
-	_ = NewServerWithOptions(&Options{
-		Host: "localhost",
-		Port: 3306,
-	})
-	_ = NewServerWithOptions(&Options{
-		Host:    "localhost",
-		Port:    3306,
-		Timeout: 2 * time.Minute,
-	})
-	_ = NewServerWithOptions(&Options{
-		Host:    "localhost",
-		Port:    3306,
-		Timeout: 2 * time.Minute,
-		MaxConn: 20,
-	})
+	_ = NewServer(
+		WithHost("localhost"),
+		WithPort(3306),
+	)
+	_ = NewServer(
+		WithHost("localhost"),
+		WithPort(3306),
+		WithTimeout(time.Minute),
+	)
+	_ = NewServer(
+		WithHost("localhost"),
+		WithPort(3306),
+		WithTimeout(time.Minute),
+		WithMaxConn(20),
+	)
 }
