@@ -1,20 +1,27 @@
 package config_test
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
+	"net/http"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/sts"
-	_ "github.com/aliyun/alibaba-cloud-sdk-go/services/sts"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/aliyun/aliyun-tablestore-go-sdk/tablestore"
+	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/olivere/elastic/v7"
 	"github.com/olivere/elastic/v7/config"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 )
 
 func Test(t *testing.T) {
@@ -113,4 +120,34 @@ func Test(t *testing.T) {
 	mySqlCli.SetMaxOpenConns(20)
 	mySqlCli.SetConnMaxLifetime(10 * time.Minute)
 
+	// NewServer(opt ...ServerOption) *Server
+	_ = grpc.NewServer(
+		grpc.ConnectionTimeout(time.Second),
+		grpc.KeepaliveParams(keepalive.ServerParameters{
+			MaxConnectionIdle: 500 * time.Millisecond,
+			MaxConnectionAge:  5 * time.Second,
+			Timeout:           4 * time.Second,
+		}),
+		grpc.UnaryInterceptor(func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+			return handler(ctx, req)
+		}),
+	)
+
+	// New() *Engine
+	ginEngine := gin.New()
+	ginEngine.UseRawPath = true
+	ginEngine.RedirectTrailingSlash = true
+	ginEngine.HandleMethodNotAllowed = true
+
+	// NewServeMux(opts ...ServeMuxOption) *ServeMux
+	runtime.NewServeMux(
+		runtime.WithIncomingHeaderMatcher(func(s string) (string, bool) {
+			if strings.HasPrefix(s, "x-") {
+				return s, true
+			}
+			return "", false
+		}),
+		runtime.WithErrorHandler(func(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, writer http.ResponseWriter, request *http.Request, err error) {
+		}),
+	)
 }

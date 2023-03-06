@@ -18,6 +18,7 @@ go 1.16
 //
 
 require (
+	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/Knetic/govaluate v3.0.0+incompatible
 	github.com/PaesslerAG/gval v1.0.1
 	github.com/PaesslerAG/jsonpath v0.1.0
@@ -38,7 +39,6 @@ require (
 	github.com/cenkalti/backoff/v4 v4.0.2
 	github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927 // indirect
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
-	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/cornelk/hashmap v1.0.1
 	github.com/cosmos72/gomacro v0.0.0-20220226114457-23a0d19a6b1e
 	github.com/d5/tengo/v2 v2.10.1
@@ -55,6 +55,7 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.2
 	github.com/google/cel-go v0.5.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	github.com/hashicorp/consul/api v1.3.0
 	github.com/hpifu/go-kit v1.8.0
 	github.com/jinzhu/gorm v1.9.15
@@ -78,7 +79,7 @@ require (
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/viper v1.5.0
-	github.com/stretchr/testify v1.7.1
+	github.com/stretchr/testify v1.8.1
 	github.com/traefik/yaegi v0.11.3
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	github.com/ugorji/go/codec v1.2.7
@@ -87,8 +88,9 @@ require (
 	github.com/yurishkuro/opentracing-tutorial v0.0.0-20200611023548-a55c44f88513
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab // indirect
-	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
-	google.golang.org/protobuf v1.28.0
+	golang.org/x/time v0.1.0
+	google.golang.org/grpc v1.53.0
+	google.golang.org/protobuf v1.28.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	k8s.io/apimachinery v0.24.3
 )
