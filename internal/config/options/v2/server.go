@@ -5,8 +5,9 @@ import (
 )
 
 type Server struct {
-	host    string
-	port    int
+	host string
+	port int
+	// 1. 新增配置项
 	timeout time.Duration
 	maxConn int
 }
@@ -25,6 +26,7 @@ func WithPort(port int) Option {
 	}
 }
 
+// 2. 新增选项
 func WithTimeout(timeout time.Duration) Option {
 	return func(server *Server) {
 		server.timeout = timeout
@@ -37,6 +39,7 @@ func WithMaxConn(maxConn int) Option {
 	}
 }
 
+// 2. 修改原有构造函数，新增默认值
 func NewServer(opts ...Option) *Server {
 	server := &Server{
 		host:    "localhost",
@@ -51,6 +54,7 @@ func NewServer(opts ...Option) *Server {
 	return server
 }
 
+// 4. 调用处调整
 func Usage() {
 	_ = NewServer(
 		WithHost("localhost"),
