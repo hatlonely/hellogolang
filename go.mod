@@ -29,7 +29,7 @@ require (
 	github.com/aliyun/aliyun-tablestore-go-sdk v4.1.3+incompatible
 	github.com/antonmedv/expr v1.8.8
 	github.com/avast/retry-go v2.6.0+incompatible
-	github.com/aws/aws-sdk-go v1.33.5
+	github.com/aws/aws-sdk-go v1.43.21
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
 	github.com/brianvoe/gofakeit/v5 v5.6.2
 	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
@@ -60,9 +60,10 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
 	github.com/kpango/glg v1.4.6
-	github.com/mailru/easyjson v0.7.1
+	github.com/mailru/easyjson v0.7.7
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
+	github.com/olivere/elastic/v7 v7.0.32
 	github.com/onsi/gomega v1.20.0 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/opentracing/opentracing-go v1.2.0
@@ -72,7 +73,6 @@ require (
 	github.com/satori/go.uuid v1.2.0
 	github.com/sergi/go-diff v1.1.0
 	github.com/sirupsen/logrus v1.6.0
-	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/spaolacci/murmur3 v1.1.0
 	github.com/spf13/cast v1.3.1 // indirect
