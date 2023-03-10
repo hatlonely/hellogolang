@@ -2,6 +2,7 @@ package buildin
 
 import (
 	"fmt"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"testing"
@@ -106,6 +107,13 @@ func TestString(t *testing.T) {
 			// golang 转义
 			So(strconv.Quote(`"Fran & Freddie's Diner	☺"`), ShouldEqual, `"\"Fran & Freddie's Diner\t☺\""`)
 			So(strconv.QuoteToASCII("Hello, 世界"), ShouldEqual, `"Hello, \u4e16\u754c"`)
+		})
+
+		Convey("filepath", func() {
+			path := "/home/work/hello.docx"
+			So(filepath.Dir(path), ShouldEqual, "/home/work")
+			So(filepath.Base(path), ShouldEqual, "hello.docx")
+			So(filepath.Ext(path), ShouldEqual, ".docx")
 		})
 	})
 }
