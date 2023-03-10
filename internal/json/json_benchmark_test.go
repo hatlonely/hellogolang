@@ -16,6 +16,8 @@ import (
 
 // 运行性能测试
 // go test -bench=. *
+// go test -bench=BenchmarkMarshalStdJson -run=BenchmarkMarshalStdJson -benchmem -cpuprofile stdjson.cpu
+// go tool pprof -svg ./json.test stdjson.cpu > stdjson.svg
 
 type Book struct {
 	BookId int64   `json:"id"`
