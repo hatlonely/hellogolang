@@ -2,21 +2,6 @@ module github.com/hatlonely/hellogolang
 
 go 1.16
 
-//replace (
-//	go.uber.org/atomic => github.com/uber-go/atomic v1.4.1-0.20190731194737-ef0d20d85b01
-//	go.uber.org/multierr => github.com/uber-go/multierr v1.2.0
-//	go.uber.org/zap => github.com/uber-go/zap v1.10.1-0.20190926184545-d8445f34b4ae
-//	golang.org/x/net => github.com/golang/net v0.0.0-20190606173856-1492cefac77f
-//	golang.org/x/sys => github.com/golang/sys v0.0.0-20190602015325-4c4f7f33c9ed
-//	golang.org/x/text => github.com/golang/text v0.3.2
-//	golang.org/x/time => github.com/golang/time v0.0.0-20190308202827-9d24e82272b4
-//	golang.org/x/tools => github.com/golang/tools v0.0.0-20190608022120-eacb66d2a7c3
-//	google.golang.org/appengine => github.com/golang/appengine v1.6.1
-//	google.golang.org/genproto => github.com/google/go-genproto v0.0.0-20190605220351-eb0b1bdb6ae6
-//	google.golang.org/grpc => github.com/grpc/grpc-go v1.21.1
-//)
-//
-
 require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/Knetic/govaluate v3.0.0+incompatible
@@ -46,6 +31,7 @@ require (
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/giantswarm/retry-go v0.0.0-20151203102909-d78cea247d5e
 	github.com/gin-gonic/gin v1.8.0
+	github.com/gizak/termui/v3 v3.1.0
 	github.com/go-kit/kit v0.9.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0
@@ -90,7 +76,6 @@ require (
 	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab // indirect
 	golang.org/x/time v0.1.0
 	google.golang.org/grpc v1.53.0
-	google.golang.org/protobuf v1.28.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	k8s.io/apimachinery v0.24.3
 )
