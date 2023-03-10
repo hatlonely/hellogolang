@@ -18,7 +18,6 @@ go 1.16
 //
 
 require (
-	github.com/JosephWoodward/gin-errorhandling v0.0.0-20220601224636-e6afe845fdb2 // indirect
 	github.com/Knetic/govaluate v3.0.0+incompatible
 	github.com/PaesslerAG/gval v1.0.1
 	github.com/PaesslerAG/jsonpath v0.1.0
@@ -46,14 +45,15 @@ require (
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/giantswarm/retry-go v0.0.0-20151203102909-d78cea247d5e
 	github.com/gin-gonic/gin v1.8.0
+	github.com/gizak/termui/v3 v3.1.0
 	github.com/go-kit/kit v0.9.0
-	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
 	github.com/gogap/stack v0.0.0-20150131034635-fef68dddd4f8 // indirect
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.2
 	github.com/google/cel-go v0.5.1
+	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/hashicorp/consul/api v1.3.0
 	github.com/hpifu/go-kit v1.8.0
 	github.com/jinzhu/gorm v1.9.15
@@ -63,8 +63,6 @@ require (
 	github.com/mailru/easyjson v0.7.1
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
-	github.com/onsi/ginkgo v1.16.5 // indirect
-	github.com/onsi/gomega v1.20.0 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1
@@ -87,8 +85,12 @@ require (
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/yurishkuro/opentracing-tutorial v0.0.0-20200611023548-a55c44f88513
 	go.uber.org/zap v1.13.0
+	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab // indirect
+	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
+	golang.org/x/sys v0.0.0-20220422013727-9388b58f7150 // indirect
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
-	google.golang.org/protobuf v1.28.0
+	golang.org/x/tools v0.1.10 // indirect
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.24.3
 )
