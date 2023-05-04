@@ -15,7 +15,7 @@ func TestSingleFlightDo(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 		res, err, shared := sf.Do("key", func() (interface{}, error) {
-			return "value", nil
+			return fmt.Sprintf("value%d", i), nil
 		})
 		fmt.Println(res, err, shared)
 	}
@@ -74,7 +74,7 @@ func TestSingleFlightForget(t *testing.T) {
 	// 之后的请求发现已有一个请求，不会发起新的请求，从而都会超时
 	for i := 0; i < 10; i++ {
 		ch2 := sf.DoChan("key", func() (interface{}, error) {
-			return "value1", nil
+			return "value", nil
 		})
 		select {
 		case res := <-ch2:
@@ -90,7 +90,7 @@ func TestSingleFlightForget(t *testing.T) {
 	// 之后的请求将重新发起新的请求，从而拿到正确的结果
 	for i := 0; i < 10; i++ {
 		ch2 := sf.DoChan("key", func() (interface{}, error) {
-			return "value1", nil
+			return "value", nil
 		})
 		select {
 		case res := <-ch2:
