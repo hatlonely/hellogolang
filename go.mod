@@ -29,9 +29,8 @@ require (
 	github.com/emirpasic/gods v1.12.0
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/giantswarm/retry-go v0.0.0-20151203102909-d78cea247d5e
-	github.com/gin-gonic/gin v1.8.0
+	github.com/gin-gonic/gin v1.9.0
 	github.com/go-kit/kit v0.9.0
-	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gocolly/colly/v2 v2.1.0
 	github.com/gogap/errors v0.0.0-20200228125012-531a6449b28c // indirect
@@ -49,7 +48,6 @@ require (
 	github.com/mailru/easyjson v0.7.7
 	github.com/matryer/try v0.0.0-20161228173917-9ac251b645a2 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
-	github.com/onsi/gomega v1.20.0 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/opentracing/opentracing-go v1.2.1-0.20220228012449-10b1cf09e00b
 	github.com/pkg/errors v0.9.1
@@ -67,17 +65,16 @@ require (
 	github.com/traefik/yaegi v0.11.3
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
-	github.com/ugorji/go/codec v1.2.7
+	github.com/ugorji/go v1.2.7 // indirect
+	github.com/ugorji/go/codec v1.2.9
 	github.com/valyala/fasthttp v1.12.0 // indirect
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/yurishkuro/opentracing-tutorial v0.0.0-20200611023548-a55c44f88513
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/zap v1.13.0
-	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab // indirect
 	golang.org/x/sync v0.1.0
 	golang.org/x/time v0.1.0
 	google.golang.org/genproto v0.0.0-20230223222841-637eb2293923 // indirect
-	google.golang.org/protobuf v1.28.1
 	gopkg.in/matryer/try.v1 v1.0.0-20150601225556-312d2599e12e
 	k8s.io/apimachinery v0.24.3
 )
