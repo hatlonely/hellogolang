@@ -3,6 +3,7 @@ package aliyun
 import (
 	"bufio"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -13,11 +14,9 @@ var ossClient *oss.Client
 
 func init() {
 	var err error
-	endpoint, accessKeyID, accessKeySecret, err := LoadOSSConfig()
-	if err != nil {
-		panic(err)
-	}
-	ossClient, err = oss.New(endpoint, accessKeyID, accessKeySecret)
+	accessKeyID := os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_ID")
+	accessKeySecret := os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_SECRET")
+	ossClient, err = oss.New("oss-cn-beijing.aliyuncs.com", accessKeyID, accessKeySecret)
 	if err != nil {
 		panic(err)
 	}

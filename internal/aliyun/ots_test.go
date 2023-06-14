@@ -2,6 +2,7 @@ package aliyun
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/aliyun/aliyun-tablestore-go-sdk/tablestore"
@@ -11,11 +12,8 @@ import (
 var otsClient *tablestore.TableStoreClient
 
 func init() {
-	var err error
-	_, accessKeyID, accessKeySecret, err := LoadOSSConfig()
-	if err != nil {
-		panic(err)
-	}
+	accessKeyID := os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_ID")
+	accessKeySecret := os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_SECRET")
 	// https://otsnext.console.aliyun.com/cn-shanghai/hatlonely-ots-sh/list
 	otsClient = tablestore.NewClient(
 		"https://hatlonely-ots-sh.cn-shanghai.ots.aliyuncs.com",

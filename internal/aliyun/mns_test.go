@@ -2,6 +2,7 @@ package aliyun
 
 import (
 	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -12,10 +13,8 @@ import (
 var mnsClient ali_mns.MNSClient
 
 func init() {
-	_, accessKeyID, accessKeySecret, err := LoadOSSConfig()
-	if err != nil {
-		panic(err)
-	}
+	accessKeyID := os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_ID")
+	accessKeySecret := os.Getenv("ALIBABA_CLOUD_ACCESS_KEY_SECRET")
 	mnsClient = ali_mns.NewAliMNSClient(
 		"http://<user_id>.mns.cn-shanghai.aliyuncs.com/",
 		accessKeyID, accessKeySecret)
