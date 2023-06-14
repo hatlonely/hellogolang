@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package module;
+option go_package = "module";
 
 message Creative {
 	string url = 1; 

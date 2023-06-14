@@ -85,7 +85,6 @@ func TestReflectFunc(t *testing.T) {
 	})
 }
 
-
 func interfaceToStruct(d interface{}, v interface{}) error {
 	if reflect.ValueOf(v).Kind() != reflect.Ptr {
 		return fmt.Errorf("invalid value type")
@@ -110,7 +109,7 @@ func TestInterfaceToStruct(t *testing.T) {
 	Convey("interface to struct", t, func() {
 		Convey("case1", func() {
 			v := &A{}
-			d := map[string]interface{} {
+			d := map[string]interface{}{
 				"f1": 10,
 				"f2": "hatlonely",
 			}
